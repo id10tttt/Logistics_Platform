@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<scenario>
+  <id>scanner_scenario_仓库</id>
+  <active>True</active>
+  <sequence>0</sequence>
+  <name>仓库</name>
+  <type>scenario</type>
+  <notes>Notes
+
+
+</notes>
+  <model_id>scanner.hardware</model_id>
+  <company_id>YourCompany</company_id>
+  <group_ids>stock.group_stock_user</group_ids>
+  <Step id="scanner_scenario_step_仓库_仓库列表" name="仓库列表" no_back="False" step_back="False" step_start="True" step_stop="False"/>
+  <Step id="scanner_scenario_step_仓库_入库_产品" name="入库:产品" no_back="False" step_back="False" step_start="False" step_stop="False"/>
+  <Step id="scanner_scenario_step_仓库_入库_产品信息结果页" name="入库:产品信息结果页" no_back="False" step_back="False" step_start="False" step_stop="False"/>
+  <Step id="scanner_scenario_step_仓库_入库_操作列表" name="入库:操作列表" no_back="False" step_back="True" step_start="False" step_stop="False"/>
+  <Step id="scanner_scenario_step_仓库_步骤" name="步骤" no_back="False" step_back="True" step_start="False" step_stop="False"/>
+  <Step id="scanner_scenario_step_仓库_退出" name="退出" no_back="False" step_back="False" step_start="False" step_stop="True"/>
+  <Transition condition="message!='exit'" from_id="scanner_scenario_step_仓库_仓库列表" id="scanner_scenario_仓库_仓库列表_步骤" name="仓库列表&gt;步骤" sequence="0" to_id="scanner_scenario_step_仓库_步骤" tracer="" transition_type="keyboard"/>
+  <Transition condition="message=='exit'" from_id="scanner_scenario_step_仓库_仓库列表" id="scanner_scenario_仓库_仓库列表_退出" name="仓库列表&gt;退出" sequence="0" to_id="scanner_scenario_step_仓库_退出" tracer="" transition_type="keyboard"/>
+  <Transition condition="True" from_id="scanner_scenario_step_仓库_入库_产品" id="scanner_scenario_仓库_入库_产品_" name="入库:产品&gt;" sequence="0" to_id="scanner_scenario_step_仓库_入库_产品信息结果页" tracer="" transition_type="keyboard"/>
+  <Transition condition="True" from_id="scanner_scenario_step_仓库_入库_产品信息结果页" id="scanner_scenario_仓库_入库_产品信息结果页_入库_操作列表" name="入库:产品信息结果页&gt;入库:操作列表" sequence="0" to_id="scanner_scenario_step_仓库_入库_操作列表" tracer="" transition_type="keyboard"/>
+  <Transition condition="message=='product_name'" from_id="scanner_scenario_step_仓库_入库_操作列表" id="scanner_scenario_仓库_入库_操作列表_入库_产品" name="入库:操作列表&gt;入库:产品" sequence="0" to_id="scanner_scenario_step_仓库_入库_产品" tracer="" transition_type="keyboard"/>
+  <Transition condition="message=='返回'" from_id="scanner_scenario_step_仓库_步骤" id="scanner_scenario_仓库_步骤_仓库列表" name="步骤&gt;仓库列表" sequence="0" to_id="scanner_scenario_step_仓库_仓库列表" tracer="" transition_type="keyboard"/>
+  <Transition condition="message=='入库'" from_id="scanner_scenario_step_仓库_步骤" id="scanner_scenario_仓库_步骤_入库_操作列表" name="步骤&gt;入库:操作列表" sequence="0" to_id="scanner_scenario_step_仓库_入库_操作列表" tracer="" transition_type="keyboard"/>
+</scenario>

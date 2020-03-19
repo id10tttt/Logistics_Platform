@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <record id="view_route_network_form" model="ir.ui.view">
+            <field name="name">route.network.form</field>
+            <field name="model">route.network</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button string="Find out" name="find_out_shortest_path" type="object" class="oe_highlight"/>
+                        <button string="Find by networkx" name="find_out_shortest_path_with_networkx" type="object"
+                                class="oe_highlight"/>
+                        <button string="Generate route" name="generate_stock_location_route_line" type="object"
+                                class="oe_highlight"/>
+                        <button string="All(Supplier)" name="generate_all_supplier_contract_network" type="object"
+                                class="oe_highlight"/>
+                        <button string="All(Customer)" name="generate_all_customer_contract_network" type="object"
+                                class="oe_highlight"/>
+                        <button string="Show Maps" name="show_route_network_maps" type="object"
+                                class="oe_highlight"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" required="1"/>
+                            </group>
+                            <group>
+                                <field name="partner_id" options="{'no_quick_create': True, 'no_create_edit': True}"
+                                       required="1"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="start_location_id"
+                                       options="{'no_quick_create': True, 'no_create_edit': True}"/>
+                            </group>
+                            <group>
+                                <field name="end_location_id"
+                                       options="{'no_quick_create': True, 'no_create_edit': True}"/>
+                            </group>
+                        </group>
+
+                        <group>
+                            <group>
+                                <field name="path_id" options="{'no_quick_create': True, 'no_create_edit': True}"/>
+                            </group>
+                        </group>
+
+                        <group>
+                            <group>
+                                <field name="route_id"/>
+                            </group>
+                        </group>
+
+                        <notebook>
+                            <page string="Network">
+                                <field name="step_ids">
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="location_id"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+
+                        <!--                        <group>-->
+                        <!--                            <field name="shortest_note"/>-->
+                        <!--                        </group>-->
+
+<!--                        <group>-->
+<!--                            <field name="network_image" widget="image"/>-->
+<!--                        </group>-->
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_route_network_rule_form" model="ir.ui.view">
+            <field name="name">route.network.rule.form</field>
+            <field name="model">route.network.rule</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="from_id" options="{'no_quick_create': True, 'no_create_edit': True}"/>
+                            </group>
+                            <group>
+                                <field name="to_id" options="{'no_quick_create': True, 'no_create_edit': True}"/>
+                            </group>
+                        </group>
+
+                        <group>
+                            <group>
+                                <field name="name" required="1"/>
+                            </group>
+                            <group>
+                                <field name="quantity_weight"/>
+                            </group>
+                        </group>
+
+                        <notebook>
+                            <page string="Rule list">
+                                <field name="list_ids">
+                                    <tree>
+                                        <field name="carrier_id"/>
+                                        <field name="quantity_weight"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_route_network_step_form" model="ir.ui.view">
+            <field name="name">route.network.step.form</field>
+            <field name="model">route.network.step</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" required="1" shape="rectangle"/>
+                            </group>
+                            <group>
+                                <field name="location_id" options="{'no_quick_create': True, 'no_create_edit': True}"
+                                       required="1"/>
+                            </group>
+                        </group>
+
+                        <notebook>
+                            <page string="Step out">
+                                <field name="out_transition_ids">
+                                    <field name="name"/>
+                                    <field name="from_id"/>
+                                    <field name="to_id"/>
+                                    <field name="quantity_weight"/>
+                                </field>
+                            </page>
+                            <page string="Step in">
+                                <field name="in_transition_ids">
+                                    <field name="name"/>
+                                    <field name="to_id"/>
+                                    <field name="from_id"/>
+                                    <field name="quantity_weight"/>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_route_network_diagram" model="ir.ui.view">
+            <field name="name">route.network.diagram</field>
+            <field name="model">route.network</field>
+            <field name="type">diagram</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <diagram string="Route Editor">
+                    <node object="route.network.step">
+                        <field name="name"/>
+                    </node>
+                    <arrow object="route.network.rule" source="from_id" destination="to_id"
+                           label="['name','quantity_weight']">
+                        <field name="name"/>
+                        <field name="quantity_weight"/>
+                        <field name="from_id"/>
+                        <field name="to_id"/>
+                    </arrow>
+                </diagram>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="route_network_action">
+            <field name="name">Route network</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">route.network</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,diagram</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+
+        <menuitem id="route_network_root_menu" name="Route network"
+                  web_icon="route_network,static/description/network.jpg"/>
+
+        <menuitem id="route_network_menu_id" name="Route network" parent="route_network_root_menu"/>
+
+        <menuitem id="route_network_id" name="Route network" parent="route_network_menu_id"
+                  action="route_network_action"/>
+    </data>
+</odoo>

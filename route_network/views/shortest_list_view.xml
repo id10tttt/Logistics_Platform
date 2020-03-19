@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="view_route_network_shortest_path_form" model="ir.ui.view">
+            <field name="name">route.network.shortest.path.form</field>
+            <field name="model">route.network.shortest.path</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+
+                        <notebook>
+                            <page string="detail">
+                                <field name="location_ids">
+                                    <tree>
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="location_id"
+                                               options="{'no_quick_create': True, 'no_create_edit': True}"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

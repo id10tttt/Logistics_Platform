@@ -1,0 +1,66 @@
+# Chinese translations for sentinel package.
+# Copyright (C) 2020 THE sentinel'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the sentinel package.
+# odoo <odoo@odoo-precision-3530>, 2020.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: sentinel 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-02-27 12:09+0800\n"
+"PO-Revision-Date: 2020-02-27 15:48+0800\n"
+"Last-Translator: odoo <odoo@odoo-precision-3530>\n"
+"Language-Team: Chinese (simplified)\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.3\n"
+
+#: ../__init__.py:132
+msgid ""
+"Autoconfiguration failed !\n"
+"Please enter terminal code"
+msgstr ""
+"自动设置失败 !\n"
+"请输入硬件编号"
+
+#: ../__init__.py:503
+msgid "No value available"
+msgstr "空"
+
+#: ../__init__.py:557
+msgid ""
+"An error occured\n"
+"\n"
+"Please contact your administrator"
+msgstr ""
+"有一个错误发生\n"
+"\n"
+"请联系管理员"
+
+#: ../__init__.py:610
+msgid "No scenario available !"
+msgstr "未找到页面!"
+
+#: ../__init__.py:613
+msgid "Scenarios"
+msgstr "应用"
+
+#: ../__init__.py:638
+msgid "Yes"
+msgstr "是"
+
+#: ../__init__.py:641
+msgid "No"
+msgstr "否"
+
+#: ../__init__.py:765
+#, python-format
+msgid "Selected : %s"
+msgstr "选择 : %s"
+
+#: ../__init__.py:975
+#, python-format
+msgid "Selected : %d %s"
+msgstr "选择 : %d %s"
