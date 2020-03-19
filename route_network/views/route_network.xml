@@ -189,10 +189,11 @@
             <field name="context">{}</field>
         </record>
 
-        <menuitem id="route_network_root_menu" name="Route network"
-                  web_icon="route_network,static/description/network.jpg"/>
+<!--        <menuitem id="route_network_root_menu" name="Route network"-->
+<!--                  web_icon="route_network,static/description/network.jpg"/>-->
 
-        <menuitem id="route_network_menu_id" name="Route network" parent="route_network_root_menu"/>
+        <menuitem id="route_network_menu_id" name="Route network"
+                  parent="stock.menu_stock_root" sequence="3"/>
 
         <menuitem id="route_network_id" name="Route network" parent="route_network_menu_id"
                   action="route_network_action"/>
