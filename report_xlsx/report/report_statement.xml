@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <report
+                id="standard_statement_report_xlsx"
+                model="sale.order"
+                string="statement"
+                report_type="xlsx"
+                name="report_xlsx.standard_statement_report_xlsx"
+                file="statement"
+                attachment_use="False"
+        />
+
+    </data>
+</odoo>
