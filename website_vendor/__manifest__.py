@@ -11,7 +11,8 @@
         'security/website_vendor.xml',
         'views/website_signup.xml',
         'views/res_partner.xml',
-        'data/logistics_user_type.xml'
+        'data/logistics_user_type.xml',
+        'views/logistics_supplier.xml',
     ],
     'qweb': [
     ],
