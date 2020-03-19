@@ -289,6 +289,19 @@ class RouteNetwork(models.Model):
         self.generate_route_by_location(all_start_end_location)
         # self.generate_route_by_location_with_weight(all_start_end_location)
 
+    # 获取所有线路
+    def generate_all_delivery_network(self):
+        """
+        生成运力网络
+        :return:
+        """
+        # 获取所有开始，结束位置，以及条款
+        all_start_end_location = self.find_out_all_start_end_location_from_delivery(model_name='route.network.vendor')
+
+        self.create_all_location_steps(all_start_end_location)
+
+        self.generate_route_by_location(all_start_end_location)
+
     # 生成点
     def create_all_location_steps(self, all_start_end_location):
         all_location_ids = []
@@ -307,7 +320,7 @@ class RouteNetwork(models.Model):
             })
 
         # delete first
-        self.step_ids.unlink()
+        # self.step_ids.unlink()
 
         all_ids = self.env['route.network.step'].create(data)
 
@@ -334,8 +347,8 @@ class RouteNetwork(models.Model):
                 'quantity_weight': location_id[2]
             })
         # empty first
-        self.step_ids.mapped('out_transition_ids').unlink()
-        self.step_ids.mapped('in_transition_ids').unlink()
+        # self.step_ids.mapped('out_transition_ids').unlink()
+        # self.step_ids.mapped('in_transition_ids').unlink()
 
         res = self.env['route.network.rule'].create(data)
 
@@ -362,8 +375,9 @@ class RouteNetwork(models.Model):
             for x in all_carrier_ids.keys():
                 tmp_carrier_data.append(
                     (0, 0, {
-                        'carrier_id': int(x),
-                        'weight': all_carrier_ids.get(x)
+                        # 'carrier_id': int(x),
+                        'delivery_id': int(x),
+                        'quantity_weight': all_carrier_ids.get(x)
                     })
                 )
                 quantity_weight += all_carrier_ids.get(x)
@@ -377,8 +391,8 @@ class RouteNetwork(models.Model):
             })
 
         # empty first
-        self.step_ids.mapped('out_transition_ids').unlink()
-        self.step_ids.mapped('in_transition_ids').unlink()
+        # self.step_ids.mapped('out_transition_ids').unlink()
+        # self.step_ids.mapped('in_transition_ids').unlink()
 
         res = self.env['route.network.rule'].create(data)
 
@@ -421,6 +435,8 @@ class RouteNetwork(models.Model):
                 tmp_price = round(float(x[2].product_standard_price) * 1000, -1) / 1000
             elif model_name == 'customer.aop.contract':
                 tmp_price = round(float(x[2].fixed_price) * 1000, -1) / 1000
+            elif model_name == 'route.network.vendor':
+                tmp_price = round(float(x[2].unit_price) * 1000, -1) / 1000
 
             if tmp_key in res:
                 tmp_value = res.get(tmp_key)
@@ -464,6 +480,37 @@ class RouteNetwork(models.Model):
 
         return res
 
+    # 查找所有的位置 - 运力
+    def find_out_all_start_end_location_from_delivery(self, model_name=False):
+        """
+        :param model_name: supplier.aop.contract or customer.aop.contract
+        :return: [(start, end, {})...]
+        """
+        all_vendor_id = self.env[model_name].search([
+            ('partner_id', '=', self.partner_id.id)
+        ])
+        if not all_vendor_id:
+            raise UserError('Not found!')
+
+        all_delivery_ids = all_vendor_id.mapped('line_ids')
+
+        if not all_delivery_ids:
+            raise UserError('Not found delivery info !')
+
+        all_location_ids = [(x.from_location_id, x.to_location_id, x) for x in all_delivery_ids
+                            if x.from_location_id and x.to_location_id]
+
+        # 去除所有的合作伙伴位置
+        all_location_ids = [(x[0], x[1], x[2]) for x in all_location_ids if
+                            not x[0].display_name.startswith('合作伙伴位置') and
+                            not x[1].display_name.startswith('合作伙伴位置')]
+
+        all_location_ids = list(set(all_location_ids))
+
+        res = self.format_start_end_location_value(all_location_ids, model_name)
+
+        return res
+
     def find_all_start_end_location(self, model_name=False):
         """
             查找所有的线段，去重
@@ -495,7 +542,7 @@ class RouteNetwork(models.Model):
 class RouteNetworkStep(models.Model):
     _name = 'route.network.step'
 
-    network_id = fields.Many2one('route.network')
+    network_id = fields.Many2one('route.network', ondelete='cascade', index=True)
     name = fields.Char('Name')
     location_id = fields.Many2one('stock.location', string='Location')
 
@@ -523,8 +570,8 @@ class RouteNetworkRule(models.Model):
         required=False,
         help='Sequence order.')
 
-    from_id = fields.Many2one('route.network.step')
-    to_id = fields.Many2one('route.network.step')
+    from_id = fields.Many2one('route.network.step', ondelete='cascade', index=True)
+    to_id = fields.Many2one('route.network.step', ondelete='cascade', index=True)
 
     quantity_weight = fields.Float('Weight')
 
@@ -542,6 +589,7 @@ class RouteNetworkRuleList(models.Model):
     _name = 'route.network.rule.list'
     _description = 'Rule list'
 
-    rule_id = fields.Many2one('route.network.rule', string='Rule')
-    carrier_id = fields.Many2one('delivery.carrier', 'Carrier')
+    rule_id = fields.Many2one('route.network.rule', string='Rule', ondelete='cascade', index=True)
+    # carrier_id = fields.Many2one('delivery.carrier', 'Carrier')
+    delivery_id = fields.Many2one('route.network.delivery', 'Delivery')
     quantity_weight = fields.Float('Weight')

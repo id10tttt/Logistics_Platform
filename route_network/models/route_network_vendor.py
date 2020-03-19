@@ -25,7 +25,7 @@ class RouteNetworkVendor(models.Model):
 class RouteNetworkDelivery(models.Model):
     _name = 'route.network.delivery'
 
-    vendor_id = fields.Many2one('route.network.vendor')
+    vendor_id = fields.Many2one('route.network.vendor', ondelete='cascade', index=True)
     from_location_id = fields.Many2one('stock.location', string='From', required=True)
     to_location_id = fields.Many2one('stock.location', string='To', required=True)
     unit_price = fields.Float('Price', digits=dp.get_precision('Price of delivery'), required=True)

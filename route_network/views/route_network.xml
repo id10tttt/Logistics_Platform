@@ -13,9 +13,11 @@
                                 class="oe_highlight"/>
                         <button string="Generate route" name="generate_stock_location_route_line" type="object"
                                 class="oe_highlight"/>
-                        <button string="All(Supplier)" name="generate_all_supplier_contract_network" type="object"
-                                class="oe_highlight"/>
-                        <button string="All(Customer)" name="generate_all_customer_contract_network" type="object"
+<!--                        <button string="All(Supplier)" name="generate_all_supplier_contract_network" type="object"-->
+<!--                                class="oe_highlight"/>-->
+<!--                        <button string="All(Customer)" name="generate_all_customer_contract_network" type="object"-->
+<!--                                class="oe_highlight"/>-->
+                        <button string="All" name="generate_all_delivery_network" type="object"
                                 class="oe_highlight"/>
                         <button string="Show Maps" name="show_route_network_maps" type="object"
                                 class="oe_highlight"/>
@@ -104,7 +106,8 @@
                             <page string="Rule list">
                                 <field name="list_ids">
                                     <tree>
-                                        <field name="carrier_id"/>
+<!--                                        <field name="carrier_id"/>-->
+                                        <field name="delivery_id"/>
                                         <field name="quantity_weight"/>
                                     </tree>
                                 </field>
