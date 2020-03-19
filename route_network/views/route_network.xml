@@ -8,16 +8,16 @@
             <field name="arch" type="xml">
                 <form>
                     <header>
-                        <button string="Find out" name="find_out_shortest_path" type="object" class="oe_highlight"/>
-                        <button string="Find by networkx" name="find_out_shortest_path_with_networkx" type="object"
-                                class="oe_highlight"/>
-                        <button string="Generate route" name="generate_stock_location_route_line" type="object"
-                                class="oe_highlight"/>
+<!--                        <button string="Find out" name="find_out_shortest_path" type="object" class="oe_highlight"/>-->
+<!--                        <button string="Find by networkx" name="find_out_shortest_path_with_networkx" type="object"-->
+<!--                                class="oe_highlight"/>-->
+<!--                        <button string="Generate route" name="generate_stock_location_route_line" type="object"-->
+<!--                                class="oe_highlight"/>-->
 <!--                        <button string="All(Supplier)" name="generate_all_supplier_contract_network" type="object"-->
 <!--                                class="oe_highlight"/>-->
 <!--                        <button string="All(Customer)" name="generate_all_customer_contract_network" type="object"-->
 <!--                                class="oe_highlight"/>-->
-                        <button string="All" name="generate_all_delivery_network" type="object"
+                        <button string="Generate network" name="generate_all_delivery_network" type="object"
                                 class="oe_highlight"/>
                         <button string="Show Maps" name="show_route_network_maps" type="object"
                                 class="oe_highlight"/>
@@ -32,33 +32,33 @@
                                        required="1"/>
                             </group>
                         </group>
-                        <group>
-                            <group>
-                                <field name="start_location_id"
-                                       options="{'no_quick_create': True, 'no_create_edit': True}"/>
-                            </group>
-                            <group>
-                                <field name="end_location_id"
-                                       options="{'no_quick_create': True, 'no_create_edit': True}"/>
-                            </group>
-                        </group>
+<!--                        <group>-->
+<!--                            <group>-->
+<!--                                <field name="start_location_id"-->
+<!--                                       options="{'no_quick_create': True, 'no_create_edit': True}"/>-->
+<!--                            </group>-->
+<!--                            <group>-->
+<!--                                <field name="end_location_id"-->
+<!--                                       options="{'no_quick_create': True, 'no_create_edit': True}"/>-->
+<!--                            </group>-->
+<!--                        </group>-->
 
-                        <group>
-                            <group>
-                                <field name="path_id" options="{'no_quick_create': True, 'no_create_edit': True}"/>
-                            </group>
-                        </group>
+<!--                        <group>-->
+<!--                            <group>-->
+<!--                                <field name="path_id" options="{'no_quick_create': True, 'no_create_edit': True}"/>-->
+<!--                            </group>-->
+<!--                        </group>-->
 
-                        <group>
-                            <group>
-                                <field name="route_id"/>
-                            </group>
-                        </group>
+<!--                        <group>-->
+<!--                            <group>-->
+<!--                                <field name="route_id"/>-->
+<!--                            </group>-->
+<!--                        </group>-->
 
                         <notebook>
                             <page string="Network">
                                 <field name="step_ids">
-                                    <tree>
+                                    <tree create="0">
                                         <field name="name"/>
                                         <field name="location_id"/>
                                     </tree>

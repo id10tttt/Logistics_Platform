@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <template id="extra_auth_signup_fields" inherit_id="auth_signup.fields">
+            <xpath expr="//div[last()]" position="after">
+                <div class="form-group field-sign_type selection">
+                    <t t-set="type_ids" t-value="website.get_logistics_user_type()"/>
+                    <label for="Type">Type</label>
+                    <!--                    <select id="user_type_id" class="form-control" t-att-value="user_type_id">-->
+                    <!--                        <option value="logistics_supplier">Logistics Supplier</option>-->
+                    <!--                        <option value="logistics_user">Logistics User</option>-->
+                    <!--                    </select>-->
+                    <select id="user_type_id" name="user_type_id" class="form-control">
+                        <option value="">Type...</option>
+                        <t t-foreach="type_ids" t-as="c">
+                            <option t-att-value="c.field_name">
+                                <t t-esc="c.name"/>
+                            </option>
+                        </t>
+                    </select>
+                </div>
+            </xpath>
+        </template>
+
+        <template id="logistics_signup" name="Seller Sign up login">
+            <t t-call="web.login_layout">
+                <form class="oe_signup_form" action="/logistics/signup" id="wk_mp" role="form" method="post">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                    <t t-call="auth_signup.fields">
+                        <t t-set="only_passwords" t-value="bool(token and not invalid_token)"/>
+                    </t>
+
+                    <p class="alert alert-danger" t-if="error" role="alert">
+                        <t t-esc="error"/>
+                    </p>
+                    <input type="hidden" name="redirect" t-att-value="redirect"/>
+                    <input type="hidden" name="token" t-att-value="token"/>
+                    <div class="text-center oe_login_buttons pt-3">
+                        <button type="submit" class="btn btn-primary btn-block">Sign up</button>
+                        <a t-attf-href="/web/login?{{ keep_query() }}" class="btn btn-link btn-sm" role="button">Already
+                            have an account?
+                        </a>
+                        <div class="o_login_auth"/>
+                    </div>
+
+                </form>
+            </t>
+        </template>
+    </data>
+</odoo>

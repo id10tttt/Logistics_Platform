@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="website_vendor.logistics_supplier" model="logistics.user.type">
+            <field name="name">Logistics Supplier</field>
+            <field name="field_name">logistics_supplier</field>
+        </record>
+        <record id="website_vendor.logistics_user" model="logistics.user.type">
+            <field name="name">Logistics User</field>
+            <field name="field_name">logistics_user</field>
+        </record>
+    </data>
+</odoo>
