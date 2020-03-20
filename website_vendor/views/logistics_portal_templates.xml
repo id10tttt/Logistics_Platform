@@ -47,7 +47,7 @@
                         <th class="text-right">Product</th>
                         <th class="text-right">Type</th>
                         <th class="text-right">Property</th>
-                        <th class="text-right">Amount</th>
+<!--                        <th class="text-right">Amount</th>-->
                     </tr>
                 </thead>
                 <t t-foreach="delivery_ids" t-as="delivery_id">
@@ -58,9 +58,9 @@
                         <td class="text-right"><span t-field="delivery_id.product_id.name"/></td>
                         <td class="text-right"><span t-field="delivery_id.type_id.name"/></td>
                         <td class="text-right"><span t-field="delivery_id.property_type_id.name"/></td>
-                        <td class="text-right">
-                            <span t-field="delivery_id.property_amount"/>
-                        </td>
+<!--                        <td class="text-right">-->
+<!--                            <span t-field="delivery_id.property_amount"/>-->
+<!--                        </td>-->
                     </tr>
                 </t>
             </t>
