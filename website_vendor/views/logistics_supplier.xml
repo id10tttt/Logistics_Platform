@@ -46,17 +46,17 @@
 <!--                                           t-att-autofocus="'autofocus'"/>-->
 <!--                                </div>-->
 
-                                <div class="form-group field-product_id selection">
-                                    <label for="Type">Service Product</label>
-                                    <select id="service_product_id" name="service_product_id" class="form-control">
-                                        <option value="">Service product...</option>
-                                        <t t-foreach="service_product_ids" t-as="c">
-                                            <option t-att-value="c.id">
-                                                <t t-esc="c.name"/>
-                                            </option>
-                                        </t>
-                                    </select>
-                                </div>
+<!--                                <div class="form-group field-product_id selection">-->
+<!--                                    <label for="Type">Service Product</label>-->
+<!--                                    <select id="service_product_id" name="service_product_id" class="form-control">-->
+<!--                                        <option value="">Service product...</option>-->
+<!--                                        <t t-foreach="service_product_ids" t-as="c">-->
+<!--                                            <option t-att-value="c.id">-->
+<!--                                                <t t-esc="c.name"/>-->
+<!--                                            </option>-->
+<!--                                        </t>-->
+<!--                                    </select>-->
+<!--                                </div>-->
 
                                 <div class="form-group field-delivery_type selection">
                                     <label for="Type">Delivery type</label>

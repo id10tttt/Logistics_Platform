@@ -16,7 +16,7 @@ class LogisticsSupplier(http.Controller):
     def show_logistics_supplier_manage(self, *args, **kw):
         qcontext = self.get_qcontext()
 
-        service_product_ids = request.env['product.product'].sudo().search([('type', '=', 'service')])
+        # service_product_ids = request.env['product.product'].sudo().search([('type', '=', 'service')])
         delivery_type = request.env['route.network.delivery.type'].sudo().search([])
         property_type = request.env['route.network.delivery.property.type'].sudo().search([])
 
@@ -36,7 +36,7 @@ class LogisticsSupplier(http.Controller):
             tmp_delivery_data = {
                 'from_location_id': int(from_location_id),
                 'to_location_id': int(to_location_id),
-                'product_id': int(product_id),
+                # 'product_id': int(product_id),
                 'type_id': int(type_id),
                 'property_type_id': int(property_type_id),
                 # 'property_amount': float(property_amount)
@@ -48,7 +48,7 @@ class LogisticsSupplier(http.Controller):
             return request.render('website.logistics_supplier_manage_success')
 
         return request.render('website.logistics_supplier_manage', {
-            'service_product_ids': service_product_ids,
+            # 'service_product_ids': service_product_ids,
             'delivery_type': delivery_type,
             'property_type': property_type
         })
@@ -58,7 +58,7 @@ class LogisticsSupplier(http.Controller):
 
         # Check
         values = {key: qcontext.get(key) for key in (
-            'from_location_id', 'to_location_id', 'service_product_id', 'delivery_type_id', 'property_type_id')}
+            'from_location_id', 'to_location_id', 'delivery_type_id', 'property_type_id')}
         if not values:
             raise UserError(_("The form was not properly filled in."))
 
