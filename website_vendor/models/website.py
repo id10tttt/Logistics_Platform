@@ -11,3 +11,8 @@ class Website(models.Model):
     def get_logistics_user_type(self):
         type_ids = self.env['logistics.user.type'].sudo().search([])
         return type_ids
+
+    @api.model
+    def get_all_stock_location(self):
+        location_ids = self.env['stock.location'].sudo().search([])
+        return location_ids

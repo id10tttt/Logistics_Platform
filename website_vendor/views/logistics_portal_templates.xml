@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <template id="portal_logistics_manage_id" name="Portal layout : Logistics menu entries"
+              inherit_id="portal.portal_breadcrumbs" priority="20">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li t-if="page_name == 'delivery'"
+                t-attf-class="breadcrumb-item #{'active ' if not sale_order else ''}">
+                <a t-if="delivery_id" t-attf-href="/my/delivery_manage?{{ keep_query() }}">Logistics</a>
+                <t t-else="">Logistics</t>
+            </li>
+            <li t-if="route_network_delivery" class="breadcrumb-item active">
+                <span t-field="route_network_delivery.vendor_id.name"/>
+                <t t-esc="route_network_delivery.from_location_id.name"/>
+                <t t-esc="route_network_delivery.to_location_id.name"/>
+                <t t-esc="route_network_delivery.unit_price"/>
+            </li>
+        </xpath>
+    </template>
+
+    <template id="portal_my_home_logistics_manage" name="Portal My Home : Logistics entries" inherit_id="portal.portal_my_home" priority="20">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-if="delivery_count" t-call="portal.portal_docs_entry">
+                <t t-set="title">Delivery</t>
+                <t t-set="url" t-value="'/my/delivery_manage'"/>
+                <t t-set="count" t-value="delivery_count"/>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="portal_my_delivery_id" name="My Delivery">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Delivery</t>
+            </t>
+            <t t-if="not delivery_ids">
+                <p>There are currently no delivery_ids for your account.</p>
+            </t>
+            <t t-if="delivery_ids" t-call="portal.portal_table">
+                <thead>
+                    <tr class="active">
+                        <th>Delivery #</th>
+                        <th class="text-right">From</th>
+                        <th class="text-right">To</th>
+<!--                        <th class="text-center"/>-->
+                        <th class="text-right">Price</th>
+                    </tr>
+                </thead>
+                <t t-foreach="delivery_ids" t-as="delivery_id">
+                    <tr>
+                        <td><a t-att-href="delivery_id.get_portal_url()"><t t-esc="delivery_id.vendor_id.name"/></a></td>
+                        <td class="text-right"><span t-field="delivery_id.from_location_id.name"/></td>
+                        <td class="text-right"><span t-field="delivery_id.to_location_id.name"/></td>
+<!--                        <td class="text-center">-->
+<!--                            <span t-if="quotation.state == 'cancel'" class="badge badge-pill badge-secondary"><i class="fa fa-fw fa-remove"/> Cancelled</span>-->
+<!--                            <span t-if="quotation.is_expired" class="badge badge-pill badge-secondary"><i class="fa fa-fw fa-clock-o"/> Expired</span>-->
+<!--                        </td>-->
+                        <td class="text-right">
+                            <span t-field="delivery_id.unit_price"/>
+                        </td>
+                    </tr>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

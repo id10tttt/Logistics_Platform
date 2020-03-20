@@ -7,10 +7,6 @@
                 <div class="form-group field-sign_type selection">
                     <t t-set="type_ids" t-value="website.get_logistics_user_type()"/>
                     <label for="Type">Type</label>
-                    <!--                    <select id="user_type_id" class="form-control" t-att-value="user_type_id">-->
-                    <!--                        <option value="logistics_supplier">Logistics Supplier</option>-->
-                    <!--                        <option value="logistics_user">Logistics User</option>-->
-                    <!--                    </select>-->
                     <select id="user_type_id" name="user_type_id" class="form-control">
                         <option value="">Type...</option>
                         <t t-foreach="type_ids" t-as="c">

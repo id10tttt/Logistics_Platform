@@ -8,15 +8,87 @@
             <field name="arch" type="xml">
                 <t name="Logistics" t-name="website.logistics_supplier_manage">
                     <t t-call="website.layout">
-                        <label for="bonjour">Hello world</label>
+                        <form role="form" method="post" t-if="not message">
+                            <div class="logistics_manage_id" id="logistics_manage_id">
+                                <t t-set="location_ids" t-value="website.get_all_stock_location()"/>
+
+                                <div class="form-group field-from_location selection">
+                                    <label for="Type">From Location</label>
+                                    <select id="from_location_id" name="from_location_id" class="form-control">
+                                        <option value="">From...</option>
+                                        <t t-foreach="location_ids" t-as="c">
+                                            <option t-att-value="c.id">
+                                                <t t-esc="c.display_name"/>
+                                            </option>
+                                        </t>
+                                    </select>
+                                </div>
+
+                                <div class="form-group field-to_location selection">
+                                    <label for="Type">To Location</label>
+                                    <select id="to_location_id" name="to_location_id" class="form-control">
+                                        <option value="">To...</option>
+                                        <t t-foreach="location_ids" t-as="c">
+                                            <option t-att-value="c.id">
+                                                <t t-esc="c.display_name"/>
+                                            </option>
+                                        </t>
+                                    </select>
+                                </div>
+
+                                <div class="form-group field-unit_price">
+                                    <label for="name">Unit price</label>
+                                    <input type="text" name="unit_price" t-att-value="unit_price" id="unit_price"
+                                           class="form-control form-control-sm"
+                                           required="required" t-att-readonly="'readonly' if only_passwords else None"
+                                           t-att-autofocus="'autofocus'"/>
+                                </div>
+
+                                <div class="text-center oe_login_buttons pt-3">
+                                    <button type="submit" class="btn btn-primary btn-block">Create</button>
+                                </div>
+                            </div>
+                        </form>
                     </t>
                 </t>
             </field>
         </record>
+
         <record id="menu_logistics_supplier" model="website.menu">
             <field name="name">Logistics</field>
             <field name="url">/logistics_supplier_manage</field>
             <field name="parent_id" ref="website.main_menu"/>
+        </record>
+
+
+        <record id="logistics_supplier_manage_success" model="ir.ui.view">
+            <field name="name">Logistics</field>
+            <field name="type">qweb</field>
+            <field name="key">website.logistics_supplier_manage_success</field>
+            <field name="arch" type="xml">
+                <t name="Logistics success" t-name="website.logistics_supplier_manage_success">
+                    <t t-call="website.layout">
+                        <div class="logistics_manage_id" id="logistics_manage_id">
+<!--                            <label for="success_code">Success</label>-->
+                            <h1>Success</h1>
+                        </div>
+
+                        <div class="text-center oe_login_buttons pt-3">
+                            <a t-attf-href="/logistics_supplier_manage?{{ keep_query() }}" class="btn btn-primary" role="button">
+                                Back to create
+                            </a>
+                            <a t-attf-href="/my/delivery_manage?{{ keep_query() }}" class="btn btn-primary" role="button">
+                                View
+                            </a>
+                        </div>
+                    </t>
+                </t>
+            </field>
+        </record>
+
+        <record id="menu_logistics_supplier" model="website.menu">
+            <field name="name">Logistics</field>
+            <field name="url">/logistics_supplier_manage_success</field>
         </record>
     </data>
 </odoo>
