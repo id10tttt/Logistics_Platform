@@ -44,8 +44,10 @@
                         <th>Delivery #</th>
                         <th class="text-right">From</th>
                         <th class="text-right">To</th>
-<!--                        <th class="text-center"/>-->
-                        <th class="text-right">Price</th>
+                        <th class="text-right">Product</th>
+                        <th class="text-right">Type</th>
+                        <th class="text-right">Property</th>
+                        <th class="text-right">Amount</th>
                     </tr>
                 </thead>
                 <t t-foreach="delivery_ids" t-as="delivery_id">
@@ -53,12 +55,11 @@
                         <td><a t-att-href="delivery_id.get_portal_url()"><t t-esc="delivery_id.vendor_id.name"/></a></td>
                         <td class="text-right"><span t-field="delivery_id.from_location_id.name"/></td>
                         <td class="text-right"><span t-field="delivery_id.to_location_id.name"/></td>
-<!--                        <td class="text-center">-->
-<!--                            <span t-if="quotation.state == 'cancel'" class="badge badge-pill badge-secondary"><i class="fa fa-fw fa-remove"/> Cancelled</span>-->
-<!--                            <span t-if="quotation.is_expired" class="badge badge-pill badge-secondary"><i class="fa fa-fw fa-clock-o"/> Expired</span>-->
-<!--                        </td>-->
+                        <td class="text-right"><span t-field="delivery_id.product_id.name"/></td>
+                        <td class="text-right"><span t-field="delivery_id.type_id.name"/></td>
+                        <td class="text-right"><span t-field="delivery_id.property_type_id.name"/></td>
                         <td class="text-right">
-                            <span t-field="delivery_id.unit_price"/>
+                            <span t-field="delivery_id.property_amount"/>
                         </td>
                     </tr>
                 </t>
