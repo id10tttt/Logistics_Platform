@@ -22,6 +22,7 @@ class RouteNetwork(models.Model):
 
     name = fields.Char('Name')
     partner_id = fields.Many2one('res.partner', 'Partner')
+    product_id = fields.Many2one('product.product', domain="[('type', '=', 'service')]", string='Product')
     step_ids = fields.One2many(
         comodel_name='route.network.step',
         inverse_name='network_id',

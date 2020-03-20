@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="route_network.property_type_weight" model="route.network.delivery.property.type">
+            <field name="name">Weight</field>
+        </record>
+        <record id="route_network.property_type_volume" model="route.network.delivery.property.type">
+            <field name="name">Volume</field>
+        </record>
+    </data>
+</odoo>

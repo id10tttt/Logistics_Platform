@@ -32,6 +32,12 @@
                                        required="1"/>
                             </group>
                         </group>
+                        <group>
+                            <group>
+                                <field name="product_id"
+                                               options="{'no_quick_create': True, 'no_create_edit': True}"/>
+                            </group>
+                        </group>
 <!--                        <group>-->
 <!--                            <group>-->
 <!--                                <field name="start_location_id"-->
