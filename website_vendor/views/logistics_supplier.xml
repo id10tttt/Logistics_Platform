@@ -82,13 +82,13 @@
                                     </select>
                                 </div>
 
-                                <div class="form-group field-property_amount">
-                                    <label for="name">Property amount</label>
-                                    <input type="text" name="property_amount" t-att-value="property_amount" id="property_amount"
-                                           class="form-control form-control-sm"
-                                           required="required"
-                                           t-att-autofocus="'autofocus'"/>
-                                </div>
+<!--                                <div class="form-group field-property_amount">-->
+<!--                                    <label for="name">Property amount</label>-->
+<!--                                    <input type="text" name="property_amount" t-att-value="property_amount" id="property_amount"-->
+<!--                                           class="form-control form-control-sm"-->
+<!--                                           required="required"-->
+<!--                                           t-att-autofocus="'autofocus'"/>-->
+<!--                                </div>-->
 
                                 <div class="text-center oe_login_buttons pt-3">
                                     <button type="submit" class="btn btn-primary btn-block">Create</button>

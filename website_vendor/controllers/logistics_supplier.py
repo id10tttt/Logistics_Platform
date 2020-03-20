@@ -23,7 +23,7 @@ class LogisticsSupplier(http.Controller):
         if 'error' not in qcontext and request.httprequest.method == 'POST':
             from_location_id = qcontext.get('from_location_id')
             to_location_id = qcontext.get('to_location_id')
-            property_amount = qcontext.get('property_amount')
+            # property_amount = qcontext.get('property_amount')
             product_id = qcontext.get('service_product_id')
             type_id = qcontext.get('delivery_type_id')
             property_type_id = qcontext.get('property_type_id')
@@ -39,7 +39,7 @@ class LogisticsSupplier(http.Controller):
                 'product_id': int(product_id),
                 'type_id': int(type_id),
                 'property_type_id': int(property_type_id),
-                'property_amount': float(property_amount)
+                # 'property_amount': float(property_amount)
             }
 
             vendor_id.write({
@@ -58,8 +58,7 @@ class LogisticsSupplier(http.Controller):
 
         # Check
         values = {key: qcontext.get(key) for key in (
-            'from_location_id', 'to_location_id', 'service_product_id', 'delivery_type_id', 'property_type_id',
-            'property_amount')}
+            'from_location_id', 'to_location_id', 'service_product_id', 'delivery_type_id', 'property_type_id')}
         if not values:
             raise UserError(_("The form was not properly filled in."))
 
