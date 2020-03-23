@@ -15,9 +15,21 @@ class DeliveryCarrier(models.Model):
 
     # 网络计算方式的价格
     def network_rate_shipment(self, order):
+        _logger.info({
+            'from_location_id': order.from_location_id,
+            'to_location_id': order.to_location_id
+        })
+        price_total = self.get_price_from_netwrok_by_location(order.from_location_id, order.to_location_id)
         return {
             'success': True,
-            'price': 0.0,
+            'price': price_total,
             'error_message': False,
             'warning_message': False
         }
+
+    def get_price_from_netwrok_by_location(self, from_location_id, to_location_id):
+        if not from_location_id or not to_location_id:
+            return 0.0
+        else:
+            return 99.9
+
