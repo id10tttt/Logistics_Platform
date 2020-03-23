@@ -10,7 +10,7 @@
             <field name="arch" type="xml">
                 <t name="Logistics" t-name="website.logistics_supplier_manage">
                     <t t-call="website.layout">
-                        <form role="form" method="post" t-if="not message">
+                        <form role="form" method="post" t-if="not message" groups="website_vendor.logistics_supplier_group">
                             <div class="logistics_manage_id" id="logistics_manage_id">
                                 <t t-set="location_ids" t-value="website.get_all_stock_location()"/>
 
@@ -103,6 +103,7 @@
         <record id="menu_logistics_supplier" model="website.menu">
             <field name="name">Logistics</field>
             <field name="url">/logistics_supplier_manage</field>
+            <field name="groups">website_vendor.logistics_supplier_group</field>
             <field name="parent_id" ref="website.main_menu"/>
         </record>
 
