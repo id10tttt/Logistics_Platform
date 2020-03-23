@@ -41,6 +41,7 @@ class WebsiteSaleDeliveryNetwork(WebsiteSaleDelivery):
 
             # 来源和目的地 填充
             order._check_from_to_location(from_location_id=from_location_id, to_location_id=to_location_id)
+
         return self._update_website_sale_delivery_return(order, **post)
 
     def _update_website_sale_delivery_return(self, order, **post):
@@ -57,8 +58,8 @@ class WebsiteSaleDeliveryNetwork(WebsiteSaleDelivery):
                 'carrier_id': carrier_id,
                 'from_location_id': from_location_id,
                 'to_location_id': to_location_id,
-                # 'new_amount_delivery': self._format_amount(order.amount_delivery, currency),
-                'new_amount_delivery': self._format_amount(new_amount_delivery, currency),
+                'new_amount_delivery': self._format_amount(order.amount_delivery, currency),
+                # 'new_amount_delivery': self._format_amount(new_amount_delivery, currency),
                 'new_amount_untaxed': self._format_amount(order.amount_untaxed, currency),
                 'new_amount_tax': self._format_amount(order.amount_tax, currency),
                 'new_amount_total': self._format_amount(order.amount_total, currency),
