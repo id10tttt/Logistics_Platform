@@ -27,6 +27,7 @@ class DeliveryCarrier(models.Model):
             'warning_message': False
         }
 
+    # TODO: 调用网络里面的计算方法，获取价格参数，计算价格
     def get_price_from_netwrok_by_location(self, from_location_id, to_location_id):
         if not from_location_id or not to_location_id:
             return 0.0
