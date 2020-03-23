@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="view_order_form_inherit_website_sale" model="ir.ui.view">
+            <field name="name">Sale order form view</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="before">
+                    <group>
+                        <group>
+                            <field name="from_location_id" options="{'no_quick_create': True, 'no_create_edit': True}"/>
+                        </group>
+                        <group>
+                            <field name="to_location_id" options="{'no_quick_create': True, 'no_create_edit': True}"/>
+                        </group>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

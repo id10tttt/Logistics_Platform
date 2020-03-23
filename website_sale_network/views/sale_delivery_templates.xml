@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="sale_payment_delivery_id" name="Delivery Costs" inherit_id="website_sale.payment">
+        <xpath expr="//div[@id='shipping_and_billing']" position="after">
+            <h3 class="mb24">From and To</h3>
+            <t t-set="location_ids" t-value="website.get_all_stock_location()"/>
+            <div class="form-group field-from_location selection">
+                <label for="Type">From Location</label>
+                <select id="from_location_id" name="from_location_id" class="form-control">
+                    <option value="">From...</option>
+                    <t t-foreach="location_ids" t-as="c">
+                        <option t-att-value="c.id">
+                            <t t-esc="c.display_name"/>
+                        </option>
+                    </t>
+                </select>
+            </div>
+
+            <div class="form-group field-to_location selection">
+                <label for="Type">To Location</label>
+                <select id="to_location_id" name="to_location_id" class="form-control">
+                    <option value="">To...</option>
+                    <t t-foreach="location_ids" t-as="c">
+                        <option t-att-value="c.id">
+                            <t t-esc="c.display_name"/>
+                        </option>
+                    </t>
+                </select>
+            </div>
+        </xpath>
+    </template>
+</odoo>
