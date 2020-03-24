@@ -13,10 +13,10 @@
 
                         <notebook>
                             <page string="detail">
-                                <field name="location_ids">
+                                <field name="warehouse_ids">
                                     <tree>
                                         <field name="sequence" widget="handle"/>
-                                        <field name="location_id"
+                                        <field name="warehouse_id"
                                                options="{'no_quick_create': True, 'no_create_edit': True}"/>
                                     </tree>
                                 </field>

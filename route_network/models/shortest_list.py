@@ -8,13 +8,13 @@ class RouteNetworkShortestPath(models.Model):
     _name = 'route.network.shortest.path'
 
     name = fields.Char('Path name')
-    location_ids = fields.One2many('route.network.shortest.path.location', 'path_id', string='Path detail')
+    warehouse_ids = fields.One2many('route.network.shortest.path.warehouse', 'path_id', string='Path detail')
 
 
 class RouteNetworkShortestPathLocation(models.Model):
-    _name = 'route.network.shortest.path.location'
+    _name = 'route.network.shortest.path.warehouse'
     _order = 'sequence'
 
     sequence = fields.Integer('Sequence', default=0)
-    location_id = fields.Many2one('stock.location')
+    warehouse_id = fields.Many2one('stock.warehouse')
     path_id = fields.Many2one('route.network.shortest.path')

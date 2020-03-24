@@ -27,8 +27,8 @@ class RouteNetworkDelivery(models.Model):
     _inherit = 'portal.mixin'
 
     vendor_id = fields.Many2one('route.network.vendor', ondelete='cascade', index=True)
-    from_location_id = fields.Many2one('stock.location', string='From', required=True)
-    to_location_id = fields.Many2one('stock.location', string='To', required=True)
+    from_warehouse_id = fields.Many2one('stock.warehouse', string='From', required=True)
+    to_warehouse_id = fields.Many2one('stock.warehouse', string='To', required=True)
     unit_price = fields.Float('Price', digits=dp.get_precision('Price of delivery'), required=True)
 
     product_id = fields.Many2one('product.product', domain="[('type', '=', 'service')]", string='Product')

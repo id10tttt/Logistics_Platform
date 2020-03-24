@@ -1,1 +1,1 @@
-from . import all_location
+from . import all_warehouse
