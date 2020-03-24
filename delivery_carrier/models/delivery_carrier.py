@@ -16,10 +16,10 @@ class DeliveryCarrier(models.Model):
     # 网络计算方式的价格
     def network_rate_shipment(self, order):
         _logger.info({
-            'from_location_id': order.from_location_id,
-            'to_location_id': order.to_location_id
+            'order from_warehouse_id': order.from_warehouse_id,
+            'order to_warehouse_id': order.to_warehouse_id
         })
-        price_total = self.get_price_from_netwrok_by_location(order.from_location_id, order.to_location_id)
+        price_total = self.get_price_from_netwrok_by_warehouse(order.from_warehouse_id, order.to_warehouse_id)
         return {
             'success': True,
             'price': price_total,
@@ -28,8 +28,8 @@ class DeliveryCarrier(models.Model):
         }
 
     # TODO: 调用网络里面的计算方法，获取价格参数，计算价格
-    def get_price_from_netwrok_by_location(self, from_location_id, to_location_id):
-        if not from_location_id or not to_location_id:
+    def get_price_from_netwrok_by_warehouse(self, from_warehouse_id, to_warehouse_id):
+        if not from_warehouse_id or not to_warehouse_id:
             return 0.0
         else:
             route_network_obj = self.env['route.network']
@@ -38,8 +38,8 @@ class DeliveryCarrier(models.Model):
             return_values = []
             for network_id in network_ids:
                 network_id.generate_all_delivery_network()
-                network_id.find_out_shortest_path_with_networkx(from_location_id=from_location_id,
-                                                                to_location_id=to_location_id)
+                network_id.find_out_shortest_path_with_networkx(from_warehouse_id=from_warehouse_id,
+                                                                to_warehouse_id=to_warehouse_id)
 
                 shortest_weight = network_id.shortest_weight
 
