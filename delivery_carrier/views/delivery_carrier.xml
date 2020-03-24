@@ -7,13 +7,13 @@
             <field name="inherit_id" ref="delivery.view_delivery_carrier_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//page[@name='destination']" position='before'>
-                    <page string="Network" attrs="{'invisible': [('delivery_type', '!=', 'network')]}">
-                        <group>
-                            <group>
-                                <field name="network_id" options="{'no_quick_create': True, 'no_create_edit': True}"/>
-                            </group>
-                        </group>
-                    </page>
+<!--                    <page string="Network" attrs="{'invisible': [('delivery_type', '!=', 'network')]}">-->
+<!--                        <group>-->
+<!--                            <group>-->
+<!--                                <field name="network_id" options="{'no_quick_create': True, 'no_create_edit': True}"/>-->
+<!--                            </group>-->
+<!--                        </group>-->
+<!--                    </page>-->
                 </xpath>
             </field>
         </record>
