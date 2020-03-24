@@ -33,9 +33,19 @@ class LogisticsSupplier(http.Controller):
             vendor_id = vendor_obj.search([
                 ('partner_id', '=', current_partner_id)
             ])
+            if not vendor_id:
+                vendor_id = vendor_obj.create({
+                    'name': request.env.user.partner_id.name,
+                    'partner_id': current_partner_id
+                })
+                _logger.info({
+                    'create': vendor_id
+                })
+
             tmp_delivery_data = {
                 'from_warehouse_id': int(from_warehouse_id),
                 'to_warehouse_id': int(to_warehouse_id),
+                'unit_price': 0.0,
                 # 'product_id': int(product_id),
                 'type_id': int(type_id),
                 'property_type_id': int(property_type_id),
