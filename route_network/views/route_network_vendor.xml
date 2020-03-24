@@ -63,7 +63,7 @@
                                                options="{'no_quick_create': True, 'no_create_edit': True}"/>
                                         <field name="to_location_id"
                                                options="{'no_quick_create': True, 'no_create_edit': True}"/>
-<!--                                        <field name="unit_price"/>-->
+                                        <field name="unit_price"/>
                                         <field name="type_id" options="{'no_quick_create': True, 'no_create_edit': True}"/>
                                         <field name="property_type_id" options="{'no_quick_create': True, 'no_create_edit': True}"/>
                                         <field name="property_amount"/>

@@ -8,15 +8,15 @@
             <field name="arch" type="xml">
                 <form>
                     <header>
-<!--                        <button string="Find out" name="find_out_shortest_path" type="object" class="oe_highlight"/>-->
+                        <!--                        <button string="Find out" name="find_out_shortest_path" type="object" class="oe_highlight"/>-->
 <!--                        <button string="Find by networkx" name="find_out_shortest_path_with_networkx" type="object"-->
 <!--                                class="oe_highlight"/>-->
-<!--                        <button string="Generate route" name="generate_stock_location_route_line" type="object"-->
-<!--                                class="oe_highlight"/>-->
-<!--                        <button string="All(Supplier)" name="generate_all_supplier_contract_network" type="object"-->
-<!--                                class="oe_highlight"/>-->
-<!--                        <button string="All(Customer)" name="generate_all_customer_contract_network" type="object"-->
-<!--                                class="oe_highlight"/>-->
+                        <!--                        <button string="Generate route" name="generate_stock_location_route_line" type="object"-->
+                        <!--                                class="oe_highlight"/>-->
+                        <!--                        <button string="All(Supplier)" name="generate_all_supplier_contract_network" type="object"-->
+                        <!--                                class="oe_highlight"/>-->
+                        <!--                        <button string="All(Customer)" name="generate_all_customer_contract_network" type="object"-->
+                        <!--                                class="oe_highlight"/>-->
                         <button string="Generate network" name="generate_all_delivery_network" type="object"
                                 class="oe_highlight"/>
                         <button string="Show Maps" name="show_route_network_maps" type="object"
@@ -35,7 +35,7 @@
                         <group>
                             <group>
                                 <field name="product_id"
-                                               options="{'no_quick_create': True, 'no_create_edit': True}"/>
+                                       options="{'no_quick_create': True, 'no_create_edit': True}"/>
                             </group>
                         </group>
 <!--                        <group>-->
@@ -49,17 +49,17 @@
 <!--                            </group>-->
 <!--                        </group>-->
 
-<!--                        <group>-->
-<!--                            <group>-->
-<!--                                <field name="path_id" options="{'no_quick_create': True, 'no_create_edit': True}"/>-->
-<!--                            </group>-->
-<!--                        </group>-->
+                        <!--                        <group>-->
+                        <!--                            <group>-->
+                        <!--                                <field name="path_id" options="{'no_quick_create': True, 'no_create_edit': True}"/>-->
+                        <!--                            </group>-->
+                        <!--                        </group>-->
 
-<!--                        <group>-->
-<!--                            <group>-->
-<!--                                <field name="route_id"/>-->
-<!--                            </group>-->
-<!--                        </group>-->
+                        <!--                        <group>-->
+                        <!--                            <group>-->
+                        <!--                                <field name="route_id"/>-->
+                        <!--                            </group>-->
+                        <!--                        </group>-->
 
                         <notebook>
                             <page string="Network">
@@ -71,13 +71,13 @@
                                 </field>
                             </page>
                         </notebook>
-
-                        <!--                        <group>-->
-                        <!--                            <field name="shortest_note"/>-->
-                        <!--                        </group>-->
-
 <!--                        <group>-->
-<!--                            <field name="network_image" widget="image"/>-->
+<!--                            <group>-->
+<!--                                <field name="shortest_note"/>-->
+<!--                            </group>-->
+<!--                            <group>-->
+<!--                                <field name="shortest_weight"/>-->
+<!--                            </group>-->
 <!--                        </group>-->
                     </sheet>
                 </form>
@@ -112,7 +112,7 @@
                             <page string="Rule list">
                                 <field name="list_ids">
                                     <tree>
-<!--                                        <field name="carrier_id"/>-->
+                                        <!--                                        <field name="carrier_id"/>-->
                                         <field name="delivery_id"/>
                                         <field name="quantity_weight"/>
                                     </tree>
@@ -195,8 +195,8 @@
             <field name="context">{}</field>
         </record>
 
-<!--        <menuitem id="route_network_root_menu" name="Route network"-->
-<!--                  web_icon="route_network,static/description/network.jpg"/>-->
+        <!--        <menuitem id="route_network_root_menu" name="Route network"-->
+        <!--                  web_icon="route_network,static/description/network.jpg"/>-->
 
         <menuitem id="route_network_menu_id" name="Route network"
                   parent="stock.menu_stock_root" sequence="3"/>

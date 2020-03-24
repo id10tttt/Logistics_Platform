@@ -31,6 +31,7 @@ class RouteNetwork(models.Model):
         help='Network.')
 
     shortest_note = fields.Text('Shortest')
+    shortest_weight = fields.Float('Dijkstra length')
 
     start_location_id = fields.Many2one('stock.location', 'Start')
     end_location_id = fields.Many2one('stock.location', 'End')
@@ -152,7 +153,7 @@ class RouteNetwork(models.Model):
             'create': res
         })
 
-    def find_out_shortest_path_with_networkx(self):
+    def find_out_shortest_path_with_networkx(self, from_location_id=None, to_location_id=None):
         """
         dijkstra_path_length
             Returns the shortest weighted path length in G from source to target.
@@ -180,31 +181,40 @@ class RouteNetwork(models.Model):
             # 去重
             all_rule_ids = list(set(all_rule_ids))
 
-            # # 所有节点的信息，包括权重
-            # tmp_node = [(x[0].display_name, x[1].display_name, x[2]) for x in all_rule_ids]
+            # 所有节点的信息，包括权重
+            tmp_node = [(x[0].display_name, x[1].display_name, x[2]) for x in all_rule_ids]
+
+            tmp_node = list(set(tmp_node))
+
+            network_x_g.add_weighted_edges_from(tmp_node)
             #
-            # tmp_node = list(set(tmp_node))
-            #
-            # network_x_g.add_weighted_edges_from(tmp_node)
-            #
-            # source_id = self.start_location_id.display_name
-            # target_id = self.end_location_id.display_name
-            #
-            # # shortest_path = nx.shortest_path(network_x_g, source=source_id, target=target_id)
+            source_id = self.start_location_id.display_name
+            target_id = self.end_location_id.display_name
+
+            if from_location_id and to_location_id:
+                source_id = from_location_id.display_name
+                target_id = to_location_id.display_name
+
+            if not network_x_g.has_node(source_id) or not network_x_g.has_node(target_id):
+                return
+
+            shortest_path = nx.shortest_path(network_x_g, source=source_id, target=target_id)
             # shortest_path = nx.all_simple_paths(network_x_g, source=source_id, target=target_id)
 
-            shortest_path = self.find_out_all_simple_path_by_networkx(network_x_g, all_rule_ids)
-
-            self.create_shortest_list_path(shortest_path)
+            # shortest_path = self.find_out_all_simple_path_by_networkx(network_x_g, all_rule_ids)
+            #
+            # self.create_shortest_list_path(shortest_path)
             # # Returns the shortest weighted path length in G from source to target.
-            # shortest_path = nx.dijkstra_path_length(network_x_g, source=source_id, target=target_id)
+            shortest_dijkstra_path_length = nx.dijkstra_path_length(network_x_g, source=source_id, target=target_id)
 
             # shortest_path = nx.shortest_path_length(network_x_g, source=source_id, target=target_id)
             # shortest_path = nx.shortest_path_length(network_x_g)
 
             # shortest_note = ' -> '.join(x for x in shortest_path)
             # self.shortest_note = shortest_note
-            self.shortest_note = list(shortest_path)
+
+            self.shortest_weight = shortest_dijkstra_path_length if shortest_dijkstra_path_length else 0.0
+            self.shortest_note = list(shortest_path) if shortest_path else False
         except Exception as e:
             raise UserError(e)
 
