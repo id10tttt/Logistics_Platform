@@ -2,31 +2,33 @@
 <odoo>
     <template id="sale_payment_delivery_id" name="Delivery Costs" inherit_id="website_sale.payment">
         <xpath expr="//div[@id='shipping_and_billing']" position="after">
-            <h3 class="mb24">From and To</h3>
-            <t t-set="location_ids" t-value="website.get_all_stock_location()"/>
-            <div class="form-group field-from_location selection">
-                <label for="Type">From Location</label>
-                <select id="from_location_id" name="from_location_id" class="form-control">
-                    <option value="">From...</option>
-                    <t t-foreach="location_ids" t-as="c">
-                        <option t-att-value="c.id">
-                            <t t-esc="c.display_name"/>
-                        </option>
-                    </t>
-                </select>
+            <div class="form-group field-from_location_name">
+                <label for="name">From location</label>
+                <input type="text" name="from_location_name" t-att-value="from_location_name"
+                       id="from_location_name"
+                       class="form-control form-control-sm"
+                       required="required"
+                       t-att-autofocus="'autofocus'"/>
             </div>
 
-            <div class="form-group field-to_location selection">
-                <label for="Type">To Location</label>
-                <select id="to_location_id" name="to_location_id" class="form-control">
-                    <option value="">To...</option>
-                    <t t-foreach="location_ids" t-as="c">
-                        <option t-att-value="c.id">
-                            <t t-esc="c.display_name"/>
-                        </option>
-                    </t>
-                </select>
+            <div class="form-group field-to_location_name">
+                <label for="name">To location</label>
+                <input type="text" name="to_location_name" t-att-value="to_location_name"
+                       id="to_location_name"
+                       class="form-control form-control-sm"
+                       required="required"
+                       t-att-autofocus="'autofocus'"/>
             </div>
+
+<!--            <script type="text/javascript"-->
+<!--                    src="https://webapi.amap.com/maps?v=1.4.15&amp;key=30a60cbd0f9e2825703208a9decff925&amp;plugin=AMap.Autocomplete"></script>-->
+<!--            <script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script>-->
+<!--            <script type="text/javascript">-->
+<!--                //输入提示-->
+<!--                var auto = new AMap.Autocomplete({-->
+<!--                    input: "tipinput"-->
+<!--                });-->
+<!--            </script>-->
         </xpath>
     </template>
 </odoo>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="view_location_form_inherit" model="ir.ui.view">
+            <field name="name">Stock location form view</field>
+            <field name="model">stock.location</field>
+            <field name="inherit_id" ref="stock.view_location_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='localization']" position="after">
+                    <group>
+                        <group>
+                            <field name="location_long"/>
+                        </group>
+                        <group>
+                            <field name="location_lat"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="service_area"/>
+                        </group>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

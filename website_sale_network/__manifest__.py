@@ -5,10 +5,11 @@
     'summary': 'Website sale network',
     'description': """Website sale network""",
     'author': '1di0t',
-    "depends": ['base', 'website', 'website_sale', 'website_sale_delivery', 'sale'],
+    "depends": ['base', 'website', 'website_sale', 'website_sale_delivery', 'sale', 'stock'],
     'data': [
         'views/sale_delivery_templates.xml',
         'views/sale_order.xml',
+        'views/stock_location.xml',
         'views/assets.xml',
     ],
     'qweb': [

@@ -50,17 +50,17 @@ odoo.define('website_sale_network.checkout', function (require) {
     };
 
     let _onCarrierClickInherit = function (ev) {
-        console.log('hello world: ', $(ev.currentTarget).val());
+        console.log('hello world: ', $('#from_location_name').val());
         $pay_button.data('disabled_reasons', $pay_button.data('disabled_reasons') || {});
         $pay_button.data('disabled_reasons').carrier_selection = true;
         $pay_button.prop('disabled', true);
         let carrier_id = $(ev.currentTarget).val();
-        let from_location_id = $('#from_location_id').val();
-        let to_location_id = $('#to_location_id').val();
+        let from_location_name = $('#from_location_name').val();
+        let to_location_name = $('#to_location_name').val();
         let values = {
             'carrier_id': carrier_id,
-            'from_location_id': from_location_id,
-            'to_location_id': to_location_id
+            'from_location_name': from_location_name,
+            'to_location_name': to_location_name
         };
         dp.add(ajax.jsonRpc('/shop/update_carrier', 'call', values))
             .then(_onCarrierUpdateAnswer);
