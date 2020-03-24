@@ -40,14 +40,14 @@ class CustomerPortal(CustomerPortal):
         ]
 
         searchbar_sortings = {
-            'from_location_id': {'label': _('From'), 'order': 'from_location_id'},
-            'to_location_id': {'label': _('To'), 'order': 'to_location_id'},
+            'from_warehouse_id': {'label': _('From'), 'order': 'from_warehouse_id'},
+            'to_warehouse_id': {'label': _('To'), 'order': 'to_warehouse_id'},
             'unit_price': {'label': _('Price'), 'order': 'unit_price'},
         }
 
         # default sortby order
         if not sortby:
-            sortby = 'from_location_id'
+            sortby = 'from_warehouse_id'
         sort_order = searchbar_sortings[sortby]['order']
 
         archive_groups = self._get_archive_groups('route.network.delivery', domain)

@@ -9,7 +9,8 @@
     'data': [
         'views/sale_delivery_templates.xml',
         'views/sale_order.xml',
-        'views/stock_location.xml',
+        'views/stock_warehouse.xml',
+        'views/res_partner.xml',
         'views/assets.xml',
     ],
     'qweb': [

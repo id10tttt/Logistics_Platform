@@ -11,8 +11,8 @@
             </li>
             <li t-if="route_network_delivery" class="breadcrumb-item active">
                 <span t-field="route_network_delivery.vendor_id.name"/>
-                <t t-esc="route_network_delivery.from_location_id.name"/>
-                <t t-esc="route_network_delivery.to_location_id.name"/>
+                <t t-esc="route_network_delivery.from_warehouse_id.name"/>
+                <t t-esc="route_network_delivery.to_warehouse_id.name"/>
                 <t t-esc="route_network_delivery.unit_price"/>
             </li>
         </xpath>
@@ -53,8 +53,8 @@
                 <t t-foreach="delivery_ids" t-as="delivery_id">
                     <tr>
                         <td><a t-att-href="delivery_id.get_portal_url()"><t t-esc="delivery_id.vendor_id.name"/></a></td>
-                        <td class="text-right"><span t-field="delivery_id.from_location_id.name"/></td>
-                        <td class="text-right"><span t-field="delivery_id.to_location_id.name"/></td>
+                        <td class="text-right"><span t-field="delivery_id.from_warehouse_id.name"/></td>
+                        <td class="text-right"><span t-field="delivery_id.to_warehouse_id.name"/></td>
                         <td class="text-right"><span t-field="delivery_id.product_id.name"/></td>
                         <td class="text-right"><span t-field="delivery_id.type_id.name"/></td>
                         <td class="text-right"><span t-field="delivery_id.property_type_id.name"/></td>

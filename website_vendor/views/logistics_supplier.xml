@@ -12,13 +12,13 @@
                     <t t-call="website.layout">
                         <form role="form" method="post" t-if="not message" groups="website_vendor.logistics_supplier_group">
                             <div class="logistics_manage_id" id="logistics_manage_id">
-                                <t t-set="location_ids" t-value="website.get_all_stock_location()"/>
+                                <t t-set="warehouse_ids" t-value="website.get_all_stock_warehouse()"/>
 
-                                <div class="form-group field-from_location selection">
-                                    <label for="Type">From Location</label>
-                                    <select id="from_location_id" name="from_location_id" class="form-control">
+                                <div class="form-group field-from_warehouse selection">
+                                    <label for="Type">From warehouse</label>
+                                    <select id="from_warehouse_id" name="from_warehouse_id" class="form-control">
                                         <option value="">From...</option>
-                                        <t t-foreach="location_ids" t-as="c">
+                                        <t t-foreach="warehouse_ids" t-as="c">
                                             <option t-att-value="c.id">
                                                 <t t-esc="c.display_name"/>
                                             </option>
@@ -26,11 +26,11 @@
                                     </select>
                                 </div>
 
-                                <div class="form-group field-to_location selection">
-                                    <label for="Type">To Location</label>
-                                    <select id="to_location_id" name="to_location_id" class="form-control">
+                                <div class="form-group field-to_warehouse selection">
+                                    <label for="Type">To warehouse</label>
+                                    <select id="to_warehouse_id" name="to_warehouse_id" class="form-control">
                                         <option value="">To...</option>
-                                        <t t-foreach="location_ids" t-as="c">
+                                        <t t-foreach="warehouse_ids" t-as="c">
                                             <option t-att-value="c.id">
                                                 <t t-esc="c.display_name"/>
                                             </option>

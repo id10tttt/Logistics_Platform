@@ -13,6 +13,6 @@ class Website(models.Model):
         return type_ids
 
     @api.model
-    def get_all_stock_location(self):
-        location_ids = self.env['stock.location'].sudo().search([])
-        return location_ids
+    def get_all_stock_warehouse(self):
+        warehouse_ids = self.env['stock.warehouse'].sudo().search([])
+        return warehouse_ids

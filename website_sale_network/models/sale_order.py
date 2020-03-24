@@ -7,14 +7,14 @@ from odoo import models, fields, api
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
-    from_location_id = fields.Many2one('stock.location', string='From')
-    to_location_id = fields.Many2one('stock.location', string='To')
+    from_warehouse_id = fields.Many2one('stock.warehouse', string='From')
+    to_warehouse_id = fields.Many2one('stock.warehouse', string='To')
 
-    def _check_from_to_location(self, from_location_id=None, to_location_id=None):
+    def _check_from_to_warehouse(self, from_warehouse_id=None, to_warehouse_id=None):
         try:
             self.write({
-                'from_location_id': from_location_id,
-                'to_location_id': to_location_id
+                'from_warehouse_id': from_warehouse_id,
+                'to_warehouse_id': to_warehouse_id
             })
         except Exception as e:
             pass

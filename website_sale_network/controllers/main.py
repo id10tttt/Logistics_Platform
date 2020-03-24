@@ -29,7 +29,7 @@ class WebsiteSaleDeliveryNetwork(WebsiteSaleDelivery):
             order._check_carrier_quotation(force_carrier_id=carrier_id)
 
             # 来源和目的地
-            order._check_from_to_location(from_location_id=from_location_id, to_location_id=to_location_id)
+            order._check_from_to_warehouse(from_warehouse_id=from_location_id, to_warehouse_id=to_location_id)
             if carrier_id:
                 return request.redirect("/shop/payment")
 
@@ -51,7 +51,7 @@ class WebsiteSaleDeliveryNetwork(WebsiteSaleDelivery):
             order._check_carrier_quotation(force_carrier_id=carrier_id)
 
             # 来源和目的地 填充
-            order._check_from_to_location(from_location_id=from_location_id, to_location_id=to_location_id)
+            order._check_from_to_warehouse(from_warehouse_id=from_location_id, to_warehouse_id=to_location_id)
 
         return self._update_website_sale_delivery_return(order, **post)
 
@@ -81,20 +81,29 @@ class WebsiteSaleDeliveryNetwork(WebsiteSaleDelivery):
         return {}
 
     def find_correct_belong_position(self, from_location_name, to_location_name):
-        from_long, from_lat = self.get_lat_long_value(from_location_name)
-        to_long, to_lat = self.get_lat_long_value(to_location_name)
+        if not from_location_name or not to_location_name:
+            return False, False
 
+        from_long, from_lat = self.get_long_lat_value(from_location_name)
+        to_long, to_lat = self.get_long_lat_value(to_location_name)
+
+        _logger.info({
+            'from_long': from_long,
+            'from_lat': from_lat,
+            'to_long': to_long,
+            'to_lat': to_lat
+        })
         from_location_id = self.find_close_service_area(from_long, from_lat)
         to_location_id = self.find_close_service_area(to_long, to_lat)
-        return 1, 2
+        return 1, 1
 
     def find_close_service_area(self, from_long, from_lat):
-        location_ids = self.env['stock.location'].search([])
+        warehouse_ids = request.env['stock.warehouse'].sudo().search([])
 
-        for location_id in location_ids:
-            distance_value = self.get_distance(from_long, from_lat, location_id.location_long, location_id.location_lat)
-            if distance_value < location_id.service_area:
-                return location_id
+        for warehouse_id in warehouse_ids:
+            distance_value = self.get_distance(from_long, from_lat, warehouse_id.location_long, warehouse_id.location_lat)
+            if distance_value < warehouse_id.service_area:
+                return warehouse_id
         return False
 
     # 获取经纬度
@@ -111,7 +120,7 @@ class WebsiteSaleDeliveryNetwork(WebsiteSaleDelivery):
         })
         res = requests.get(url=url, params=parameters)
         if res.status_code == 200:
-            geocodes_value = res.json().get('geocodes')
+            geocodes_value = res.json().get('geocodes')[0]
             location_info = geocodes_value.get('location')
             long_value, lat_value = location_info.split(',')
             return long_value, lat_value

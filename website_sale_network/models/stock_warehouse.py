@@ -4,9 +4,9 @@
 from odoo import models, fields, api
 
 
-class StockLocation(models.Model):
-    _inherit = 'stock.location'
+class StockWarehouse(models.Model):
+    _inherit = 'stock.warehouse'
 
-    location_long = fields.Char('Longitude')
-    location_lat = fields.Char('Latitude')
+    location_long = fields.Char('Longitude', related='partner_id.location_long')
+    location_lat = fields.Char('Latitude', related='partner_id.location_lat')
     service_area = fields.Float('Service area')
