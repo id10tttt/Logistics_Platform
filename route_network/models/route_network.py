@@ -198,6 +198,9 @@ class RouteNetwork(models.Model):
             if not network_x_g.has_node(source_id) or not network_x_g.has_node(target_id):
                 return
 
+            if not nx.has_path(network_x_g, source=source_id, target=target_id):
+                return
+
             shortest_path = nx.shortest_path(network_x_g, source=source_id, target=target_id)
             # shortest_path = nx.all_simple_paths(network_x_g, source=source_id, target=target_id)
 
