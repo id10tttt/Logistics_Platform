@@ -20,6 +20,12 @@
                             <field name="service_area"/>
                         </group>
                     </group>
+
+                    <group>
+                        <group>
+                            <field name="location_name" widget="auto_fill"/>
+                        </group>
+                    </group>
                 </xpath>
             </field>
         </record>

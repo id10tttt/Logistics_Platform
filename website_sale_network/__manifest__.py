@@ -12,6 +12,7 @@
         'views/stock_warehouse.xml',
         'views/res_partner.xml',
         'views/assets.xml',
+        'views/map_template.xml',
     ],
     'qweb': [
     ],

@@ -113,7 +113,7 @@ class WebsiteSaleDeliveryNetwork(WebsiteSaleDelivery):
         url = 'https://restapi.amap.com/v3/geocode/geo?parameters'
         parameters = {
             'address': name,
-            'key': '30a60cbd0f9e2825703208a9decff925'
+            'key': config.get('gaode_map_key_id')
         }
         _logger.info({
             'parameters': parameters

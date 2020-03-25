@@ -10,3 +10,5 @@ class StockWarehouse(models.Model):
     location_long = fields.Char('Longitude', related='partner_id.location_long')
     location_lat = fields.Char('Latitude', related='partner_id.location_lat')
     service_area = fields.Float('Service area')
+
+    location_name = fields.Char('Location')
