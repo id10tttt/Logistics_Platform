@@ -12,5 +12,9 @@
         <menuitem id="route_network_menu_root" name="Route" parent="logistics_manage_menu"/>
         <menuitem id="route_network_menu_id" name="Route" parent="route_network_menu_root"
                   action="route_network.route_network_vendor_action"/>
+
+        <menuitem id="warehouse_manage_root" name="Warehouse" parent="logistics_manage_menu"/>
+        <menuitem id="warehouse_manage_menu_id" name="Warehouse" parent="warehouse_manage_root"
+                  action="stock.action_warehouse_form"/>
     </data>
 </odoo>
