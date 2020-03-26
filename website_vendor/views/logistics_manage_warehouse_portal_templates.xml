@@ -29,6 +29,7 @@
                         <th class="text-right">Code</th>
                         <th class="text-right">Location</th>
                         <th class="text-right">Service area</th>
+                        <th class="text-right">Manage</th>
                     </tr>
                 </thead>
                 <t t-foreach="warehouse_ids" t-as="warehouse_id">
@@ -49,6 +50,10 @@
                         </td>
                         <td class="text-right">
                             <span t-field="warehouse_id.service_area"/>
+                        </td>
+                        <td class="text-right">
+                            <a class="btn btn-sm btn-link" role="button" href="/manage/warehouse/edit">Edit</a>
+                            <a class="btn btn-sm btn-link" role="button" href="/manage/warehouse/delete">Delete</a>
                         </td>
                     </tr>
                 </t>
