@@ -24,11 +24,6 @@ class ResUsers(models.Model):
         self.ensure_one()
         user_obj = super(ResUsers, self).copy(default=default)
 
-        _logger.info({
-            'user type': self._context.get('user_type_id', False),
-            ' self._context':  self._context
-        })
-
         if self._context.get('user_type_id', False):
 
             wk_value = {
@@ -41,6 +36,24 @@ class ResUsers(models.Model):
                 logistics_group = \
                     self.env['ir.model.data'].get_object_reference('website_vendor', 'logistics_user_group')[1]
             elif user_type == 'logistics_supplier':
+                portal_group_id = self.env['ir.model.data'].get_object_reference('base', 'group_portal')[1]
+                user_group_id = self.env['ir.model.data'].get_object_reference('base', 'group_user')[1]
+                groups_ids = user_obj.groups_id.ids
+
+                _logger.info({
+                    'user_obj': user_obj
+                })
+                # 去除 portal 组
+                if portal_group_id in groups_ids:
+                    groups_ids.remove(portal_group_id)
+
+                # 修改魏 user 组
+                groups_ids.append(user_group_id)
+
+                # 写入
+                user_obj.write({
+                    'groups_id': [(6, 0, groups_ids)]
+                })
                 logistics_group = \
                     self.env['ir.model.data'].get_object_reference('website_vendor', 'logistics_supplier_group')[1]
 
