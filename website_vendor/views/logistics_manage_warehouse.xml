@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="website_manage_warehouse_id">
+
+    </template>
+
+    <record id="logistics_warehouse_manage" model="ir.ui.view">
+        <field name="name">Warehouse</field>
+        <field name="type">qweb</field>
+        <field name="key">website.logistics_warehouse_manage</field>
+        <field name="arch" type="xml">
+            <t name="Warehouse" t-name="website.logistics_warehouse_manage">
+                <t t-call="website.layout">
+                    <form role="form" method="post" t-if="not message" groups="website_vendor.logistics_supplier_group">
+                        <div class="logistics_warehouse_manage_id" id="logistics_warehouse_manage_id">
+                            <div class="form-group field-warehouse_name">
+                                <label for="name">Name</label>
+                                <input type="text" name="warehouse_name" t-att-value="warehouse_name"
+                                       id="warehouse_name"
+                                       class="form-control form-control-sm"
+                                       required="required"
+                                       t-att-autofocus="'autofocus'"/>
+                            </div>
+
+                            <div class="form-group field-warehouse_code">
+                                <label for="name">Code</label>
+                                <input type="text" name="warehouse_code" t-att-value="warehouse_code"
+                                       id="warehouse_code"
+                                       class="form-control form-control-sm"
+                                       required="required"
+                                       t-att-autofocus="'autofocus'"/>
+                            </div>
+
+                            <div class="form-group field-warehouse_location_name">
+                                <label for="name">Location</label>
+                                <input type="text" name="warehouse_location_name" t-att-value="warehouse_location_name"
+                                       id="warehouse_location_name"
+                                       class="form-control form-control-sm"
+                                       required="required"
+                                       t-att-autofocus="'autofocus'"/>
+                                <script type="text/javascript">
+                                    //输入提示
+                                    let auto_complete = new AMap.Autocomplete({
+                                        input: "warehouse_location_name"
+                                    });
+                                </script>
+                            </div>
+
+
+                            <div class="form-group field-warehouse_service_area">
+                                <label for="name">Service area</label>
+                                <input type="text" name="warehouse_service_area" t-att-value="warehouse_service_area"
+                                       id="warehouse_service_area"
+                                       class="form-control form-control-sm"
+                                       required="required"
+                                       t-att-autofocus="'autofocus'"/>
+                            </div>
+
+                            <div class="text-center oe_login_buttons pt-3">
+                                <button type="submit" class="btn btn-primary btn-block">Create</button>
+                            </div>
+                        </div>
+                    </form>
+                </t>
+            </t>
+        </field>
+    </record>
+
+    <record id="menu_logistics_warehouse_manage" model="website.menu">
+        <field name="name">Warehouse</field>
+        <field name="url">/logistics_warehouse_manage</field>
+        <field name="parent_id" ref="website.main_menu"/>
+    </record>
+
+    <record id="logistics_warehouse_manage_success" model="ir.ui.view">
+        <field name="name">Warehouse</field>
+        <field name="type">qweb</field>
+        <field name="key">website.logistics_warehouse_manage_success</field>
+        <field name="arch" type="xml">
+            <t name="Logistics success" t-name="website.logistics_supplier_manage_success">
+                <t t-call="website.layout">
+                    <div class="logistics_manage_id" id="logistics_manage_id">
+                        <h1>Success</h1>
+                    </div>
+
+                    <div class="text-center oe_login_buttons pt-3">
+                        <a t-attf-href="/logistics_warehouse_manage?{{ keep_query() }}" class="btn btn-primary"
+                           role="button">
+                            Back to create
+                        </a>
+                        <a t-attf-href="/my/warehouse_manage?{{ keep_query() }}" class="btn btn-primary" role="button">
+                            View
+                        </a>
+                    </div>
+                </t>
+            </t>
+        </field>
+    </record>
+
+    <record id="menu_logistics_warehouse_manage" model="website.menu">
+        <field name="name">Warehouse</field>
+        <field name="url">/logistics_warehouse_manage_success</field>
+    </record>
+</odoo>

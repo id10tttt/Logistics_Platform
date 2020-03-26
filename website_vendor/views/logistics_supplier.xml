@@ -103,7 +103,6 @@
         <record id="menu_logistics_supplier" model="website.menu">
             <field name="name">Logistics</field>
             <field name="url">/logistics_supplier_manage</field>
-            <field name="groups">website_vendor.logistics_supplier_group</field>
             <field name="parent_id" ref="website.main_menu"/>
         </record>
 

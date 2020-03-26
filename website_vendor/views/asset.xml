@@ -4,5 +4,10 @@
         <xpath expr="link[last()]" position="after">
             <link rel="stylesheet" type="text/scss" href="/website_vendor/static/src/scss/logistics_portal.scss"/>
         </xpath>
+        <xpath expr="." position="inside">
+            <t t-set="web_key" t-value="request.env['ir.config_parameter'].sudo().get_param_from_config_file('gaode_mao_web_key')"/>
+            <script type="text/javascript"
+                    src="https://webapi.amap.com/maps?v=1.4.15&amp;key={{web_key}}&amp;plugin=AMap.Autocomplete"></script>
+        </xpath>
     </template>
 </odoo>
