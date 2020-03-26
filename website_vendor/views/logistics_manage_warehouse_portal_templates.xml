@@ -52,8 +52,8 @@
                             <span t-field="warehouse_id.service_area"/>
                         </td>
                         <td class="text-right">
-                            <a class="btn btn-sm btn-link" role="button" href="/manage/warehouse/edit">Edit</a>
-                            <a class="btn btn-sm btn-link" role="button" href="/manage/warehouse/delete">Delete</a>
+                            <a class="btn btn-sm btn-link" role="button" t-attf-href="/manage/warehouse/edit/{{warehouse_id.id}}">Edit</a>
+                            <a class="btn btn-sm btn-link" role="button" t-attf-href="/manage/warehouse/delete/{{warehouse_id.id}}">Delete</a>
                         </td>
                     </tr>
                 </t>

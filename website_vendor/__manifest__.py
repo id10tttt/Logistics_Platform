@@ -15,6 +15,7 @@
         'data/logistics_user_type.xml',
         'views/logistics_supplier.xml',
         'views/logistics_manage_warehouse.xml',
+        'views/logistics_edit_warehouse.xml',
         'views/logistics_manage_warehouse_portal_templates.xml',
         'views/logistics_manage_menu.xml',
         'views/logistics_portal_templates.xml',

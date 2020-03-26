@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="portal_my_warehouse_details">
+        <t t-call="portal.portal_layout">
+            <t t-set="additional_title">Your Warehouse Details</t>
+            <h3>Warehouse</h3>
+            <form t-attf-action="/manage/warehouse/edit/{{warehouse_id.id}}" method="post">
+                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                <div class="row o_portal_warehouse_details">
+                    <div class="col-lg-8">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div t-if="error_message" class="alert alert-danger" role="alert">
+                                    <t t-foreach="error_message" t-as="err">
+                                        <t t-esc="err"/>
+                                        <br/>
+                                    </t>
+                                </div>
+                            </div>
+                            <div t-attf-class="form-group #{error.get('warehouse_name') and 'o_has_error' or ''} col-xl-6">
+                                <label class="col-form-label" for="warehouse_name">Name</label>
+                                <input type="text" name="warehouse_name"
+                                       t-attf-class="form-control #{error.get('warehouse_name') and 'is-invalid' or ''}"
+                                       t-att-value="warehouse_name or warehouse_id.name"/>
+                            </div>
+                            <div t-attf-class="form-group #{error.get('warehouse_code') and 'o_has_error' or ''} col-xl-6">
+                                <label class="col-form-label" for="warehouse_code">Code</label>
+                                <input type="text" name="warehouse_code"
+                                       t-attf-class="form-control #{error.get('warehouse_code') and 'is-invalid' or ''}"
+                                       t-att-value="warehouse_code or warehouse_id.code"/>
+                            </div>
+
+                            <div t-attf-class="form-group #{error.get('location_name') and 'o_has_error' or ''} col-xl-6">
+                                <label class="col-form-label" for="location_name">Location</label>
+                                <input type="text" name="location_name"
+                                       id="location_name"
+                                       t-attf-class="form-control #{error.get('location_name') and 'is-invalid' or ''}"
+                                       t-att-value="location_name or warehouse_id.location_name"/>
+                                <script type="text/javascript">
+                                    //输入提示
+                                    let auto_complete = new AMap.Autocomplete({
+                                    input: "location_name"
+                                    });
+                                </script>
+                            </div>
+
+                            <div t-attf-class="form-group #{error.get('service_area') and 'o_has_error' or ''} col-xl-6">
+                                <label class="col-form-label" for="service_area">Service area</label>
+                                <input type="text" name="service_area"
+                                       t-attf-class="form-control #{error.get('service_area') and 'is-invalid' or ''}"
+                                       t-att-value="service_area or warehouse_id.service_area"/>
+                            </div>
+
+                        </div>
+                        <div class="clearfix">
+                            <button type="submit" class="btn btn-primary float-right mb32 ">
+                                Confirm
+                                <span class="fa fa-long-arrow-right"/>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </t>
+    </template>
+</odoo>
