@@ -11,4 +11,4 @@ class StockWarehouse(models.Model):
     _name = 'stock.warehouse'
     _inherit = ['stock.warehouse', 'portal.mixin']
 
-    belong_partner_id = fields.Many2one('res.partner', 'Belong')
+    belong_partner_id = fields.Many2one('res.partner', 'Belong', default=lambda self: self.env.user.partner_id.id)
