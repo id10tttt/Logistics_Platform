@@ -5,7 +5,7 @@
     'summary': 'Website vendor',
     'description': """Website vendor""",
     'author': '1di0t',
-    "depends": ['base', 'website', 'auth_signup', 'product', 'website_sale', 'auto_fill', 'route_network'],
+    "depends": ['base', 'website', 'auth_signup', 'product', 'website_sale', 'auto_fill', 'route_network', 'stock'],
     'data': [
         'security/ir.model.access.csv',
         'security/website_vendor.xml',
