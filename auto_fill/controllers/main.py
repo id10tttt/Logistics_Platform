@@ -36,7 +36,7 @@ class GetMatchingRecords(http.Controller):
         if not value:
             return []
         data = {
-            'key': config.get('gaode_map_key_id'),
+            'key': config.get('gaode_map_web_service_key'),
             'keywords': value
         }
         res = requests.get(url=url, params=data)
