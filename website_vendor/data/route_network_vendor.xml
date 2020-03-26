@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="website_vendor.route_network_vendor" model="ir.rule">
+            <field name="name">Network vendor (partner)</field>
+            <field name="model_id" ref="route_network.model_route_network_vendor"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="domain_force">[('partner_id', '=', user.partner_id.id)]</field>
+            <field name="groups" eval="[(4, ref('website_vendor.logistics_supplier_group'))]"/>
+        </record>
+    </data>
+</odoo>

@@ -5,7 +5,7 @@
     'summary': 'Website vendor',
     'description': """Website vendor""",
     'author': '1di0t',
-    "depends": ['base', 'website', 'auth_signup', 'product', 'website_sale', 'auto_fill'],
+    "depends": ['base', 'website', 'auth_signup', 'product', 'website_sale', 'auto_fill', 'route_network'],
     'data': [
         'security/ir.model.access.csv',
         'security/website_vendor.xml',
@@ -13,6 +13,8 @@
         'views/website_signup.xml',
         'views/res_partner.xml',
         'data/logistics_user_type.xml',
+        'data/stock_warehouse.xml',
+        'data/route_network_vendor.xml',
         'views/logistics_supplier.xml',
         'views/logistics_manage_warehouse.xml',
         'views/logistics_edit_warehouse.xml',

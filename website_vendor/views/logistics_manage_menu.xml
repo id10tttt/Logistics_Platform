@@ -5,10 +5,6 @@
                   groups="logistics_supplier_group,base.group_portal"
                   web_icon="website_vendor,static/description/icon.png"/>
 
-        <menuitem id="product_manage_root" name="Product" parent="logistics_manage_menu"/>
-        <menuitem id="product_manage_menu_id" name="Products" parent="product_manage_root"
-                  action="product.product_template_action"/>
-
         <menuitem id="route_network_menu_root" name="Route" parent="logistics_manage_menu"/>
         <menuitem id="route_network_menu_id" name="Route" parent="route_network_menu_root"
                   action="route_network.route_network_vendor_action"/>
