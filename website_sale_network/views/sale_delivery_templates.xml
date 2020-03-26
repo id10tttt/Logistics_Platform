@@ -20,15 +20,15 @@
                        t-att-autofocus="'autofocus'"/>
             </div>
 
-<!--            <script type="text/javascript"-->
-<!--                    src="https://webapi.amap.com/maps?v=1.4.15&amp;key=30a60cbd0f9e2825703208a9decff925&amp;plugin=AMap.Autocomplete"></script>-->
-<!--            <script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script>-->
-<!--            <script type="text/javascript">-->
-<!--                //输入提示-->
-<!--                var auto = new AMap.Autocomplete({-->
-<!--                    input: "tipinput"-->
-<!--                });-->
-<!--            </script>-->
+            <script type="text/javascript">
+                //输入提示
+                let auto_complete_to_location_name = new AMap.Autocomplete({
+                    input: "to_location_name",
+                });
+                let auto_complete_from_location_name = new AMap.Autocomplete({
+                    input: "from_location_name",
+                });
+            </script>
         </xpath>
     </template>
 </odoo>

@@ -7,4 +7,18 @@
                     src="/website_sale_network/static/src/js/website_sale_delivery.js"></script>
         </xpath>
     </template>
+    <template id="website_web_assets_backend" inherit_id="web.assets_backend" name="long_lat">
+        <xpath expr="." position="inside">
+            <t t-set="web_service_key" t-value="request.env['ir.config_parameter'].sudo().get_param_from_config_file('gaode_map_web_service_key')"/>
+            <script type="text/javascript"
+                    src="https://webapi.amap.com/maps?v=1.4.15&amp;key={{web_service_key}}"></script>
+        </xpath>
+    </template>
+    <template id="assets_frontend_logistics" inherit_id="web.assets_frontend" name="Sale frontend assets">
+        <xpath expr="." position="inside">
+            <t t-set="web_key" t-value="request.env['ir.config_parameter'].sudo().get_param_from_config_file('gaode_mao_web_key')"/>
+            <script type="text/javascript"
+                    t-attf-src="https://webapi.amap.com/maps?v=1.4.15&amp;key={{web_key}}&amp;plugin=AMap.Autocomplete"></script>
+        </xpath>
+    </template>
 </odoo>

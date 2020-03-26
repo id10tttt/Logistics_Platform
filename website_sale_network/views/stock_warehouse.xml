@@ -23,9 +23,41 @@
 
                     <group>
                         <group>
-                            <field name="location_name" widget="auto_fill"/>
+                            <field name="location_name" widget="auto_fill" id="lnglat_value"/>
                         </group>
                     </group>
+                </xpath>
+                <xpath expr="//notebook" position="after">
+                    <group>
+                        <div>
+                            <script type="text/javascript"
+                                    src="https://cache.amap.com/lbs/static/addToolbar.js"></script>
+                            <style type="text/css">
+                                .map{
+                                height: 300px;
+                                width: 300px;
+                                float: left;
+                                }
+                            </style>
+                            <div id="gaode_container" class="map"></div>
+<!--                            <div class="input-card">-->
+<!--                                <h4>左击获取经纬度：</h4>-->
+<!--                                <div class="input-item">-->
+<!--                                    <input type="text" id="lnglat"/>-->
+<!--                                </div>-->
+<!--                            </div>-->
+                            <script type="text/javascript">
+                                let map = new AMap.Map('gaode_container');
+                                console.log('hello ', map);
+
+                                map.on('click', function (e) {
+                                    console.log(e);
+                                    $('input[name=location_name]')[0].value = e.lnglat.getLng() + ',' + e.lnglat.getLat()
+                                });
+                            </script>
+                        </div>
+                    </group>
+
                 </xpath>
             </field>
         </record>
