@@ -23,7 +23,7 @@ def get_long_lat_value(name):
     })
     res = requests.get(url=url, params=parameters)
     if res.status_code == 200:
-        geocodes_value = res.json().get('geocodes')[0]
+        geocodes_value = res.json().get('geocodes')[0] if res.json().get('geocodes', False) else False
         if not geocodes_value:
             return False, False
         location_info = geocodes_value.get('location')
