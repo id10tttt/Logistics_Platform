@@ -15,50 +15,48 @@
                             <field name="location_lat" readonly="1"/>
                         </group>
                     </group>
-                    <group>
-                        <group>
-                            <field name="service_area"/>
-                        </group>
-                    </group>
 
                     <group>
                         <group>
                             <field name="location_name" widget="auto_fill" id="lnglat_value"/>
                         </group>
+                        <group>
+                            <field name="service_area"/>
+                        </group>
                     </group>
                 </xpath>
-<!--                <xpath expr="//notebook" position="after">-->
-<!--                    <group>-->
-<!--                        <div>-->
-<!--                            <script type="text/javascript"-->
-<!--                                    src="https://cache.amap.com/lbs/static/addToolbar.js"></script>-->
-<!--                            <style type="text/css">-->
-<!--                                .map{-->
-<!--                                height: 300px;-->
-<!--                                width: 300px;-->
-<!--                                float: left;-->
-<!--                                }-->
-<!--                            </style>-->
-<!--                            <div id="gaode_container" class="map"></div>-->
-<!--&lt;!&ndash;                            <div class="input-card">&ndash;&gt;-->
-<!--&lt;!&ndash;                                <h4>左击获取经纬度：</h4>&ndash;&gt;-->
-<!--&lt;!&ndash;                                <div class="input-item">&ndash;&gt;-->
-<!--&lt;!&ndash;                                    <input type="text" id="lnglat"/>&ndash;&gt;-->
-<!--&lt;!&ndash;                                </div>&ndash;&gt;-->
-<!--&lt;!&ndash;                            </div>&ndash;&gt;-->
-<!--                            <script type="text/javascript">-->
-<!--                                let map = new AMap.Map('gaode_container');-->
-<!--                                console.log('hello ', map);-->
+                <!--                <xpath expr="//notebook" position="after">-->
+                <!--                    <group>-->
+                <!--                        <div>-->
+                <!--                            <script type="text/javascript"-->
+                <!--                                    src="https://cache.amap.com/lbs/static/addToolbar.js"></script>-->
+                <!--                            <style type="text/css">-->
+                <!--                                .map{-->
+                <!--                                height: 300px;-->
+                <!--                                width: 300px;-->
+                <!--                                float: left;-->
+                <!--                                }-->
+                <!--                            </style>-->
+                <!--                            <div id="gaode_container" class="map"></div>-->
+                <!--&lt;!&ndash;                            <div class="input-card">&ndash;&gt;-->
+                <!--&lt;!&ndash;                                <h4>左击获取经纬度：</h4>&ndash;&gt;-->
+                <!--&lt;!&ndash;                                <div class="input-item">&ndash;&gt;-->
+                <!--&lt;!&ndash;                                    <input type="text" id="lnglat"/>&ndash;&gt;-->
+                <!--&lt;!&ndash;                                </div>&ndash;&gt;-->
+                <!--&lt;!&ndash;                            </div>&ndash;&gt;-->
+                <!--                            <script type="text/javascript">-->
+                <!--                                let map = new AMap.Map('gaode_container');-->
+                <!--                                console.log('hello ', map);-->
 
-<!--                                map.on('click', function (e) {-->
-<!--                                    console.log(e);-->
-<!--                                    $('input[name=location_name]')[0].value = e.lnglat.getLng() + ',' + e.lnglat.getLat()-->
-<!--                                });-->
-<!--                            </script>-->
-<!--                        </div>-->
-<!--                    </group>-->
+                <!--                                map.on('click', function (e) {-->
+                <!--                                    console.log(e);-->
+                <!--                                    $('input[name=location_name]')[0].value = e.lnglat.getLng() + ',' + e.lnglat.getLat()-->
+                <!--                                });-->
+                <!--                            </script>-->
+                <!--                        </div>-->
+                <!--                    </group>-->
 
-<!--                </xpath>-->
+                <!--                </xpath>-->
             </field>
         </record>
     </data>
