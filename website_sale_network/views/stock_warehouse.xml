@@ -25,9 +25,6 @@
                         <group>
                             <field name="location_name" widget="auto_fill" id="lnglat_value"/>
                         </group>
-                        <group>
-                            <field name="belong_partner_id" readonly="1"/>
-                        </group>
                     </group>
                 </xpath>
 <!--                <xpath expr="//notebook" position="after">-->

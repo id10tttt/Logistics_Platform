@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <data>
-        <record id="website_vendor.stock_warehouse_partner_id" model="ir.rule">
-            <field name="name">Warehouse (partner)</field>
-            <field name="model_id" ref="model_stock_warehouse"/>
-            <field name="perm_create" eval="1"/>
-            <field name="perm_read" eval="1"/>
-            <field name="perm_unlink" eval="1"/>
-            <field name="perm_write" eval="1"/>
-            <field name="domain_force">[('belong_partner_id', '=', user.partner_id.id)]</field>
-            <field name="groups" eval="[(4, ref('logistics_supplier_group'))]"/>
-        </record>
+<!--        <record id="website_vendor.stock_warehouse_partner_id" model="ir.rule">-->
+<!--            <field name="name">Warehouse (partner)</field>-->
+<!--            <field name="model_id" ref="model_stock_warehouse"/>-->
+<!--            <field name="perm_create" eval="1"/>-->
+<!--            <field name="perm_read" eval="1"/>-->
+<!--            <field name="perm_unlink" eval="1"/>-->
+<!--            <field name="perm_write" eval="1"/>-->
+<!--            <field name="domain_force">[('belong_partner_id', '=', user.partner_id.id)]</field>-->
+<!--            <field name="groups" eval="[(4, ref('logistics_supplier_group'))]"/>-->
+<!--        </record>-->
 
         <record id="stock_warehouse_manage" model="ir.model.access">
             <field name="name">Warehouse</field>

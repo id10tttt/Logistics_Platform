@@ -36,7 +36,7 @@
                     <tr>
                         <td>
                             <a t-att-href="warehouse_id.get_portal_url()">
-                                <t t-esc="warehouse_id.belong_partner_id.name"/>
+                                <t t-esc="warehouse_id.partner_id.display_name"/>
                             </a>
                         </td>
                         <td class="text-right">

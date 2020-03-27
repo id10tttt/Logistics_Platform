@@ -28,15 +28,16 @@ class LogisticsManageWarehouse(http.Controller):
 
             warehouse_obj = request.env['stock.warehouse'].sudo()
             warehouse_id = warehouse_obj.search([
-                ('belong_partner_id', '=', current_partner_id),
+                '|',
+                ('partner_id', '=', current_partner_id),
+                ('partner_id.parent_id', '=', current_partner_id),
                 ('code', '=', warehouse_code)
             ])
 
             tmp_delivery_data = {
-                'belong_partner_id': current_partner_id,
+                'partner_id': current_partner_id,
                 'name': warehouse_name,
                 'code': warehouse_code,
-                'location_name': warehouse_location_name,
                 'service_area': warehouse_service_area,
             }
 

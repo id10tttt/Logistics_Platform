@@ -49,7 +49,9 @@ class CustomerPortal(CustomerPortal):
             ('vendor_id.partner_id', '=', partner.commercial_partner_id.id),
         ])
         warehouse_count = stock_warehouse_obj.search_count([
-            ('belong_partner_id', '=', partner.commercial_partner_id.id)
+            '|',
+            ('partner_id', '=', partner.commercial_partner_id.id),
+            ('partner_id.parent_id', '=', partner.commercial_partner_id.id)
         ])
         values.update({
             'delivery_count': quotation_count,
@@ -112,7 +114,7 @@ class CustomerPortal(CustomerPortal):
         })
         return request.render("website_vendor.portal_my_delivery_id", values)
 
-    # 运力
+    # 仓库信息
     @http.route(['/my/warehouse_manage', '/my/warehouse_manage/page/<int:page>'], type='http', auth="user",
                 website=True)
     def portal_my_warehouse_manage(self, page=1, date_begin=None, date_end=None, sortby=None, **kw):
@@ -122,7 +124,9 @@ class CustomerPortal(CustomerPortal):
         stock_warehouse_obj = request.env['stock.warehouse'].sudo()
 
         domain = [
-            ('belong_partner_id', '=', partner.commercial_partner_id.id),
+            '|',
+            ('partner_id', '=', partner.commercial_partner_id.id),
+            ('partner_id.parent_id', '=', partner.commercial_partner_id.id)
         ]
 
         searchbar_sortings = {

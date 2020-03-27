@@ -350,3 +350,8 @@ msgstr ""
 msgid "the name and field_name must be unique!"
 msgstr "field_name 这个字段必须唯一"
 
+#. module: stock
+#: model:ir.model.fields,field_description:stock.field_stock_warehouse__partner_id
+msgid "Address"
+msgstr "地点"
+
