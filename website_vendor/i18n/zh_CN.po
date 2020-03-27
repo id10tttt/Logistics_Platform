@@ -1,0 +1,352 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* website_vendor
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0-20200111\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-03-27 01:48+0000\n"
+"PO-Revision-Date: 2020-03-27 01:48+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: website_vendor
+#: model_terms:ir.ui.view,arch_db:website_vendor.logistics_signup
+msgid "Already\n"
+"                            have an account?"
+msgstr "已有帐号?"
+
+#. module: website_vendor
+#: model_terms:ir.ui.view,arch_db:website_vendor.logistics_supplier_manage_success
+#: model_terms:ir.ui.view,arch_db:website_vendor.logistics_warehouse_manage_success
+msgid "Back to create"
+msgstr "返回登录"
+
+#. module: website_vendor
+#: model:ir.model.fields,field_description:website_vendor.field_stock_warehouse__belong_partner_id
+msgid "Belong"
+msgstr "拥有者"
+
+#. module: website_vendor
+#: code:addons/website_vendor/controllers/portal.py:130
+#: model_terms:ir.ui.view,arch_db:website_vendor.logistics_warehouse_manage
+#: model_terms:ir.ui.view,arch_db:website_vendor.portal_my_warehouse_details
+#: model_terms:ir.ui.view,arch_db:website_vendor.portal_my_warehouse_id
+#, python-format
+msgid "Code"
+msgstr "代码"
+
+#. module: website_vendor
+#: model_terms:ir.ui.view,arch_db:website_vendor.portal_my_warehouse_details
+msgid "Confirm\n"
+"                                <span class=\"fa fa-long-arrow-right\"/>"
+msgstr "确认\n"
+"<span class=\"fa fa-long-arrow-right\"/>"
+
+#. module: website_vendor
+#: model:ir.model,name:website_vendor.model_res_partner
+msgid "Contact"
+msgstr "联系人"
+
+#. module: website_vendor
+#: model_terms:ir.ui.view,arch_db:website_vendor.logistics_supplier_manage
+#: model_terms:ir.ui.view,arch_db:website_vendor.logistics_warehouse_manage
+msgid "Create"
+msgstr "创建"
+
+#. module: website_vendor
+#: model:ir.model.fields,field_description:website_vendor.field_logistics_user_type__create_uid
+msgid "Created by"
+msgstr "创建人"
+
+#. module: website_vendor
+#: model:ir.model.fields,field_description:website_vendor.field_logistics_user_type__create_date
+msgid "Created on"
+msgstr "创建时间"
+
+#. module: website_vendor
+#: model_terms:ir.ui.view,arch_db:website_vendor.portal_my_warehouse_id
+msgid "Delete"
+msgstr "刪除"
+
+#. module: website_vendor
+#: model_terms:ir.ui.view,arch_db:website_vendor.portal_my_delivery_id
+#: model_terms:ir.ui.view,arch_db:website_vendor.portal_my_home_logistics_manage
+msgid "Delivery"
+msgstr "交货"
+
+#. module: website_vendor
+#: model_terms:ir.ui.view,arch_db:website_vendor.portal_my_delivery_id
+msgid "Delivery #"
+msgstr ""
+
+#. module: website_vendor
+#: model_terms:ir.ui.view,arch_db:website_vendor.logistics_supplier_manage
+msgid "Delivery type"
+msgstr "交货类型"
+
+#. module: website_vendor
+#: model_terms:ir.ui.view,arch_db:website_vendor.logistics_supplier_manage
+msgid "Delivery type..."
+msgstr "交货类型。。。"
+
+#. module: website_vendor
+#: model:ir.model.fields,field_description:website_vendor.field_logistics_user_type__display_name
+msgid "Display Name"
+msgstr "显示名称"
+
+#. module: website_vendor
+#: model_terms:ir.ui.view,arch_db:website_vendor.portal_my_warehouse_id
+msgid "Edit"
+msgstr "编辑"
+
+#. module: website_vendor
+#: code:addons/website_vendor/controllers/portal.py:73
+#: model_terms:ir.ui.view,arch_db:website_vendor.portal_my_delivery_id
+#, python-format
+msgid "From"
+msgstr "从"
+
+#. module: website_vendor
+#: model_terms:ir.ui.view,arch_db:website_vendor.logistics_supplier_manage
+msgid "From warehouse"
+msgstr "源仓库"
+
+#. module: website_vendor
+#: model_terms:ir.ui.view,arch_db:website_vendor.logistics_supplier_manage
+msgid "From..."
+msgstr "从。。。"
+
+#. module: website_vendor
+#: model:ir.model.fields,field_description:website_vendor.field_logistics_user_type__id
+msgid "ID"
+msgstr ""
+
+#. module: website_vendor
+#: model:ir.model.fields,field_description:website_vendor.field_logistics_user_type____last_update
+msgid "Last Modified on"
+msgstr "最后修改日"
+
+#. module: website_vendor
+#: model:ir.model.fields,field_description:website_vendor.field_logistics_user_type__write_uid
+msgid "Last Updated by"
+msgstr "最后更新者"
+
+#. module: website_vendor
+#: model:ir.model.fields,field_description:website_vendor.field_logistics_user_type__write_date
+msgid "Last Updated on"
+msgstr "最后更新时间"
+
+#. module: website_vendor
+#: code:addons/website_vendor/controllers/portal.py:131
+#: model_terms:ir.ui.view,arch_db:website_vendor.logistics_warehouse_manage
+#: model_terms:ir.ui.view,arch_db:website_vendor.portal_my_warehouse_details
+#: model_terms:ir.ui.view,arch_db:website_vendor.portal_my_warehouse_id
+#, python-format
+msgid "Location"
+msgstr "位置"
+
+#. module: website_vendor
+#: model:ir.module.category,name:website_vendor.logistics_security_category
+#: model_terms:ir.ui.view,arch_db:website_vendor.portal_logistics_manage_id
+#: model:website.menu,name:website_vendor.menu_logistics_supplier
+msgid "Logistics"
+msgstr "物流"
+
+#. module: website_vendor
+#: model:res.groups,name:website_vendor.logistics_supplier_group
+#: selection:res.partner,user_type:0
+msgid "Logistics Supplier"
+msgstr "物流供应商"
+
+#. module: website_vendor
+#: model:res.groups,name:website_vendor.logistics_user_group
+#: selection:res.partner,user_type:0
+msgid "Logistics User"
+msgstr "物流用户"
+
+#. module: website_vendor
+#: model:ir.ui.menu,name:website_vendor.logistics_manage_menu
+msgid "Logistics manage"
+msgstr "物流管理"
+
+#. module: website_vendor
+#: model_terms:ir.ui.view,arch_db:website_vendor.portal_my_warehouse_id
+msgid "Manage"
+msgstr "管理"
+
+#. module: website_vendor
+#: code:addons/website_vendor/controllers/portal.py:129
+#: model:ir.model.fields,field_description:website_vendor.field_logistics_user_type__name
+#: model_terms:ir.ui.view,arch_db:website_vendor.logistics_warehouse_manage
+#: model_terms:ir.ui.view,arch_db:website_vendor.portal_my_warehouse_details
+#: model_terms:ir.ui.view,arch_db:website_vendor.portal_my_warehouse_id
+#, python-format
+msgid "Name"
+msgstr "名称"
+
+#. module: website_vendor
+#: code:addons/website_vendor/controllers/main.py:35
+#, python-format
+msgid "Passwords do not match; please retype them."
+msgstr "密码不匹配，请重新输入！"
+
+#. module: website_vendor
+#: code:addons/website_vendor/controllers/portal.py:75
+#, python-format
+msgid "Price"
+msgstr "金额"
+
+#. module: website_vendor
+#: model_terms:ir.ui.view,arch_db:website_vendor.portal_my_delivery_id
+msgid "Product"
+msgstr "产品"
+
+#. module: website_vendor
+#: model_terms:ir.ui.view,arch_db:website_vendor.portal_my_delivery_id
+msgid "Property"
+msgstr "属性"
+
+#. module: website_vendor
+#: model_terms:ir.ui.view,arch_db:website_vendor.logistics_supplier_manage
+msgid "Property type"
+msgstr "属性类型"
+
+#. module: website_vendor
+#: model_terms:ir.ui.view,arch_db:website_vendor.logistics_supplier_manage
+msgid "Property type..."
+msgstr "属性类型。。。"
+
+#. module: website_vendor
+#: model:ir.ui.menu,name:website_vendor.route_network_menu_id
+#: model:ir.ui.menu,name:website_vendor.route_network_menu_root
+msgid "Route"
+msgstr "路由"
+
+#. module: website_vendor
+#: model_terms:ir.ui.view,arch_db:website_vendor.logistics_warehouse_manage
+#: model_terms:ir.ui.view,arch_db:website_vendor.portal_my_warehouse_details
+#: model_terms:ir.ui.view,arch_db:website_vendor.portal_my_warehouse_id
+msgid "Service area"
+msgstr "服务区域(公里)"
+
+#. module: website_vendor
+#: model_terms:ir.ui.view,arch_db:website_vendor.logistics_signup
+msgid "Sign up"
+msgstr "注册"
+
+#. module: website_vendor
+#: model_terms:ir.ui.view,arch_db:website_vendor.logistics_supplier_manage_success
+#: model_terms:ir.ui.view,arch_db:website_vendor.logistics_warehouse_manage_success
+msgid "Success"
+msgstr "成功"
+
+#. module: website_vendor
+#: code:addons/website_vendor/controllers/logistics_manage_warehouse.py:59
+#: code:addons/website_vendor/controllers/logistics_supplier.py:73
+#: code:addons/website_vendor/controllers/main.py:33
+#, python-format
+msgid "The form was not properly filled in."
+msgstr "请正确填写表单"
+
+#. module: website_vendor
+#: model_terms:ir.ui.view,arch_db:website_vendor.portal_my_delivery_id
+msgid "There are currently no delivery_ids for your account."
+msgstr "您现在没有此类数据"
+
+#. module: website_vendor
+#: model_terms:ir.ui.view,arch_db:website_vendor.portal_my_warehouse_id
+msgid "There are currently no warehouse_ids for your account."
+msgstr "您还没有配置仓库"
+
+#. module: website_vendor
+#: code:addons/website_vendor/controllers/portal.py:74
+#: model_terms:ir.ui.view,arch_db:website_vendor.portal_my_delivery_id
+#, python-format
+msgid "To"
+msgstr "至"
+
+#. module: website_vendor
+#: model_terms:ir.ui.view,arch_db:website_vendor.logistics_supplier_manage
+msgid "To warehouse"
+msgstr "目的仓库"
+
+#. module: website_vendor
+#: model_terms:ir.ui.view,arch_db:website_vendor.logistics_supplier_manage
+msgid "To..."
+msgstr "至。。。"
+
+#. module: website_vendor
+#: model_terms:ir.ui.view,arch_db:website_vendor.extra_auth_signup_fields
+#: model_terms:ir.ui.view,arch_db:website_vendor.portal_my_delivery_id
+msgid "Type"
+msgstr "类型"
+
+#. module: website_vendor
+#: model_terms:ir.ui.view,arch_db:website_vendor.extra_auth_signup_fields
+msgid "Type..."
+msgstr "类型。。。"
+
+#. module: website_vendor
+#: model:ir.model.fields,field_description:website_vendor.field_res_partner__user_type
+#: model:ir.model.fields,field_description:website_vendor.field_res_users__user_type
+msgid "User Type"
+msgstr "用户类型"
+
+#. module: website_vendor
+#: model:ir.model,name:website_vendor.model_res_users
+msgid "Users"
+msgstr "用户"
+
+#. module: website_vendor
+#: model_terms:ir.ui.view,arch_db:website_vendor.logistics_supplier_manage_success
+#: model_terms:ir.ui.view,arch_db:website_vendor.logistics_warehouse_manage_success
+msgid "View"
+msgstr "视图"
+
+#. module: website_vendor
+#: model:ir.model,name:website_vendor.model_stock_warehouse
+#: model:ir.ui.menu,name:website_vendor.warehouse_manage_menu_id
+#: model:ir.ui.menu,name:website_vendor.warehouse_manage_root
+#: model_terms:ir.ui.view,arch_db:website_vendor.portal_my_home_logistics_warehouse_manage
+#: model_terms:ir.ui.view,arch_db:website_vendor.portal_my_warehouse_details
+#: model_terms:ir.ui.view,arch_db:website_vendor.portal_my_warehouse_id
+#: model:website.menu,name:website_vendor.menu_logistics_warehouse_manage
+msgid "Warehouse"
+msgstr "仓库"
+
+#. module: website_vendor
+#: model_terms:ir.ui.view,arch_db:website_vendor.portal_my_warehouse_id
+msgid "Warehouse #"
+msgstr ""
+
+#. module: website_vendor
+#: model:ir.model,name:website_vendor.model_website
+msgid "Website"
+msgstr "网站"
+
+#. module: website_vendor
+#: model_terms:ir.ui.view,arch_db:website_vendor.portal_my_warehouse_details
+msgid "Your Warehouse Details"
+msgstr "您的仓库明细"
+
+#. module: website_vendor
+#: model:ir.model.fields,field_description:website_vendor.field_logistics_user_type__field_name
+msgid "field"
+msgstr "字段"
+
+#. module: website_vendor
+#: model:ir.model,name:website_vendor.model_logistics_user_type
+msgid "logistics.user.type"
+msgstr ""
+
+#. module: website_vendor
+#: sql_constraint:logistics.user.type:0
+msgid "the name and field_name must be unique!"
+msgstr "field_name 这个字段必须唯一"
+

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0-20200111\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-19 05:13+0000\n"
-"PO-Revision-Date: 2020-03-19 05:13+0000\n"
+"POT-Creation-Date: 2020-03-27 01:50+0000\n"
+"PO-Revision-Date: 2020-03-27 01:50+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -23,7 +23,7 @@ msgstr "根据规则"
 #. module: delivery_carrier
 #: model:ir.model,name:delivery_carrier.model_delivery_carrier
 msgid "Delivery Methods"
-msgstr "物流方式"
+msgstr "交货方式"
 
 #. module: delivery_carrier
 #: selection:delivery.carrier,delivery_type:0
@@ -32,8 +32,6 @@ msgstr "固定价格"
 
 #. module: delivery_carrier
 #: selection:delivery.carrier,delivery_type:0
-#: model:ir.model.fields,field_description:delivery_carrier.field_delivery_carrier__network_id
-#: model_terms:ir.ui.view,arch_db:delivery_carrier.view_delivery_carrier_form_with_provider_network
 msgid "Network"
 msgstr "网络"
 
