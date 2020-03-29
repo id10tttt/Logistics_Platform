@@ -7,9 +7,13 @@
 # 列出所有的 stock picking
 picking_type_id = message
 
-picking_type_id = env['stock.picking.type'].sudo().browse(picking_type_id)
+if not terminal.get_tmp_value('picking_type_id', False):
+    terminal.update_tmp_values({'picking_type_id': picking_type_id})
+
+# 使用cache 参数
+picking_type_id = env['stock.picking.type'].sudo().browse(terminal.get_tmp_value('picking_type_id'))
 picking_ids = env['stock.picking'].sudo().search([
-    ('picking_type_id', '=', message)
+    ('picking_type_id', '=', terminal.get_tmp_value('picking_type_id'))
 ])
 
 res = [

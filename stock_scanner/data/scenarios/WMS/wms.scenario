@@ -12,6 +12,10 @@
     <Step id="picking_type_id" name="Picking type" no_back="False" step_back="True" step_start="False"
           step_stop="False"/>
     <Step id="stock_picking" name="Picking" no_back="False" step_back="False" step_start="False" step_stop="False"/>
+    <Step id="stock_move_list" name="Move line" no_back="False" step_back="False" step_start="False" step_stop="False"/>
+
+    <Step id="input_sku" name="SKU" no_back="False" step_back="False" step_start="False" step_stop="False"/>
+
     <Step id="warehouse_exit" name="Exit" no_back="False" step_back="False" step_start="False" step_stop="True"/>
     <Transition condition="message!='exit'" from_id="warehouse_list"
                 id="scanner_scenario_warehouse_warehouse_list_picking_type"
@@ -25,5 +29,30 @@
     <Transition condition="True" from_id="picking_type_id"
                 id="picking_type_picking_ids"
                 name="Picking" sequence="0" to_id="stock_picking" tracer=""
+                transition_type="keyboard"/>
+
+    <Transition condition="True" from_id="stock_picking"
+                id="stock_picking_stock_move_list"
+                name="Move line" sequence="0" to_id="stock_move_list" tracer=""
+                transition_type="keyboard"/>
+
+    <Transition condition="message == 0" from_id="stock_move_list"
+                id="stock_move_list_stock_picking"
+                name="commit and return to stock picking" sequence="0" to_id="stock_picking" tracer=""
+                transition_type="keyboard"/>
+
+    <Transition condition="True" from_id="stock_move_list"
+                id="stock_move_list_input_sku"
+                name="Input sku" sequence="0" to_id="input_sku" tracer=""
+                transition_type="keyboard"/>
+
+    <Transition condition="terminal.check_sku_correct_or_not(terminal.get_tmp_value('sku_code'), message)" from_id="input_sku"
+                id="sku_verify_correct_stock_move_list"
+                name="Verified" sequence="0" to_id="stock_move_list" tracer=""
+                transition_type="keyboard"/>
+
+    <Transition condition="True" from_id="input_sku"
+                id="input_sku_sku_verify"
+                name="Verify error" sequence="0" to_id="input_sku" tracer=""
                 transition_type="keyboard"/>
 </scenario>

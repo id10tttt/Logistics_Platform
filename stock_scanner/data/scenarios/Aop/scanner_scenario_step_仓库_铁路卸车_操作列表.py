@@ -21,7 +21,6 @@ vin_scan_count = terminal.get_tmp_value('vin_scan_count', 0)
 
 res = [
     ('|','操作列表'),
-    
 ]
 
 lst = []
@@ -42,4 +41,3 @@ lst.append(('submit', '提交'))
 
 for item in lst:
     res.append((item[0], item[1]))
-    

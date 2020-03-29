@@ -801,3 +801,11 @@ class ScannerHardware(models.Model):
     def log(self, log_message):
         if self.log_enabled:
             _logger.info('[%s] %s' % (self.code, ustr(log_message)))
+
+    # 验证输入是否正确
+    @api.model
+    def check_sku_correct_or_not(self, sku_code, input_message):
+        if sku_code == input_message:
+            return 9
+        else:
+            return False
