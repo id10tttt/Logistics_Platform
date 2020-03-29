@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<scenario>
+    <id>scanner_scenario_warehouse</id>
+    <active>True</active>
+    <sequence>10</sequence>
+    <name>Warehouse</name>
+    <type>scenario</type>
+    <notes>Notes</notes>
+    <model_id>scanner.hardware</model_id>
+    <company_id>1</company_id>
+    <Step id="warehouse_list" name="Warehouse" no_back="False" step_back="True" step_start="True" step_stop="False"/>
+    <Step id="picking_type_id" name="Picking type" no_back="False" step_back="True" step_start="False"
+          step_stop="False"/>
+    <Step id="stock_picking" name="Picking" no_back="False" step_back="False" step_start="False" step_stop="False"/>
+    <Step id="warehouse_exit" name="Exit" no_back="False" step_back="False" step_start="False" step_stop="True"/>
+    <Transition condition="message!='exit'" from_id="warehouse_list"
+                id="scanner_scenario_warehouse_warehouse_list_picking_type"
+                name="Warehouse&gt;Picking type" sequence="0" to_id="picking_type_id" tracer=""
+                transition_type="keyboard"/>
+    <Transition condition="message=='exit'" from_id="picking_type_id"
+                id="scanner_scenario_warehouse_warehouse_list_exit"
+                name="Warehouse&gt;exit" sequence="0" to_id="warehouse_exit" tracer=""
+                transition_type="keyboard"/>
+
+    <Transition condition="True" from_id="picking_type_id"
+                id="picking_type_picking_ids"
+                name="Picking" sequence="0" to_id="stock_picking" tracer=""
+                transition_type="keyboard"/>
+</scenario>

@@ -52,7 +52,7 @@ if warehouse_id != cache_warehouse_id:
   })
   
   #上级仓库
-  parent_id = warehouse.parent_id.id
+  parent_id = warehouse.parent_id.id if hasattr(warehouse_id, 'parent_id') else False
   if parent_id:
     domain = [('id', '=', parent_id)]
     parent_warehouse = env['stock.warehouse'].sudo().search(domain, limit=1)
