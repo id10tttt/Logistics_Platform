@@ -27,7 +27,7 @@ if message == 0:
         for move_line in move_lines:
             sku_amount = sku_count.get(move_line.product_id.barcode)
 
-            if move_line_ids:
+            if move_line_ids and sku_amount:
                 move_line.move_line_ids[0].write({
                     'qty_done': sku_amount if sku_amount <= move_line.product_uom_qty else move_line.product_uom_qty
                 })
@@ -79,3 +79,10 @@ for picking_id in picking_ids:
     res.append(
         (picking_id.id, picking_id.name)
     )
+
+# if not picking_ids:
+#     act = 'M'
+#     res = [
+#         'All done',
+#         ''
+#     ]
