@@ -27,9 +27,9 @@ I18N_DEFAULT = 'en_US'
 
 NULL_CHAR = '\0'
 
-import gi
-
-gi.require_version('Notify', '0.7')
+# import gi
+#
+# gi.require_version('Notify', '0.7')
 
 # from gi.repository import Notify
 # Notify.init("App Name")
