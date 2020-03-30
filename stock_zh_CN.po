@@ -30,3 +30,10 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:stock.view_stock_quant_pivot
 msgid "Inventory"
 msgstr "物流网络"
+
+#. module: stock
+#: model_terms:ir.ui.view,arch_db:stock.stock_move_line_view_search
+#: model_terms:ir.ui.view,arch_db:stock.view_location_search
+#: selection:stock.picking.type,code:0
+msgid "Internal"
+msgstr "位置移动"
