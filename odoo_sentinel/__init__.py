@@ -31,8 +31,8 @@ import gi
 
 gi.require_version('Notify', '0.7')
 
-from gi.repository import Notify
-Notify.init("App Name")
+# from gi.repository import Notify
+# Notify.init("App Name")
 
 # _ will be initialized by gettext.install but declared to prevent pep8 issues
 _ = None
@@ -400,7 +400,7 @@ class Sentinel(object):
                     # No active scenario, select one
                     if not self.scenario_id:
                         (code, result, value) = self._select_scenario()
-                        Notify.Notification.new('main_loop code, result, value', '{} {} {}'.format(code, result, value)).show()
+                        # Notify.Notification.new('main_loop code, result, value', '{} {} {}'.format(code, result, value)).show()
                     else:
                         # Search for a step title
                         title = None
@@ -427,8 +427,8 @@ class Sentinel(object):
                             quantity = self._select_quantity(
                                 '\n'.join(result), '%g' % value,
                                 integer=(code == 'N'), title=title)
-                            Notify.Notification.new('main_loop quantity',
-                                                    '{}'.format(quantity)).show()
+                            # Notify.Notification.new('main_loop quantity',
+                            #                         '{}'.format(quantity)).show()
 
                             (code, result, value) = self.oerp_call('action',
                                                                    quantity)
@@ -436,8 +436,8 @@ class Sentinel(object):
                             # Confirmation query
                             confirm = self._confirm(
                                 '\n'.join(result), title=title)
-                            Notify.Notification.new('main_loop confirm',
-                                                    '{}'.format(confirm)).show()
+                            # Notify.Notification.new('main_loop confirm',
+                            #                         '{}'.format(confirm)).show()
                             (code, result, value) = self.oerp_call('action',
                                                                    confirm)
                         elif code == 'T':
@@ -454,7 +454,7 @@ class Sentinel(object):
                             text = self._input_text(
                                 '\n'.join(result), default=default,
                                 size=size, title=title)
-                            Notify.Notification.new('input', text).show()
+                            # Notify.Notification.new('input', text).show()
 
                             (code, result, value) = self.oerp_call('action',
                                                                    text, by_input=True)
@@ -768,7 +768,7 @@ class Sentinel(object):
                 title=title)
 
             if key == '\n':
-                Notify.Notification.new('_select_quantity {}'.format(quantity)).show()
+                # Notify.Notification.new('_select_quantity {}'.format(quantity)).show()
                 # Return key : Validate the choice
                 return float(quantity)
             elif key.isdigit():
@@ -855,7 +855,7 @@ class Sentinel(object):
 
                 if current_input_char in keys:
                     highlighted = keys.index(current_input_char)
-                    Notify.Notification.new('highlighted', str(highlighted)).show()
+                    # Notify.Notification.new('highlighted', str(highlighted)).show()
                 # if highlighted in keys:
                 #     highlighted = keys.index(highlighted) + 1
                 # Return key : Validate the choice
