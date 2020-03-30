@@ -4,8 +4,6 @@
 'Put the returned result or message in <res>, as a list of strings.'
 'Put the returned value in <val>, as an integer'
 
-print('tmp_values', terminal.tmp_values)
-
 # 当前的 stock.picking(xxx,)
 stock_picking_id = terminal.get_tmp_value('stock_picking_id', False)
 if stock_picking_id:
@@ -18,6 +16,12 @@ move_lines = picking_id.move_lines
 
 # 列出当前已经选择了的SKU code
 current_sku_code = terminal.get_tmp_value('sku_code', False)
+if not terminal.get_tmp_value(current_sku_code, False):
+    terminal.update_tmp_values({current_sku_code: 1})
+else:
+    terminal.update_tmp_values({
+        current_sku_code: terminal.get_tmp_value(current_sku_code) + 1
+    })
 
 res = [
     ('|', 'Move({0})'.format(picking_id.name))
@@ -31,7 +35,7 @@ if not terminal.get_tmp_value('stock_picking_id', False):
 for line_id in move_lines:
     if current_sku_code == line_id.product_id.barcode:
         res.append(
-            (line_id.id, 'Done: ' + line_id.product_id.barcode)
+            (line_id.id, 'Done: [{}], '.format(terminal.get_tmp_value(current_sku_code)) + line_id.product_id.barcode)
         )
         if not terminal.get_tmp_value('done_move_ids', False):
             terminal.update_tmp_values({
