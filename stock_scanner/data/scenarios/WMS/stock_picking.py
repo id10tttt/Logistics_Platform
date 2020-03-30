@@ -18,24 +18,35 @@ if message == 0:
 
         # step1
         move_lines = stock_picking_id.move_lines
+
+        # 如果存在 move_line_ids，则只需要进行修改，否则才创建
+
+        move_line_ids = move_lines.mapped('move_line_ids')
+
         create_move_line = []
         for move_line in move_lines:
             sku_amount = sku_count.get(move_line.product_id.barcode)
 
-            # 创建 move line
-            tmp = {
-                'picking_id': stock_picking_id.id,
-                'move_id': move_line.id,
-                'location_id': move_line.location_id.id,
-                'location_dest_id': move_line.location_dest_id.id,
-                'product_uom_qty': move_line.product_uom_qty,
-                'qty_done': sku_amount,
-                'product_id': move_line.product_id.id,
-                'product_uom_id': move_line.product_id.uom_id.id,
-            }
-            create_move_line.append(tmp)
-        # 创建
-        res = env['stock.move.line'].sudo().create(create_move_line)
+            if move_line_ids:
+                move_line.move_line_ids[0].write({
+                    'qty_done': sku_amount if sku_amount <= move_line.product_uom_qty else move_line.product_uom_qty
+                })
+            else:
+                # 创建 move line
+                tmp = {
+                    'picking_id': stock_picking_id.id,
+                    'move_id': move_line.id,
+                    'location_id': move_line.location_id.id,
+                    'location_dest_id': move_line.location_dest_id.id,
+                    'product_uom_qty': move_line.product_uom_qty,
+                    'qty_done': sku_amount,
+                    'product_id': move_line.product_id.id,
+                    'product_uom_id': move_line.product_id.uom_id.id,
+                }
+                create_move_line.append(tmp)
+        if create_move_line:
+            # 创建
+            res = env['stock.move.line'].sudo().create(create_move_line)
         no_back_order = env['stock.backorder.confirmation'].sudo().create({
             'pick_ids': [(6, 0, stock_picking_id.ids)]
         })
