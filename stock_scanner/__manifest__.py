@@ -35,9 +35,9 @@
         'views/scanner_scenario_transition.xml',
         'views/scanner_hardware.xml',
         'demo/stock_scanner_demo.xml',
-        'demo/Tutorial/Tutorial.scenario',
-        'demo/Tutorial/Step_types/Step_types.scenario',
-        'demo/Tutorial/Sentinel/Sentinel.scenario',
+        # 'demo/Tutorial/Tutorial.scenario',
+        # 'demo/Tutorial/Step_types/Step_types.scenario',
+        # 'demo/Tutorial/Sentinel/Sentinel.scenario',
     ],
     'demo': [
         'demo/stock_scanner_demo.xml',

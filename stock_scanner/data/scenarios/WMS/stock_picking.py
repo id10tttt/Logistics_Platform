@@ -4,6 +4,8 @@
 'Put the returned result or message in <res>, as a list of strings.'
 'Put the returned value in <val>, as an integer'
 
+terminal.clean_tmp_values(['sku_code', 'current_sku_code', 'sku_count', 'stock_picking_id', 'move_id'])
+
 # 列出所有的 stock picking
 picking_type_id = message
 
