@@ -241,6 +241,9 @@ class GetNeededInfo(http.Controller):
                              enumerate(all_warehouse_ids)]
             res_lng_lat = self.get_all_location_lng_lat(line_ids)
 
+            _logger.info({
+                'res_lng_lat': res_lng_lat
+            })
             # geo line 的显示
             line_data = geo_lines(res, location_info)
 
@@ -256,9 +259,6 @@ class GetNeededInfo(http.Controller):
     def get_all_location_lng_lat(self, line_ids):
         res = {}
 
-        line_ids = line_ids.filtered(
-            lambda x: not x.from_warehouse_id.location_long or not x.to_warehouse_id.location_long)
-
         all_warehouse_ids = self.get_all_warehouse_ids(line_ids)
 
         for warehouse_id in all_warehouse_ids:
@@ -271,7 +271,6 @@ class GetNeededInfo(http.Controller):
 
         with open('location.json', 'w') as f:
             f.write(json.dumps(res))
-            f.close()
         return res
 
     def get_all_warehouse_ids(self, line_ids):

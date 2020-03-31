@@ -93,15 +93,24 @@ class WebsiteSaleDeliveryNetwork(WebsiteSaleDelivery):
             'to_long': to_long,
             'to_lat': to_lat
         })
-        from_location_id = self.find_close_service_area(from_long, from_lat)
-        to_location_id = self.find_close_service_area(to_long, to_lat)
+        from_warehouse_id = self.find_close_service_area(from_long, from_lat)
+        to_warehouse_id = self.find_close_service_area(to_long, to_lat)
+        _logger.info({
+            'from_warehouse_id': from_warehouse_id,
+            'to_warehouse_id': to_warehouse_id
+        })
+        if from_warehouse_id and to_warehouse_id:
+            return from_warehouse_id.id, to_warehouse_id.id
         return 1, 1
 
     def find_close_service_area(self, from_long, from_lat):
         warehouse_ids = request.env['stock.warehouse'].sudo().search([])
 
         for warehouse_id in warehouse_ids:
-            distance_value = self.get_distance(from_long, from_lat, warehouse_id.location_long, warehouse_id.location_lat)
+            # distance_value = self.get_distance(from_long, from_lat, warehouse_id.location_long,
+            #                                    warehouse_id.location_lat)
+            distance_value = self.get_distance_by_gaode(from_long + ',' + from_lat,
+                                                        warehouse_id.location_long + ',' + warehouse_id.location_lat)
             if distance_value < warehouse_id.service_area:
                 return warehouse_id
         return False
@@ -115,9 +124,6 @@ class WebsiteSaleDeliveryNetwork(WebsiteSaleDelivery):
             'address': name,
             'key': config.get('gaode_map_web_service_key')
         }
-        _logger.info({
-            'parameters': parameters
-        })
         res = requests.get(url=url, params=parameters)
         if res.status_code == 200:
             geocodes_value = res.json().get('geocodes')[0]
@@ -146,3 +152,21 @@ class WebsiteSaleDeliveryNetwork(WebsiteSaleDelivery):
         distance = round(distance / 1000, 3)
 
         return distance
+
+    def get_distance_by_gaode(self, origins, destination):
+        parameters = {
+            'origins': origins,
+            'destination': destination,
+            'key': config.get('gaode_map_web_service_key'),
+            'type': 0
+        }
+        url = 'https://restapi.amap.com/v3/distance?parameters'
+        res = requests.get(url=url, params=parameters)
+        if res.status_code == 200:
+            distance_res = res.json().get('results')[0]
+            # _logger.info({
+            #     'distance_res': distance_res
+            # })
+            # 高德返回米， 转换成公里
+            return float(distance_res.get('distance')) / 1000
+        return 0

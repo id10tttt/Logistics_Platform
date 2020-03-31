@@ -35,6 +35,18 @@ class DeliveryCarrier(models.Model):
             route_network_obj = self.env['route.network']
             network_ids = route_network_obj.sudo().search([])
 
+            # 如果不存在记录，则创建一条
+            if not network_ids:
+                network_ids.create({
+                    'name': 'TEST-network',
+                    'partner_id': self.env.user.partner_id.id
+                })
+                network_ids = route_network_obj.sudo().search([])
+
+            _logger.info({
+                'network_ids': network_ids
+            })
+
             return_values = []
             for network_id in network_ids:
                 network_id.generate_all_delivery_network()
@@ -49,4 +61,4 @@ class DeliveryCarrier(models.Model):
             if return_values:
                 return sorted(return_values)[0]
             else:
-                return 0.0
+                return 987654
