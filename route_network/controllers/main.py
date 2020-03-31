@@ -9,7 +9,11 @@ import json
 from odoo.tools import config
 import logging
 from pyecharts import options as opts
-from pyecharts.charts import Geo, Bar
+from pyecharts.charts import Geo
+from pyecharts.charts import BMap
+from pyecharts.charts import Bar
+from pyecharts.faker import Faker
+from pyecharts.globals import GeoType
 from pyecharts.globals import ChartType, SymbolType
 
 _logger = logging.getLogger(__name__)
@@ -39,6 +43,26 @@ def get_long_lat_value(name):
         return False, False
 
 
+def get_baidu_map_line(new_location_line) -> BMap:
+    baidu_map_key = config.get('baidu_ak')
+    c = (
+        BMap()
+            .add_schema(baidu_ak=baidu_map_key, center=[120.13066322374, 30.240018034923])
+            .add(
+            "bmap",
+            new_location_line,
+            # [list(z) for z in zip(Faker.provinces, Faker.values())],
+            label_opts=opts.LabelOpts(formatter="{b}"),
+            type_=GeoType.LINES,
+            effect_opts=opts.EffectOpts(symbol=SymbolType.ARROW, symbol_size=6, color="purple"),
+            linestyle_opts=opts.LineStyleOpts(curve=0.2),
+        )
+            .set_global_opts(title_opts=opts.TitleOpts(title="BMap-网络"))
+    )
+    return c.dump_options_with_quotes()
+    # return c.dump_options()
+
+
 def geo_lines(new_location_line) -> Geo:
     c = (
         Geo()
@@ -52,7 +76,7 @@ def geo_lines(new_location_line) -> Geo:
             linestyle_opts=opts.LineStyleOpts(curve=0.2),
         )
             .set_series_opts(label_opts=opts.LabelOpts(is_show=False))
-            .set_global_opts(title_opts=opts.TitleOpts(title="Geo-Map-Lines"))
+            .set_global_opts(title_opts=opts.TitleOpts(title="网络"))
     )
     # c = (
     #     Geo()
@@ -88,7 +112,6 @@ def geo_lines(new_location_line) -> Geo:
 
 
 class GetNeededInfo(http.Controller):
-
     @http.route('/api/warehouse/all_warehouse_line', type="http", auth="none", methods=["GET"], csrf=False)
     def get_all_warehouse_line(self, **post):
         """
@@ -176,10 +199,11 @@ class GetNeededInfo(http.Controller):
             res_lng_lat = self.get_all_location_lng_lat(line_ids)
 
             line_data = geo_lines(res)
+            # line_data = get_baidu_map_line(res)
 
-            # _logger.info({
-            #     'line_data': line_data
-            # })
+            _logger.info({
+                'line_data': line_data
+            })
             return line_data
 
     # 获取所有位置的经纬度
@@ -194,8 +218,12 @@ class GetNeededInfo(http.Controller):
         all_warehouse_ids = list(set(all_from_warehouse + all_to_warehouse))
 
         for warehouse_id in all_warehouse_ids:
-            warehouse_lng, warehouse_lnt = get_long_lat_value(warehouse_id.name)
-            res[warehouse_id.name] = [warehouse_lng, warehouse_lnt]
+            # 如果仓库已经存在经纬度，则不需要从高德获取，直接读取
+            if warehouse_id.location_long:
+                res[warehouse_id.name] = [warehouse_id.location_long, warehouse_id.location_lat]
+            else:
+                warehouse_lng, warehouse_lnt = get_long_lat_value(warehouse_id.name)
+                res[warehouse_id.name] = [warehouse_lng, warehouse_lnt]
 
         with open('location.json', 'w') as f:
             f.write(json.dumps(res))
