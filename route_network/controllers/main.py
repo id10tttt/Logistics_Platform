@@ -97,13 +97,13 @@ def geo_lines(new_location_line, location_info) -> Geo:
             .add_schema(maptype="china")
             .add_coordinate_json(json_file='location.json')
             .add(
-                "destination",
+                "仓库",
                 location_info,
                 type_=ChartType.EFFECT_SCATTER,
                 color="#ADD8E6",
             )
             .add(
-                "geo",
+                "线路",
                 new_location_line,
                 type_=ChartType.LINES,
                 effect_opts=opts.EffectOpts(symbol=SymbolType.ARROW, symbol_size=3, color="purple", is_show=True),

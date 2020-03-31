@@ -164,7 +164,12 @@ msgstr "最后更新时间"
 #: model:ir.model.fields,field_description:route_network.field_route_network_vendor__line_ids
 #: model_terms:ir.ui.view,arch_db:route_network.view_route_network_vendor_form
 msgid "Line"
-msgstr "行"
+msgstr "明细"
+
+#. module: route_network
+#: model_terms:ir.ui.view,arch_db:route_network.view_route_network_vendor_form
+msgid "View Network"
+msgstr "网络"
 
 #. module: route_network
 #: model:ir.model.fields,field_description:route_network.field_route_network__name
