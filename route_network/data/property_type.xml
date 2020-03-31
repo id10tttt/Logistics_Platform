@@ -2,10 +2,12 @@
 <odoo>
     <data>
         <record id="route_network.property_type_weight" model="route.network.delivery.property.type">
-            <field name="name">Weight</field>
+<!--            <field name="name">Weight</field>-->
+            <field name="name">公斤</field>
         </record>
         <record id="route_network.property_type_volume" model="route.network.delivery.property.type">
-            <field name="name">Volume</field>
+<!--            <field name="name">Volume</field>-->
+            <field name="name">立方米</field>
         </record>
     </data>
 </odoo>
