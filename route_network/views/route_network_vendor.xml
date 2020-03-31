@@ -53,6 +53,11 @@
                                 <field name="partner_id" options="{'no_quick_create': True, 'no_create_edit': True}"/>
                             </group>
                         </group>
+                        <group>
+                            <group>
+                                <field name="product_id" options="{'no_quick_create': True, 'no_create_edit': True}"/>
+                            </group>
+                        </group>
                         <notebook>
                             <page string="Line">
                                 <field name="line_ids">

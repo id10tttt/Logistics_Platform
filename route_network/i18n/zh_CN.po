@@ -206,6 +206,11 @@ msgid "Partner"
 msgstr "业务伙伴"
 
 #. module: route_network
+#: model:ir.model.fields,field_description:route_network.field_route_network_vendor__product_id
+msgid "Product"
+msgstr "服务产品"
+
+#. module: route_network
 #: model:ir.model.fields,field_description:route_network.field_route_network__path_id
 #: model:ir.model.fields,field_description:route_network.field_route_network_shortest_path_warehouse__path_id
 msgid "Path"

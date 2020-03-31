@@ -19,6 +19,8 @@ class RouteNetworkVendor(models.Model):
     name = fields.Char('Name', required=True)
     partner_id = fields.Many2one('res.partner', 'Partner', required=True)
 
+    product_id = fields.Many2one('product.product', domain="[('type', '=', 'service')]", string='Product')
+
     line_ids = fields.One2many('route.network.delivery', 'vendor_id', string='Line')
 
 
