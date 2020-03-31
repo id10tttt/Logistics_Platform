@@ -7,6 +7,7 @@
     'author': '1di0t',
     "depends": ['base', 'stock', 'portal', 'product'],
     'data': [
+        'views/assets.xml',
         'security/ir.model.access.csv',
         'views/route_network.xml',
         'views/route_network_vendor.xml',

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="website_web_assets_backend_echarts" inherit_id="web.assets_backend" name="long_lat">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/route_network/static/src/js/echarts.min.js"></script>
+            <script type="text/javascript" src="/route_network/static/src/js/china.js"></script>
+        </xpath>
+    </template>
+</odoo>
