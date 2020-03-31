@@ -257,7 +257,7 @@ msgstr "网络"
 #. module: route_network
 #: model:ir.actions.act_window,name:route_network.route_network_vendor_action
 msgid "Route network vendor"
-msgstr "网络提供服务商"
+msgstr "网络管理"
 
 #. module: route_network
 #: model:ir.model.fields,field_description:route_network.field_route_network_rule_list__rule_id
