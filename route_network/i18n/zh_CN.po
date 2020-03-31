@@ -69,6 +69,11 @@ msgid "Delivery type"
 msgstr "配送类型"
 
 #. module: route_network
+#: model:ir.ui.menu,name:route_network.route_network_delivery_property_type
+msgid "Property type"
+msgstr "配送属性"
+
+#. module: route_network
 #: model:ir.model.fields,field_description:route_network.field_route_network__shortest_weight
 msgid "Dijkstra length"
 msgstr ""
@@ -250,7 +255,12 @@ msgstr ""
 #. module: route_network
 #: model:ir.actions.act_window,name:route_network.route_network_delivery_type_action
 msgid "Route delivery type"
-msgstr ""
+msgstr "配送类型"
+
+#. module: route_network
+#: model:ir.actions.act_window,name:route_network.route_network_delivery_property_type_action
+msgid "Route property type"
+msgstr "配送属性"
 
 #. module: route_network
 #: model:ir.actions.act_window,name:route_network.route_network_action

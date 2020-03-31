@@ -139,5 +139,18 @@
 
         <menuitem id="route_network_delivery_type" name="Delivery type" parent="stock.menu_warehouse_config"
                   action="route_network_delivery_type_action"/>
+
+        <record model="ir.actions.act_window" id="route_network_delivery_property_type_action">
+            <field name="name">Route property type</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">route.network.delivery.property.type</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+
+        <menuitem id="route_network_delivery_property_type" name="Property type" parent="stock.menu_warehouse_config"
+                  action="route_network_delivery_property_type_action"/>
     </data>
 </odoo>
