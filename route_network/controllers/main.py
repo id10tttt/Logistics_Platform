@@ -14,6 +14,7 @@ from pyecharts.charts import BMap
 from pyecharts.charts import Bar
 from pyecharts.faker import Faker
 from pyecharts.globals import GeoType
+from pyecharts.charts import Graph
 from pyecharts.globals import ChartType, SymbolType
 
 _logger = logging.getLogger(__name__)
@@ -43,22 +44,49 @@ def get_long_lat_value(name):
         return False, False
 
 
+# 网络的图示
+def get_graph_view(all_warehouse_name, all_warehouse_line) -> Graph:
+    nodes_data = [
+        opts.GraphNode(name=warehouse_id.name, symbol_size=10) for warehouse_id in all_warehouse_name
+    ]
+    links_data = [
+        opts.GraphLink(source=x[0], target=x[1], value=x[2]) for x in all_warehouse_line
+    ]
+
+    c = (
+        Graph()
+            .add(
+                "",
+                nodes_data,
+                links_data,
+                repulsion=8000,
+                edge_label=opts.LabelOpts(
+                    is_show=True, position="middle", formatter="{b}",
+                ),
+                edge_symbol='arrow',
+            )
+            .set_global_opts(title_opts=opts.TitleOpts(title="Graph-网络"))
+    )
+    return c.dump_options_with_quotes()
+
+
 def get_baidu_map_line(new_location_line) -> BMap:
     baidu_map_key = config.get('baidu_ak')
     c = (
         BMap()
             .add_schema(baidu_ak=baidu_map_key, center=[120.13066322374, 30.240018034923])
             .add(
-            "bmap",
-            new_location_line,
-            # [list(z) for z in zip(Faker.provinces, Faker.values())],
-            label_opts=opts.LabelOpts(formatter="{b}"),
-            type_=GeoType.LINES,
-            effect_opts=opts.EffectOpts(symbol=SymbolType.ARROW, symbol_size=6, color="purple"),
-            linestyle_opts=opts.LineStyleOpts(curve=0.2),
-        )
+                "bmap",
+                new_location_line,
+                # [list(z) for z in zip(Faker.provinces, Faker.values())],
+                # label_opts=opts.LabelOpts(formatter="{b}"),
+                type_=GeoType.LINES,
+                effect_opts=opts.EffectOpts(symbol=SymbolType.ARROW, symbol_size=6, color="purple"),
+                linestyle_opts=opts.LineStyleOpts(curve=0.2),
+            )
             .set_global_opts(title_opts=opts.TitleOpts(title="BMap-网络"))
     )
+    # return c.render_embed()
     return c.dump_options_with_quotes()
     # return c.dump_options()
 
@@ -75,13 +103,13 @@ def geo_lines(new_location_line, location_info) -> Geo:
                 color="#ADD8E6",
             )
             .add(
-            "geo",
-            new_location_line,
-            type_=ChartType.LINES,
-            effect_opts=opts.EffectOpts(symbol=SymbolType.ARROW, symbol_size=3, color="purple", is_show=True),
-            linestyle_opts=opts.LineStyleOpts(curve=0.2),
-        )
-            .set_series_opts(label_opts=opts.LabelOpts(is_show=False))
+                "geo",
+                new_location_line,
+                type_=ChartType.LINES,
+                effect_opts=opts.EffectOpts(symbol=SymbolType.ARROW, symbol_size=3, color="purple", is_show=True),
+                linestyle_opts=opts.LineStyleOpts(curve=0.2),
+            )
+            .set_series_opts(label_opts=opts.LabelOpts(is_show=True, position="middle", formatter="{b}"))
             .set_global_opts(title_opts=opts.TitleOpts(title="网络"))
     )
     # c = (
@@ -207,12 +235,15 @@ class GetNeededInfo(http.Controller):
                 'res': res
             })
             all_warehouse_ids = self.get_all_warehouse_ids(line_ids)
+            all_warehouse_line = [(x.from_warehouse_id.name, x.to_warehouse_id.name, x.unit_price) for x in line_ids]
+
             location_info = [(warehouse_id.name, warehouse_index) for warehouse_index, warehouse_id in
                              enumerate(all_warehouse_ids)]
             res_lng_lat = self.get_all_location_lng_lat(line_ids)
 
             line_data = geo_lines(res, location_info)
             # line_data = get_baidu_map_line(res)
+            # line_data = get_graph_view(all_warehouse_ids, all_warehouse_line)
 
             return line_data
 
