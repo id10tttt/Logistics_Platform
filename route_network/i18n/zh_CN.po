@@ -252,7 +252,7 @@ msgstr ""
 #: model:ir.ui.menu,name:route_network.route_network_id
 #: model:ir.ui.menu,name:route_network.route_network_menu_id
 msgid "Route network"
-msgstr "路由网络"
+msgstr "网络"
 
 #. module: route_network
 #: model:ir.actions.act_window,name:route_network.route_network_vendor_action
@@ -326,9 +326,13 @@ msgstr "类型"
 
 #. module: route_network
 #: model:ir.model.fields,field_description:route_network.field_route_network_delivery__vendor_id
-#: model:ir.ui.menu,name:route_network.route_network_vendor_id
 msgid "Vendor"
 msgstr "供应商"
+
+#. module: route_network
+#: model:ir.ui.menu,name:route_network.route_network_vendor_id
+msgid "Vendor Manage"
+msgstr "网络管理"
 
 #. module: route_network
 #: model:ir.model.fields,field_description:route_network.field_route_network_shortest_path_warehouse__warehouse_id

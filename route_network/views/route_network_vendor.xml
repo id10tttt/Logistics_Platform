@@ -124,7 +124,7 @@
             <field name="context">{}</field>
         </record>
 
-        <menuitem id="route_network_vendor_id" name="Vendor" parent="route_network_menu_id"
+        <menuitem id="route_network_vendor_id" name="Vendor Manage" parent="route_network_menu_id"
                   action="route_network_vendor_action"/>
 
         <record model="ir.actions.act_window" id="route_network_delivery_type_action">
@@ -137,7 +137,7 @@
             <field name="context">{}</field>
         </record>
 
-        <menuitem id="route_network_delivery_type" name="Delivery type" parent="route_network_menu_id"
+        <menuitem id="route_network_delivery_type" name="Delivery type" parent="stock.menu_warehouse_config"
                   action="route_network_delivery_type_action"/>
     </data>
 </odoo>
