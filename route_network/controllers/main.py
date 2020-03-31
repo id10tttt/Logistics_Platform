@@ -241,8 +241,13 @@ class GetNeededInfo(http.Controller):
                              enumerate(all_warehouse_ids)]
             res_lng_lat = self.get_all_location_lng_lat(line_ids)
 
+            # geo line 的显示
             line_data = geo_lines(res, location_info)
+
+            # TODO: 百度map显示
             # line_data = get_baidu_map_line(res)
+
+            # graph 显示
             # line_data = get_graph_view(all_warehouse_ids, all_warehouse_line)
 
             return line_data
