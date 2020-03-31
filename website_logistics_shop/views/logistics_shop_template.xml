@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!--    菜单-->
+    <record id="menu_logistics_shop" model="website.menu">
+        <field name="name">Logistics shop</field>
+        <field name="url">/logistics_shop</field>
+        <field name="parent_id" ref="website.main_menu"/>
+    </record>
+
+    <template id="search" name="Search Box">
+        <form t-att-action="keep('/logistics_shop'+ ('/category/'+slug(category)) if category else None, search=0)"
+              method="get" t-att-class="_classes">
+            <t t-if="attrib_values">
+                <t t-foreach="attrib_values" t-as="a">
+                    <input type="hidden" name="attrib" t-att-value="'%s-%s' % (a[0], a[1])"/>
+                </t>
+            </t>
+            <t t-call="website.website_search_box"/>
+        </form>
+    </template>
+
+    <template id="search count" inherit_id="website.website_search_box" active="False" customize_show="True"
+              name="Show # found">
+        <xpath expr="//button[hasclass('oe_search_button')]" position="inside">
+            <span t-if='search' class='oe_search_found'>
+                <small>(
+                    <t t-esc="search_count"/>
+                    found)
+                </small>
+            </span>
+        </xpath>
+    </template>
+
+    <template id="404">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="oe_structure oe_empty">
+                    <div class="container">
+                        <h1 class="mt32">Logistics Product not found!</h1>
+                        <p>Sorry, this Logistics product is not available anymore.</p>
+                        <p>
+                            <a t-attf-href="/logistics_shop">Return to the Logistics product list.</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <!-- Product item used by /shop and /shop/cart -->
+    <template id="products_item" name="Products item">
+        <t t-set="product_href"
+           t-value="keep('/logistics_shop/product/%s' % slug(product), page=(pager['page']['num'] if pager['page']['num']&gt;1 else None))"/>
+
+        <t t-set="combination_info"
+           t-value="product._get_combination_info(only_template=True, add_qty=add_qty or 1, pricelist=pricelist)"/>
+
+        <form action="/shop/cart/update" method="post">
+            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
+            <div itemscope="itemscope" itemtype="http://schema.org/Product">
+                <div class="ribbon-wrapper">
+                    <a href="#" role="button" class="ribbon btn btn-danger">Sale</a>
+                </div>
+                <div class="oe_product_image">
+                    <a itemprop="url" t-att-href="product_href">
+                        <span t-field="product.image" t-options="{'widget': 'image', 'resize': None if product_image_big else '300x300'}"/>
+                    </a>
+                </div>
+                <t t-if="show_publish">
+                    <div id="website_published_button" class="" groups="sales_team.group_sale_manager">
+                        <t t-call="website.publish_management">
+                            <t t-set="object" t-value="product" />
+                            <t t-set="publish_edit" t-value="True" />
+                            <t t-set="action" t-value="'product.product_template_action'" />
+                        </t>
+                    </div>
+                </t>
+                <section>
+                    <h6>
+                        <a itemprop="name" t-att-href="product_href" t-att-content="product.name" t-field="product.name" />
+                        <a role="button" t-if="not show_publish and not product.website_published" t-att-href="product_href" class="btn btn-secondary btn-sm btn-danger" title="This product is unpublished.">Unpublished</a>
+                    </h6>
+                    <div itemprop="offers" itemscope="itemscope" itemtype="http://schema.org/Offer" class="product_price">
+                        <b>
+                            <t t-if="True"><!-- compatibility 12.0 -->
+                                <del t-attf-class="text-danger mr8 {{'' if combination_info['has_discounted_price'] else 'd-none'}}" style="white-space: nowrap;" t-esc="combination_info['list_price']" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}" />
+                            </t>
+                            <span t-if="combination_info['price']" t-esc="combination_info['price']" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
+                            <span itemprop="price" style="display:none;" t-esc="combination_info['price']" />
+                            <span itemprop="priceCurrency" style="display:none;" t-esc="website.currency_id.name" />
+                        </b>
+                    </div>
+                </section>
+            </div>
+        </form>
+    </template>
+
+    <template id="products_description" inherit_id="website_logistics_shop.products_item" active="False" customize_show="True"
+              name="Product Description">
+        <xpath expr="//div[hasclass('product_price')]" position="before">
+            <div class="text-info oe_subdescription" contenteditable="false">
+                <div itemprop="description" t-field="product.description_sale"></div>
+            </div>
+        </xpath>
+    </template>
+
+    <!-- /logistics_shop product listing -->
+    <template id="logistics_products" name="Logistics Products">
+        <t t-call="website.layout">
+            <t t-set="additional_title">Logistics Shop</t>
+            <div id="wrap" class="logistics_js_sale">
+                <div class="oe_structure" id="oe_structure_website_logistics_products_1"/>
+                <div class="container py-2 oe_website_sale">
+                    <div class="products_pager form-inline justify-content-center">
+                        <t t-call="website_sale.search">
+                            <t t-set="_classes">o_website_sale_search</t>
+                        </t>
+                        <t t-call="website_sale.pricelist_list">
+                            <t t-set="_classes">ml-2</t>
+                        </t>
+                        <t t-call="website.pager">
+                            <t t-set="_classes">ml-2</t>
+                        </t>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="d-none" id="products_grid_before"></div>
+                        <div class="col-lg-12" id="products_grid">
+                            <table width="100%">
+                                <tbody>
+                                    <tr t-ignore="true">
+                                        <td t-foreach="range(0,rows)" t-as="row" t-attf-width="#{100/rows}%"></td>
+                                    </tr>
+                                    <tr t-foreach="bins" t-as="tr_product">
+                                        <t t-foreach="tr_product" t-as="td_product">
+                                            <t t-if="td_product">
+                                                <t t-set="product" t-value="td_product['product']"/>
+                                                <td t-att-colspan="td_product['x'] != 1 and td_product['x']"
+                                                    t-att-rowspan="td_product['y'] != 1 and td_product['y']"
+                                                    t-attf-class="oe_product oe_grid oe-height-#{td_product['y']*2} #{ td_product['class'] }">
+                                                    <div class="oe_product_cart"
+                                                         t-att-data-publish="product.website_published and 'on' or 'off'">
+                                                        <t t-set="product_image_big"
+                                                           t-value="td_product['x']+td_product['y'] &gt; 2"/>
+                                                        <t t-call="website_logistics_shop.products_item"/>
+                                                    </div>
+                                                </td>
+                                            </t>
+                                            <td t-if="not td_product" class="oe-height-2"/>
+                                        </t>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <t t-if="not bins">
+                                <div class="text-center text-muted oe_product">
+                                    <h3 class="css_editable_display mt8">No product defined.</h3>
+                                    <t t-if="search">
+                                        <p>
+                                            No results found for "<strong t-esc='search'/>".
+                                        </p>
+                                    </t>
+                                    <p groups="sales_team.group_sale_manager">Click <i>'New'</i> in the top-right corner
+                                        to create your first product.
+                                    </p>
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+                    <div class="products_pager form-inline justify-content-center mt-3">
+                        <t t-call="website.pager"/>
+                    </div>
+                </div>
+                <div class="oe_structure mb32" id="oe_structure_website_sale_products_2"/>
+            </div>
+        </t>
+    </template>
+
+    <template id="sort" inherit_id="website_logistics_shop.logistics_products" active="True" customize_show="True"
+              name="Show Sort by">
+        <xpath expr="//div[hasclass('products_pager')]/t[@t-call][last()]" position="after">
+            <t t-set="list_price_desc_label">Catalog price: High to Low</t>
+            <t t-set="list_price_asc_label">Catalog price: Low to High</t>
+            <t t-set="name_asc_label">Name - A to Z</t>
+            <t t-set="name_desc_label">Name - Z to A</t>
+            <t t-set="website_sale_sortable" t-value="[
+                (list_price_desc_label, 'list_price desc'),
+                (list_price_asc_label, 'list_price asc'),
+                (name_asc_label, 'name asc'),
+                (name_desc_label, 'name desc')
+            ]"/>
+            <t t-set="website_sale_sortable_current"
+               t-value="[sort for sort in website_sale_sortable if sort[1]==request.params.get('order', '')]"/>
+            <div class="dropdown ml-2 dropdown_sorty_by">
+                <a role="button" href="#" class="dropdown-toggle btn btn-secondary" data-toggle="dropdown">
+                    <t t-if='len(website_sale_sortable_current)'>
+                        <span>Sorting by :
+                            <t t-raw='website_sale_sortable_current[0][0]'/>
+                        </span>
+                    </t>
+                    <t t-else='1'>
+                        <span>Sort by</span>
+                    </t>
+                </a>
+                <div class="dropdown-menu" role="menu">
+                    <t t-foreach="website_sale_sortable" t-as="sortby">
+                        <a role="menuitem" rel="noindex,nofollow" t-att-href="keep('/logistics_shop', order=sortby[1])"
+                           class="dropdown-item">
+                            <span t-raw="sortby[0]"/>
+                        </a>
+                    </t>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+    <template id="logistics_product_info" name="Logistics Product">
+
+        <t t-set="first_possible_combination" t-value="product._get_first_possible_combination()"/>
+        <t t-set="combination_info"
+           t-value="product._get_combination_info(first_possible_combination, add_qty=add_qty or 1, pricelist=pricelist)"/>
+        <t t-set="product_variant" t-value="product.env['product.product'].browse(combination_info['product_id'])"/>
+
+        <t t-call="website.layout">
+            <t t-set="additional_title" t-value="product.name"/>
+            <div itemscope="itemscope" itemtype="http://schema.org/Product" id="wrap" class="logistics_js_shop">
+                <section
+                        t-attf-class="container py-2 oe_website_logistics_shop #{'discount' if combination_info['has_discounted_price'] else ''}"
+                        id="logistics_product_detail">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a t-att-href="keep(category=0)">Logistics Products</a>
+                                </li>
+                                <li t-if="category" class="breadcrumb-item">
+                                    <a t-att-href="keep('/logistics_shop/category/%s' % slug(category), category=0)"
+                                       t-field="category.name"/>
+                                </li>
+                                <li class="breadcrumb-item active">
+                                    <span t-field="product.name"/>
+                                </li>
+                            </ol>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="form-inline justify-content-end">
+                                <t t-call="website_logistics_shop.search">
+                                    <t t-set="search" t-value="False"/>
+                                </t>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <t t-set="variant_img" t-value="product_variant and product_variant.image_variant"/>
+                            <t t-set="image_ids" t-value="product.product_image_ids"/>
+                            <div id="o-carousel-product" class="carousel slide" data-ride="carousel" data-interval="0">
+                                <div class="carousel-outer">
+                                    <div class="carousel-inner">
+                                        <div t-if="variant_img" class="carousel-item active"
+                                             t-field="product_variant.image"
+                                             t-options="{'widget': 'image', 'class': 'product_detail_img js_variant_img', 'alt-field': 'name', 'zoom': 'image', 'unique': str(product['__last_update']) + (str(product_variant['__last_update']) or ''), 'itemprop': 'image'}"/>
+                                        <div t-attf-class="carousel-item#{'' if variant_img else ' active'}"
+                                             t-field="product.image"
+                                             t-options="{'widget': 'image', 'class': 'product_detail_img', 'alt-field': 'name', 'zoom': 'image', 'unique': product['__last_update'], 'itemprop': 'image'}"/>
+                                        <t t-if="len(image_ids)" t-foreach="image_ids" t-as="pimg">
+                                            <div class="carousel-item" t-field="pimg.image"
+                                                 t-options='{"widget": "image", "class": "product_detail_img", "alt-field": "name", "zoom": "image", "itemprop": "image"}'/>
+                                        </t>
+                                    </div>
+
+                                    <t t-if="len(image_ids) or variant_img">
+                                        <a class="carousel-control-prev" href="#o-carousel-product" role="button"
+                                           data-slide="prev">
+                                            <span class="fa fa-chevron-left" role="img" aria-label="Previous"
+                                                  title="Previous"/>
+                                        </a>
+                                        <a class="carousel-control-next" href="#o-carousel-product" role="button"
+                                           data-slide="next">
+                                            <span class="fa fa-chevron-right" role="img" aria-label="Next"
+                                                  title="Next"/>
+                                        </a>
+                                    </t>
+                                </div>
+
+                                <ol class="carousel-indicators" t-if="len(image_ids) or variant_img">
+                                    <li t-if="variant_img" data-target="#o-carousel-product" data-slide-to="0"
+                                        class="active">
+                                        <img class="img img-fluid js_variant_img_small"
+                                             t-attf-src="/website/image/product.product/{{product_variant.id}}/image/90x90"
+                                             t-att-alt="product.name"/>
+                                    </li>
+                                    <li data-target="#o-carousel-product"
+                                        t-att-data-slide-to="1 if variant_img else '0'"
+                                        t-att-class="'' if variant_img else 'active'">
+                                        <img class="img img-fluid"
+                                             t-attf-src="/website/image/product.template/{{product.id}}/image/90x90"
+                                             t-att-alt="product.name"/>
+                                    </li>
+                                    <t t-if="len(image_ids)" t-foreach="image_ids" t-as="pimg">
+                                        <li data-target="#o-carousel-product"
+                                            t-att-data-slide-to="pimg_index + (variant_img and 2 or 1)">
+                                            <img class="img img-fluid"
+                                                 t-attf-src="/website/image/product.image/{{pimg.id}}/image/90x90"
+                                                 t-att-alt="pimg.name"/>
+                                        </li>
+                                    </t>
+                                </ol>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-4 offset-xl-2" id="logistics_product_details">
+                            <h1 itemprop="name" t-field="product.name">Logistics Product Name</h1>
+                            <span itemprop="url" style="display:none;"
+                                  t-esc="'%slogistics_shop/product/%s' % (request.httprequest.url_root, slug(product))"/>
+                            <form t-if="product._is_add_to_cart_possible()" action="/logistics_shop/sale_order"
+                                  method="POST">
+                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                <div class="form-group field-from_location_name">
+                                    <label for="name">From location</label>
+                                    <input type="text" name="from_location_name" t-att-value="from_location_name"
+                                           id="from_location_name"
+                                           class="form-control form-control-sm"
+                                           required="required"
+                                           t-att-autofocus="'autofocus'"/>
+                                </div>
+
+                                <div class="form-group field-to_location_name">
+                                    <label for="name">To location</label>
+                                    <input type="text" name="to_location_name" t-att-value="to_location_name"
+                                           id="to_location_name"
+                                           class="form-control form-control-sm"
+                                           required="required"
+                                           t-att-autofocus="'autofocus'"/>
+                                </div>
+
+                                <t t-set="deliveries" t-value="website.get_all_delivery()"/>
+
+                                <t t-set="delivery_nb"
+                                   t-value="deliveries and len(deliveries)"/>
+                                <div t-if="delivery_nb == 1" id="delivery_carrier" class="mt4">
+                                    <b>Shipping Method:</b>
+                                    <t t-foreach="deliveries" t-as="delivery">
+                                        <t t-call="website_logistics_shop.payment_delivery_methods"/>
+                                    </t>
+                                </div>
+
+                                <div t-if="deliveries" id="delivery_carrier">
+                                    <t t-set="delivery_nb" t-value="len(deliveries)"/>
+                                    <h3 t-if="delivery_nb &gt; 1" class="mb24">Choose a delivery method</h3>
+                                    <div t-if="delivery_nb &gt; 1" class="card border-0" id="delivery_method">
+                                        <ul class="list-group">
+                                            <t t-foreach="deliveries" t-as="delivery">
+                                                <li class="list-group-item">
+                                                    <t t-call="website_logistics_shop.payment_delivery_methods"/>
+                                                </li>
+                                            </t>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <input type="hidden" name="delivery_amount" class="delivery_amount" id="delivery_amount"/>
+
+                                <a role="button" id="add_to_logistics_order"
+                                   class="btn btn-primary btn-lg mt8 js_check_product a-submit" href="#">下订单
+                                </a>
+
+                                <script type="text/javascript">
+                                    //输入提示
+                                    let auto_complete_to_location_name = new AMap.Autocomplete({
+                                    input: "to_location_name",
+                                    });
+                                    let auto_complete_from_location_name = new AMap.Autocomplete({
+                                    input: "from_location_name",
+                                    });
+                                </script>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+                <div itemprop="description" t-field="product.website_description" class="oe_structure mt16"
+                     id="product_full_description"/>
+            </div>
+        </t>
+    </template>
+
+    <template id="payment_delivery_methods">
+        <input t-att-value="delivery.id" t-att-id="'delivery_%i' % delivery.id" type="radio"
+               name="logistics_delivery_type"
+               t-att-class="'d-none' if delivery_nb == 1 else ''" t-att-checked="checked"/>
+        <label class="label-optional" t-field="delivery.name" t-att-for="'delivery_%i' % delivery.id"/>
+        <t t-set='badge_class' t-value="(delivery_nb != 1 and 'float-right ' or '') + 'badge badge-secondary'"/>
+        <t t-if="delivery.delivery_type == 'fixed'">
+            <span t-if="delivery.fixed_price > 0.0" t-att-class="badge_class">
+                <t t-esc="delivery.fixed_price"
+                   t-options='{"widget": "monetary", "from_currency": delivery.product_id.company_id.currency_id,
+                           "display_currency": delivery.company_id.currency_id}'/>
+            </span>
+            <span t-else="" t-att-class="badge_class">Free</span>
+        </t>
+        <t t-else="">
+            <span t-attf-class="#{badge_class} d-none" t-field="delivery.fixed_price"
+                  t-options='{"widget": "monetary", "from_currency": delivery.product_id.company_id.currency_id, "display_currency": delivery.company_id.currency_id}'/>
+            <span t-attf-class="#{badge_class} o_delivery_compute">Select to compute delivery rate</span>
+        </t>
+        <t t-if="delivery.website_description">
+            <div t-field="delivery.website_description" class="text-muted mt8"/>
+        </t>
+    </template>
+
+</odoo>

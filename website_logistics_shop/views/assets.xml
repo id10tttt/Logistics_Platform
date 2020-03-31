@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="assets_frontend_logistics_shop" inherit_id="web.assets_frontend" name="Sale frontend assets">
+        <xpath expr="." position="inside">
+            <t t-set="web_key"
+               t-value="request.env['ir.config_parameter'].sudo().get_param_from_config_file('gaode_mao_web_key')"/>
+            <script type="text/javascript"
+                    t-attf-src="https://webapi.amap.com/maps?v=1.4.15&amp;key={{web_key}}&amp;plugin=AMap.Autocomplete"></script>
+            <script type="text/javascript"
+                    src="/website_logistics_shop/static/src/js/logistics_shop.js"></script>
+        </xpath>
+    </template>
+</odoo>
