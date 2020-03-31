@@ -63,16 +63,22 @@ def get_baidu_map_line(new_location_line) -> BMap:
     # return c.dump_options()
 
 
-def geo_lines(new_location_line) -> Geo:
+def geo_lines(new_location_line, location_info) -> Geo:
     c = (
         Geo()
             .add_schema(maptype="china")
             .add_coordinate_json(json_file='location.json')
             .add(
+                "destination",
+                location_info,
+                type_=ChartType.EFFECT_SCATTER,
+                color="#ADD8E6",
+            )
+            .add(
             "geo",
             new_location_line,
             type_=ChartType.LINES,
-            effect_opts=opts.EffectOpts(symbol=SymbolType.ARROW, symbol_size=6, color="purple"),
+            effect_opts=opts.EffectOpts(symbol=SymbolType.ARROW, symbol_size=3, color="purple", is_show=True),
             linestyle_opts=opts.LineStyleOpts(curve=0.2),
         )
             .set_series_opts(label_opts=opts.LabelOpts(is_show=False))
@@ -162,6 +168,11 @@ class GetNeededInfo(http.Controller):
     def get_view_network_data(self, model_name=None, record_id=None, **post):
 
         if not record_id or not model_name:
+            location_info = [
+                ('成都', 1),
+                ('新疆乌鲁木齐', 2),
+                ('上海', 3)
+            ]
             res = [
                 ('成都', '北京'),
                 ('成都', '新疆乌鲁木齐'),
@@ -169,7 +180,7 @@ class GetNeededInfo(http.Controller):
                 ('上海', '北京'),
                 ('上海', '西藏')
             ]
-            line_data = geo_lines(res)
+            line_data = geo_lines(res, location_info)
 
             _logger.info({
                 'line_data': line_data
@@ -195,15 +206,14 @@ class GetNeededInfo(http.Controller):
             _logger.info({
                 'res': res
             })
-
+            all_warehouse_ids = self.get_all_warehouse_ids(line_ids)
+            location_info = [(warehouse_id.name, warehouse_index) for warehouse_index, warehouse_id in
+                             enumerate(all_warehouse_ids)]
             res_lng_lat = self.get_all_location_lng_lat(line_ids)
 
-            line_data = geo_lines(res)
+            line_data = geo_lines(res, location_info)
             # line_data = get_baidu_map_line(res)
 
-            _logger.info({
-                'line_data': line_data
-            })
             return line_data
 
     # 获取所有位置的经纬度
@@ -213,9 +223,7 @@ class GetNeededInfo(http.Controller):
         line_ids = line_ids.filtered(
             lambda x: not x.from_warehouse_id.location_long or not x.to_warehouse_id.location_long)
 
-        all_from_warehouse = line_ids.mapped('from_warehouse_id')
-        all_to_warehouse = line_ids.mapped('to_warehouse_id')
-        all_warehouse_ids = list(set(all_from_warehouse + all_to_warehouse))
+        all_warehouse_ids = self.get_all_warehouse_ids(line_ids)
 
         for warehouse_id in all_warehouse_ids:
             # 如果仓库已经存在经纬度，则不需要从高德获取，直接读取
@@ -227,4 +235,11 @@ class GetNeededInfo(http.Controller):
 
         with open('location.json', 'w') as f:
             f.write(json.dumps(res))
+            f.close()
         return res
+
+    def get_all_warehouse_ids(self, line_ids):
+        all_from_warehouse = line_ids.mapped('from_warehouse_id')
+        all_to_warehouse = line_ids.mapped('to_warehouse_id')
+        all_warehouse_ids = list(set(all_from_warehouse + all_to_warehouse))
+        return all_warehouse_ids
