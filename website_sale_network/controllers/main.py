@@ -61,7 +61,7 @@ class WebsiteSaleDeliveryNetwork(WebsiteSaleDelivery):
         from_location_name = post.get('from_location_name') if post.get('from_location_name', False) else False
         to_location_name = post.get('to_location_name') if post.get('to_location_name', False) else False
 
-        from_location_id, to_location_id = self.find_correct_belong_position(from_location_name, to_location_name)
+        from_warehouse_id, to_warehouse_id = self.find_correct_belong_position(from_location_name, to_location_name)
 
         currency = order.currency_id
         if order:
@@ -69,8 +69,8 @@ class WebsiteSaleDeliveryNetwork(WebsiteSaleDelivery):
                 'status': order.delivery_rating_success,
                 'error_message': order.delivery_message,
                 'carrier_id': carrier_id,
-                'from_location_id': from_location_id,
-                'to_location_id': to_location_id,
+                'from_location_id': from_warehouse_id.id,
+                'to_location_id': to_warehouse_id.id,
                 'new_amount_delivery': self._format_amount(order.amount_delivery, currency),
                 # 'new_amount_delivery': self._format_amount(new_amount_delivery, currency),
                 'new_amount_untaxed': self._format_amount(order.amount_untaxed, currency),
@@ -100,7 +100,7 @@ class WebsiteSaleDeliveryNetwork(WebsiteSaleDelivery):
             'to_warehouse_id': to_warehouse_id
         })
         if from_warehouse_id and to_warehouse_id:
-            return from_warehouse_id.id, to_warehouse_id.id
+            return from_warehouse_id, to_warehouse_id
         return 1, 1
 
     def find_close_service_area(self, from_long, from_lat):
