@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+import logging
+
+_logger = logging.getLogger(__name__)
 
 
 class Node:
@@ -238,4 +241,7 @@ g.connect(d, e, 9)
 g.connect(d, h, 17)
 g.connect(f, h, 6)
 
-print([(weight, [n.data for n in node]) for (weight, node) in g.dijkstra(a)])
+_logger.info({
+    'path': [(weight, [n.data for n in node]) for (weight, node) in g.dijkstra(a)]
+})
+
