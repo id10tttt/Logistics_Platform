@@ -46,7 +46,7 @@ class DeliveryCarrier(models.Model):
             _logger.info({
                 'network_ids': network_ids
             })
-            return_shortest_path = False
+            return_shortest_path = ''
             return_values = []
             for network_id in network_ids:
                 network_id.generate_all_delivery_network()
