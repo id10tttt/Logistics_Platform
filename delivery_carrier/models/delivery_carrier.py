@@ -66,4 +66,7 @@ class DeliveryCarrier(models.Model):
                 else:
                     return sorted(return_values)[0], return_shortest_path
             else:
-                return 987654
+                if shortest_path:
+                    return 0, 0
+                else:
+                    return 0
