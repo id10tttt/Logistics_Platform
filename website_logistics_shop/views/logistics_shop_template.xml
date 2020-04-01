@@ -251,7 +251,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <t t-set="variant_img" t-value="product_variant and product_variant.image_variant"/>
                             <t t-set="image_ids" t-value="product.product_image_ids"/>
                             <div id="o-carousel-product" class="carousel slide" data-ride="carousel" data-interval="0">
@@ -308,12 +308,11 @@
                                 </ol>
                             </div>
                         </div>
-                        <div class="col-md-6 col-xl-4 offset-xl-2" id="logistics_product_details">
+                        <div class="col-md-6 col-xl-6 offset-xl-2" id="logistics_product_details">
                             <h1 itemprop="name" t-field="product.name">Logistics Product Name</h1>
                             <span itemprop="url" style="display:none;"
                                   t-esc="'%slogistics_shop/product/%s' % (request.httprequest.url_root, slug(product))"/>
-                            <form t-if="product._is_add_to_cart_possible()" action="/logistics_shop/sale_order"
-                                  method="POST">
+                            <form role="form" method="POST" t-attf-action="/logistics_shop/sale_order/{{slug(product)}}">
                                 <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                                 <div class="form-group field-from_location_name">
                                     <label for="name">From location</label>
@@ -321,13 +320,30 @@
                                            id="from_location_name"
                                            class="form-control form-control-sm"
                                            required="required"
-                                           t-att-autofocus="'autofocus'"/>
+                                           t-att-autofocus="'autofocus'">
+                                        <label>
+                                            <span for="from_location_lnglat" id="from_location_lnglat"></span>
+                                        </label>
+                                    </input>
                                 </div>
 
                                 <div class="form-group field-to_location_name">
                                     <label for="name">To location</label>
                                     <input type="text" name="to_location_name" t-att-value="to_location_name"
                                            id="to_location_name"
+                                           class="form-control form-control-sm"
+                                           required="required"
+                                           t-att-autofocus="'autofocus'">
+                                        <label>
+                                            <span for="to_location_lnglat" id="to_location_lnglat"></span>
+                                        </label>
+                                    </input>
+                                </div>
+
+                                <div class="form-group field-product_weight">
+                                    <label for="name">Weight</label>
+                                    <input type="text" name="product_weight" t-att-value="product_weight"
+                                           id="product_weight"
                                            class="form-control form-control-sm"
                                            required="required"
                                            t-att-autofocus="'autofocus'"/>
@@ -358,19 +374,65 @@
                                     </div>
                                 </div>
 
-                                <input type="hidden" name="delivery_amount" class="delivery_amount" id="delivery_amount"/>
+                                <div class="form-group">
+                                    <div>
+                                        <label for="name">Route</label>
+                                        <ul class="list-group">
+                                            <li class="list-group-item">
+                                                <input id="shortest_weight"
+                                                       disabled="true"
+                                                       name="shortest_choice" type="radio">
+                                                    <label for="shortest_weight">Shortest weight: </label>
+                                                    <span id="shortest_weight_class" t-att-class="badge_class"></span>
+                                                </input>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <input id="shortest_distance" name="shortest_choice"
+                                                       disabled="true"
+                                                       type="radio">
+                                                    <label for="shortest_distance">Shortest distance: </label>
+                                                    <span id="shortest_distance_class" t-att-class="badge_class"></span>
+                                                </input>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <input id="fast_speed" name="shortest_choice"
+                                                       disabled="true"
+                                                       type="radio">
+                                                    <label for="">Fastest: </label>
+                                                    <span id="fast_speed_class" t-att-class="badge_class"></span>
+                                                </input>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+<!--                                <div class="form-group field-route_line">-->
+<!--                                    <label for="name">Route line</label>-->
+<!--                                    <input type="text" name="route_line" t-att-value="route_line" id="route_line"-->
+<!--                                           readonly="readonly"-->
+<!--                                           class="form-control form-control-sm"/>-->
+<!--                                </div>-->
 
-                                <a role="button" id="add_to_logistics_order"
-                                   class="btn btn-primary btn-lg mt8 js_check_product a-submit" href="#">下订单
-                                </a>
+                                <input type="hidden" name="delivery_amount" class="delivery_amount" readonly="readonly"
+                                       id="delivery_amount"/>
+
+<!--                                <a role="button" id="add_to_logistics_order"-->
+<!--                                   class="btn btn-primary btn-lg mt8 js_check_product a-submit"-->
+<!--                                   href="/logistics_shop/sale_order">下订单-->
+<!--                                </a>-->
+
+                                <div class="text-center oe_login_buttons pt-3">
+                                    <button type="submit" class="btn btn-primary btn-block">Create</button>
+                                </div>
 
                                 <script type="text/javascript">
+
                                     //输入提示
                                     let auto_complete_to_location_name = new AMap.Autocomplete({
-                                    input: "to_location_name",
+                                        input: "to_location_name",
                                     });
+
                                     let auto_complete_from_location_name = new AMap.Autocomplete({
-                                    input: "from_location_name",
+                                        input: "from_location_name",
                                     });
                                 </script>
                             </form>

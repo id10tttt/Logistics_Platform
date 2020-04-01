@@ -1,0 +1,218 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* website_logistics_shop
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0-20200328\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-04-01 05:53+0000\n"
+"PO-Revision-Date: 2020-04-01 05:53+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: website_logistics_shop
+#: model_terms:ir.ui.view,arch_db:website_logistics_shop.logistics_product_info
+msgid "<b>Shipping Method:</b>"
+msgstr ""
+
+#. module: website_logistics_shop
+#: model_terms:ir.ui.view,arch_db:website_logistics_shop.logistics_product_info
+msgid "<span class=\"fa fa-chevron-left\" role=\"img\" aria-label=\"Previous\" title=\"Previous\"/>"
+msgstr ""
+
+#. module: website_logistics_shop
+#: model_terms:ir.ui.view,arch_db:website_logistics_shop.logistics_product_info
+msgid "<span class=\"fa fa-chevron-right\" role=\"img\" aria-label=\"Next\" title=\"Next\"/>"
+msgstr ""
+
+#. module: website_logistics_shop
+#: model_terms:ir.ui.view,arch_db:website_logistics_shop.sort
+msgid "<span>Sort by</span>"
+msgstr "<span>排序方式</span>"
+
+#. module: website_logistics_shop
+#: model_terms:ir.ui.view,arch_db:website_logistics_shop.sort
+msgid "Catalog price: High to Low"
+msgstr "目录价格：从高到低"
+
+#. module: website_logistics_shop
+#: model_terms:ir.ui.view,arch_db:website_logistics_shop.sort
+msgid "Catalog price: Low to High"
+msgstr "目录价格：从低到高"
+
+#. module: website_logistics_shop
+#: model_terms:ir.ui.view,arch_db:website_logistics_shop.logistics_product_info
+msgid "Choose a delivery method"
+msgstr "选择配送方式"
+
+#. module: website_logistics_shop
+#: model_terms:ir.ui.view,arch_db:website_logistics_shop.logistics_products
+msgid "Click <i>'New'</i> in the top-right corner\n"
+"                                        to create your first product."
+msgstr ""
+
+#. module: website_logistics_shop
+#: model_terms:ir.ui.view,arch_db:website_logistics_shop.logistics_product_info
+msgid "Create"
+msgstr "创建订单"
+
+#. module: website_logistics_shop
+#: model:ir.model.fields,field_description:website_logistics_shop.field_sale_order__dest_location_name
+msgid "Dest"
+msgstr "目的位置"
+
+#. module: website_logistics_shop
+#: model_terms:ir.ui.view,arch_db:website_logistics_shop.logistics_product_info
+msgid "Fastest:"
+msgstr "速度最快"
+
+#. module: website_logistics_shop
+#: model_terms:ir.ui.view,arch_db:website_logistics_shop.payment_delivery_methods
+msgid "Free"
+msgstr "空闲"
+
+#. module: website_logistics_shop
+#: model_terms:ir.ui.view,arch_db:website_logistics_shop.logistics_product_info
+msgid "From location"
+msgstr "源位置"
+
+#. module: website_logistics_shop
+#: model_terms:ir.ui.view,arch_db:website_logistics_shop.logistics_product_info
+msgid "Logistics Product Name"
+msgstr "产品名字"
+
+#. module: website_logistics_shop
+#: model_terms:ir.ui.view,arch_db:website_logistics_shop.404
+msgid "Logistics Product not found!"
+msgstr "找不到产品"
+
+#. module: website_logistics_shop
+#: model_terms:ir.ui.view,arch_db:website_logistics_shop.logistics_product_info
+msgid "Logistics Products"
+msgstr "物流产品"
+
+#. module: website_logistics_shop
+#: model_terms:ir.ui.view,arch_db:website_logistics_shop.logistics_products
+msgid "Logistics Shop"
+msgstr "物流SHOP"
+
+#. module: website_logistics_shop
+#: model:website.menu,name:website_logistics_shop.menu_logistics_shop
+msgid "Logistics shop"
+msgstr "物流SHOP"
+
+#. module: website_logistics_shop
+#: model_terms:ir.ui.view,arch_db:website_logistics_shop.sort
+msgid "Name - A to Z"
+msgstr "名称 - A 到 Z"
+
+#. module: website_logistics_shop
+#: model_terms:ir.ui.view,arch_db:website_logistics_shop.sort
+msgid "Name - Z to A"
+msgstr "名称 - Z 到 A"
+
+#. module: website_logistics_shop
+#: model_terms:ir.ui.view,arch_db:website_logistics_shop.logistics_products
+msgid "No product defined."
+msgstr "没有产品定义。"
+
+#. module: website_logistics_shop
+#: model_terms:ir.ui.view,arch_db:website_logistics_shop.logistics_products
+msgid "No results found for \""
+msgstr "找不到结果 \""
+
+#. module: website_logistics_shop
+#: model_terms:ir.ui.view,arch_db:website_logistics_shop.404
+msgid "Return to the Logistics product list."
+msgstr "返回物流产品列表"
+
+#. module: website_logistics_shop
+#: model_terms:ir.ui.view,arch_db:website_logistics_shop.logistics_product_info
+msgid "Route"
+msgstr "路线"
+
+#. module: website_logistics_shop
+#: model_terms:ir.ui.view,arch_db:website_logistics_shop.products_item
+msgid "Sale"
+msgstr "销售"
+
+#. module: website_logistics_shop
+#: model:ir.model,name:website_logistics_shop.model_sale_order
+msgid "Sale Order"
+msgstr "销售订单"
+
+#. module: website_logistics_shop
+#: model_terms:ir.ui.view,arch_db:website_logistics_shop.payment_delivery_methods
+msgid "Select to compute delivery rate"
+msgstr "选择计算交货率"
+
+#. module: website_logistics_shop
+#: model_terms:ir.ui.view,arch_db:website_logistics_shop.logistics_product_info
+msgid "Shortest distance:"
+msgstr "距离最短"
+
+#. module: website_logistics_shop
+#: model_terms:ir.ui.view,arch_db:website_logistics_shop.logistics_product_info
+msgid "Shortest weight:"
+msgstr "价格最低"
+
+#. module: website_logistics_shop
+#: model_terms:ir.ui.view,arch_db:website_logistics_shop.404
+msgid "Sorry, this Logistics product is not available anymore."
+msgstr "对不起，当前不可用！"
+
+#. module: website_logistics_shop
+#: model_terms:ir.ui.view,arch_db:website_logistics_shop.sort
+msgid "Sorting by :"
+msgstr "排序方式："
+
+#. module: website_logistics_shop
+#: model:ir.model.fields,field_description:website_logistics_shop.field_sale_order__src_location_name
+msgid "Source"
+msgstr "源位置"
+
+#. module: website_logistics_shop
+#: model_terms:ir.ui.view,arch_db:website_logistics_shop.products_item
+msgid "This product is unpublished."
+msgstr "产品尚未发布。"
+
+#. module: website_logistics_shop
+#: model_terms:ir.ui.view,arch_db:website_logistics_shop.logistics_product_info
+msgid "To location"
+msgstr "目的位置"
+
+#. module: website_logistics_shop
+#: model_terms:ir.ui.view,arch_db:website_logistics_shop.products_item
+msgid "Unpublished"
+msgstr "未发布"
+
+#. module: website_logistics_shop
+#: model:ir.model,name:website_logistics_shop.model_website
+msgid "Website"
+msgstr "网站"
+
+#. module: website_logistics_shop
+#: model_terms:ir.ui.view,arch_db:website_logistics_shop.logistics_product_info
+msgid "Weight"
+msgstr "重量"
+
+#. module: website_logistics_shop
+#: model_terms:ir.ui.view,arch_db:website_logistics_shop.search count
+msgid "found)"
+msgstr "已找到）"
+
+#. module: website_logistics_shop
+#: model_terms:ir.ui.view,arch_db:website_logistics_shop.logistics_products
+msgid "ml-2"
+msgstr ""
+
+#. module: website_logistics_shop
+#: model_terms:ir.ui.view,arch_db:website_logistics_shop.logistics_products
+msgid "o_website_sale_search"
+msgstr ""
+

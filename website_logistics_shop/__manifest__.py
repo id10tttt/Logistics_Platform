@@ -6,7 +6,9 @@
     'author': '1di0t',
     "depends": ['base', 'website', 'website_sale', 'auto_fill', 'route_network', 'stock', 'website_sale_network'],
     'data': [
+        'data/product_product.xml',
         'views/assets.xml',
+        'views/sale_order.xml',
         'views/logistics_shop_template.xml'
     ],
     'qweb': [

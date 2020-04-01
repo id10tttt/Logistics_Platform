@@ -13,8 +13,8 @@ class SaleOrder(models.Model):
     def _check_from_to_warehouse(self, from_warehouse_id=None, to_warehouse_id=None):
         try:
             self.write({
-                'from_warehouse_id': from_warehouse_id,
-                'to_warehouse_id': to_warehouse_id
+                'from_warehouse_id': from_warehouse_id.id,
+                'to_warehouse_id': to_warehouse_id.id
             })
         except Exception as e:
             pass

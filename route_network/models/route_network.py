@@ -214,7 +214,7 @@ class RouteNetwork(models.Model):
             # self.shortest_note = shortest_note
 
             self.shortest_weight = shortest_dijkstra_path_length if shortest_dijkstra_path_length else 0.0
-            self.shortest_note = list(shortest_path) if shortest_path else False
+            self.shortest_note = '->'.join(x for x in shortest_path) if shortest_path else False
         except Exception as e:
             raise UserError(e)
 

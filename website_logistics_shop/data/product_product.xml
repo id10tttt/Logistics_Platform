@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="1">
+        <record id="product_unit_product" model="product.product">
+            <field name="name">单元产品</field>
+            <field name="sale_ok">True</field>
+            <field name="purchase_ok">True</field>
+            <field name="barcode">TEST_UNIT_PRODUCT</field>
+            <field name="type">product</field>
+            <field name="list_price">0.0</field>
+        </record>
+    </data>
+</odoo>

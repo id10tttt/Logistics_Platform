@@ -174,21 +174,82 @@ class LogisticsShop(WebsiteSaleDeliveryNetwork):
         }
         return request.render("website_logistics_shop.logistics_product_info", values)
 
-    @http.route(['/logistics_shop/sale_order'], type='http', auth="public", methods=['POST'], website=True, csrf=False)
-    def create_sale_order(self, **post):
+    @http.route(['/logistics_shop/sale_order/<int:service_product_id>'], type='http', auth="public", website=True, methods=['POST'])
+    def logistics_create_sale_order(self, service_product_id=None, **post):
 
-        order = request.website.sale_get_order()
         _logger.info({
-            'order': order
+            'logistics_create_sale_order post': post
         })
+        # order = request.website.sale_get_order()
         if post:
-            from_location_name = post.get('from_location_name', False)
-            to_location_name = post.get('to_location_name')
-        _logger.info({
-            'post': post
-        })
+
+            service_product_id = request.env['product.product'].browse(service_product_id)
+
+            self.create_sale_order(post, service_product_id)
 
         return request.redirect('/logistics_shop')
+
+    # 创建销售订单
+    def create_sale_order(self, post, service_product_id):
+        """
+        创建销售订单
+        :return:
+        """
+        current_partner_id = request.env.user.partner_id
+        from_location_name = post.get('from_location_name', False)
+        to_location_name = post.get('to_location_name', False)
+        delivery_carrier_id = post.get('logistics_delivery_type', False)
+        delivery_weight = post.get('product_weight')
+        delivery_amount = post.get('delivery_amount')
+
+        from_warehouse_id, to_warehouse_id = self.find_correct_belong_position(
+            from_location_name,
+            to_location_name
+        )
+
+        order_obj = request.env['sale.order'].sudo()
+        data = {
+            'partner_id': current_partner_id.id,
+            'partner_invoice_id': current_partner_id.id,
+            'partner_shipping_id': current_partner_id.id,
+            'carrier_id': delivery_carrier_id,
+            'from_warehouse_id': from_warehouse_id.id,
+            'to_warehouse_id': to_warehouse_id.id,
+            'src_location_name': from_location_name,
+            'dest_location_name': to_location_name
+        }
+
+        order_line_data = self.parse_sale_order_line_data(service_product_id, delivery_weight, delivery_amount)
+
+        data.update({
+            'order_line': order_line_data
+        })
+
+        _logger.info({
+            'data': data
+        })
+        sale_order_id = order_obj.create(data)
+
+    # 订单行
+    def parse_sale_order_line_data(self, service_product_id, delivery_weight, delivery_amount):
+        unit_product_id = request.env['product.product'].sudo().search([
+            ('barcode', '=', 'TEST_UNIT_PRODUCT')
+        ])
+        service_product_data = {
+            'product_id': service_product_id.id,
+            'name': service_product_id.name,
+            'product_uom': service_product_id.uom_id.id,
+            'product_uom_qty': 1,
+            'price_unit': delivery_amount
+        }
+        unit_product_data = {
+            'product_id': unit_product_id.id,
+            'name': unit_product_id.name,
+            'product_uom': unit_product_id.uom_id.id,
+            'product_uom_qty': delivery_weight
+        }
+        data = [(0, 0, service_product_data), (0, 0, unit_product_data)]
+        return data
 
     @http.route(['/logistics/delivery_price'], type='json', auth='public', methods=['POST'], website=True, csrf=False)
     def get_logistics_delivery_price(self, **post):
@@ -209,10 +270,23 @@ class LogisticsShop(WebsiteSaleDeliveryNetwork):
                 to_location_name
             )
 
-            price_total = carrier_id.get_price_from_netwrok_by_warehouse(from_warehouse_id, to_warehouse_id)
+            price_total, shortest_path = carrier_id.get_price_from_netwrok_by_warehouse(
+                from_warehouse_id,
+                to_warehouse_id,
+                shortest_path=True
+            )
+
+            # 返回经纬度 get_long_lat_value
+            from_lng, from_lat = self.get_long_lat_value(from_location_name)
+            to_lng, to_lat = self.get_long_lat_value(to_location_name)
+            from_location_lnglat = from_lng + ', ' + from_lat
+            to_location_lnglat = to_lng + ', ' + to_lat
 
             return {
+                'from_location_lnglat': from_location_lnglat,
+                'to_location_lnglat': to_location_lnglat,
                 'carrier_id': carrier_id.id,
+                'shortest_path': shortest_path,
                 'success': True,
                 'new_amount_delivery': price_total,
                 'error_message': False,
