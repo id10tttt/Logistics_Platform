@@ -42,7 +42,9 @@ class DeliveryCarrier(models.Model):
             return_shortest_path = ''
             return_values = []
             for network_id in network_ids:
-                network_id.generate_all_delivery_network()
+                res = network_id.generate_all_delivery_network()
+                if not res:
+                    continue
                 network_id.find_out_shortest_path_with_networkx(from_warehouse_id=from_warehouse_id,
                                                                 to_warehouse_id=to_warehouse_id)
 

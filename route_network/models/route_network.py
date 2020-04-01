@@ -309,9 +309,13 @@ class RouteNetwork(models.Model):
         # 获取所有开始，结束位置，以及条款
         all_start_end_warehouse = self.find_out_all_start_end_warehouse_from_delivery(model_name='route.network.vendor')
 
+        if not all_start_end_warehouse:
+            return False
         self.create_all_warehouse_steps(all_start_end_warehouse)
 
         self.generate_route_by_warehouse(all_start_end_warehouse)
+
+        return True
 
     # 生成点
     def create_all_warehouse_steps(self, all_start_end_warehouse):
@@ -500,8 +504,11 @@ class RouteNetwork(models.Model):
         all_vendor_id = self.env[model_name].sudo().search([
             ('partner_id', '=', self.partner_id.id)
         ])
+        _logger.info({
+            'all_vendor_id': all_vendor_id
+        })
         if not all_vendor_id:
-            raise UserError('Not found!')
+            return False
 
         all_delivery_ids = all_vendor_id.mapped('line_ids')
 
