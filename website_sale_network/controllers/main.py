@@ -130,7 +130,11 @@ class WebsiteSaleDeliveryNetwork(WebsiteSaleDelivery):
         }
         res = requests.get(url=url, params=parameters)
         if res.status_code == 200:
-            geocodes_value = res.json().get('geocodes')[0]
+            geocodes_value = res.json().get('geocodes')
+            if geocodes_value:
+                geocodes_value = geocodes_value[0]
+            else:
+                return False, False
             location_info = geocodes_value.get('location')
             long_value, lat_value = location_info.split(',')
             return long_value, lat_value
