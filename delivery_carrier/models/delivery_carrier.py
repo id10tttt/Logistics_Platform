@@ -32,16 +32,9 @@ class DeliveryCarrier(models.Model):
         if not from_warehouse_id or not to_warehouse_id:
             return 0.0
         else:
+            self.check_create_vendor_network()
             route_network_obj = self.env['route.network']
             network_ids = route_network_obj.sudo().search([])
-
-            # 如果不存在记录，则创建一条
-            if not network_ids:
-                network_ids.create({
-                    'name': 'TEST-network',
-                    'partner_id': self.env.user.partner_id.id
-                })
-                network_ids = route_network_obj.sudo().search([])
 
             _logger.info({
                 'network_ids': network_ids
@@ -70,3 +63,18 @@ class DeliveryCarrier(models.Model):
                     return 0, 0
                 else:
                     return 0
+
+    # 没有就创建
+    def check_create_vendor_network(self):
+        vendor_ids = self.env['route.network.vendor'].sudo().search([])
+        route_network_obj = self.env['route.network'].sudo()
+        for vendor_id in vendor_ids:
+            network_id = route_network_obj.search([
+                ('partner_id', '=', vendor_id.partner_id.id)
+            ])
+
+            if not network_id:
+                network_id = route_network_obj.create({
+                    'name': vendor_id.partner_id.name,
+                    'partner_id': vendor_id.partner_id.id
+                })
