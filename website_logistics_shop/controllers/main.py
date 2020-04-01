@@ -251,6 +251,18 @@ class LogisticsShop(WebsiteSaleDeliveryNetwork):
         data = [(0, 0, service_product_data), (0, 0, unit_product_data)]
         return data
 
+    @http.route(['/get_location_lng_lat'], type='json', auth='public', methods=['POST'], website=True, csrf=False)
+    def get_location_lng_lat(self, **post):
+        if post:
+            location_name = post.get('location_name', False)
+            if location_name:
+                location_lng, location_lat = self.get_long_lat_value(location_name)
+            return {
+                'location_lng': location_lng,
+                'location_lat': location_lat,
+                'location_lng_lat': location_lng + ', ' + location_lat
+            }
+
     @http.route(['/logistics/delivery_price'], type='json', auth='public', methods=['POST'], website=True, csrf=False)
     def get_logistics_delivery_price(self, **post):
         _logger.info({
@@ -263,8 +275,10 @@ class LogisticsShop(WebsiteSaleDeliveryNetwork):
 
             _logger.info({
                 'from_location_name': from_location_name,
-                'to_location_name': to_location_name
+                'to_location_name': to_location_name,
+                'carrier_id': carrier_id
             })
+            
             from_warehouse_id, to_warehouse_id = self.find_correct_belong_position(
                 from_location_name,
                 to_location_name
