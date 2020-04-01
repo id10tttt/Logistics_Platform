@@ -417,7 +417,9 @@
 <!--                                </a>-->
 
                                 <div class="text-center oe_login_buttons pt-3">
-                                    <button type="submit" class="btn btn-primary btn-block">Create</button>
+                                    <button id="submit_create_order_button" disabled="true" type="submit"
+                                            class="btn btn-primary btn-block">Create
+                                    </button>
                                 </div>
 
                                 <script type="text/javascript">

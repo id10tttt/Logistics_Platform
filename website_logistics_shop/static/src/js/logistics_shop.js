@@ -37,6 +37,7 @@ odoo.define('website_logistics_shop.checkout', function (require) {
         shortest_distance_class.textContent = result.shortest_path;
         fast_speed_class.textContent = result.shortest_path;
 
+        $("#submit_create_order_button").attr("disabled", false);
     };
 
     let _onCarrierClickInherit = function (ev) {
