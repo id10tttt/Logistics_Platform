@@ -70,7 +70,7 @@ class DeliveryCarrier(models.Model):
         route_network_obj_sudo = self.env['route.network'].sudo()
         route_network_obj = self.env['route.network']
         for vendor_id in vendor_ids:
-            network_id = route_network_obj.search([
+            network_id = route_network_obj_sudo.search([
                 ('partner_id', '=', vendor_id.partner_id.id)
             ])
 
