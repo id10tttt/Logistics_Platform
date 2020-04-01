@@ -497,7 +497,7 @@ class RouteNetwork(models.Model):
         :param model_name: supplier.aop.contract or customer.aop.contract
         :return: [(start, end, {})...]
         """
-        all_vendor_id = self.env[model_name].search([
+        all_vendor_id = self.env[model_name].sudo().search([
             ('partner_id', '=', self.partner_id.id)
         ])
         if not all_vendor_id:
