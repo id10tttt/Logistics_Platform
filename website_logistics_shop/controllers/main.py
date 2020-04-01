@@ -174,7 +174,7 @@ class LogisticsShop(WebsiteSaleDeliveryNetwork):
         }
         return request.render("website_logistics_shop.logistics_product_info", values)
 
-    @http.route(['/logistics_shop/sale_order/<int:service_product_id>'], type='http', auth="public", website=True, methods=['POST'])
+    @http.route(['/logistics_shop/sale_order/<int:service_product_id>'], type='http', auth="user", website=True, methods=['POST'])
     def logistics_create_sale_order(self, service_product_id=None, **post):
 
         _logger.info({
