@@ -70,12 +70,14 @@ class DeliveryCarrier(models.Model):
         route_network_obj_sudo = self.env['route.network'].sudo()
         route_network_obj = self.env['route.network']
         for vendor_id in vendor_ids:
-            network_id = route_network_obj_sudo.search([
+            network_id = route_network_obj.search([
                 ('partner_id', '=', vendor_id.partner_id.id)
             ])
-
             if not network_id:
                 network_id = route_network_obj_sudo.create({
                     'name': vendor_id.partner_id.name,
                     'partner_id': vendor_id.partner_id.id
+                })
+                _logger.info({
+                    'create network_id': network_id
                 })
