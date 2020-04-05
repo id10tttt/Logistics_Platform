@@ -19,7 +19,7 @@ class DeliveryCarrier(models.Model):
             'order from_warehouse_id': order.from_warehouse_id,
             'order to_warehouse_id': order.to_warehouse_id
         })
-        price_total = self.get_price_from_netwrok_by_warehouse(order.from_warehouse_id, order.to_warehouse_id)
+        price_total = self.get_price_from_network_by_warehouse(order.from_warehouse_id, order.to_warehouse_id)
         return {
             'success': True,
             'price': price_total,
@@ -28,7 +28,7 @@ class DeliveryCarrier(models.Model):
         }
 
     # TODO: 调用网络里面的计算方法，获取价格参数，计算价格
-    def get_price_from_netwrok_by_warehouse(self, from_warehouse_id, to_warehouse_id, shortest_path=False):
+    def get_price_from_network_by_warehouse(self, from_warehouse_id, to_warehouse_id, shortest_path=False):
         if not from_warehouse_id or not to_warehouse_id:
             return 0.0
         else:

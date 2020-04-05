@@ -39,6 +39,9 @@ class RouteNetworkDelivery(models.Model):
     property_type_id = fields.Many2one('route.network.delivery.property.type', string='Property')
     property_amount = fields.Float('Amount')
 
+    distance = fields.Float('Distance')
+    consume_time = fields.Float('Time')
+
 
 class RouteNetworkDeliveryType(models.Model):
     _name = 'route.network.delivery.type'

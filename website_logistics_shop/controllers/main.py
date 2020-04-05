@@ -284,7 +284,7 @@ class LogisticsShop(WebsiteSaleDeliveryNetwork):
                 to_location_name
             )
 
-            price_total, shortest_path = carrier_id.get_price_from_netwrok_by_warehouse(
+            price_total, shortest_path = carrier_id.get_price_from_network_by_warehouse(
                 from_warehouse_id,
                 to_warehouse_id,
                 shortest_path=True

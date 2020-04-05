@@ -301,13 +301,13 @@ class RouteNetwork(models.Model):
         # self.generate_route_by_warehouse_with_weight(all_start_end_warehouse)
 
     # 获取所有线路
-    def generate_all_delivery_network(self):
+    def generate_all_delivery_network(self, usage_type=False):
         """
         生成运力网络
         :return:
         """
         # 获取所有开始，结束位置，以及条款
-        all_start_end_warehouse = self.find_out_all_start_end_warehouse_from_delivery(model_name='route.network.vendor')
+        all_start_end_warehouse = self.find_out_all_start_end_warehouse_from_delivery(model_name='route.network.vendor', usage_type=usage_type)
 
         if not all_start_end_warehouse:
             return False
@@ -434,13 +434,14 @@ class RouteNetwork(models.Model):
                             not x[1].display_name.startswith('合作伙伴位置')]
         return all_warehouse_ids
 
-    def format_start_end_warehouse_value(self, all_warehouse_ids, model_name):
+    def format_start_end_warehouse_value(self, all_warehouse_ids, model_name, usage_type=False):
         """
         # {
         #     'a,b': {1: 1, 2: 3}
         # }
         :param all_warehouse_ids:
         :param model_name:
+        :param usage_type
         :return: [('a', 'b', {1: 1, 2: 3})...]
         """
         res = {}
@@ -451,7 +452,15 @@ class RouteNetwork(models.Model):
             elif model_name == 'customer.aop.contract':
                 tmp_price = round(float(x[2].fixed_price) * 1000, -1) / 1000
             elif model_name == 'route.network.vendor':
-                tmp_price = round(float(x[2].unit_price) * 1000, -1) / 1000
+                if usage_type == 'price':
+                    tmp_price = x[2].unit_price
+                elif usage_type == 'time':
+                    tmp_price = x[2].consume_time
+                elif usage_type == 'distance':
+                    tmp_price = x[2].distance
+                else:
+                    tmp_price = x[2].unit_price
+                tmp_price = round(float(tmp_price) * 1000, -1) / 1000
 
             if tmp_key in res:
                 tmp_value = res.get(tmp_key)
@@ -496,9 +505,10 @@ class RouteNetwork(models.Model):
         return res
 
     # 查找所有的位置 - 运力
-    def find_out_all_start_end_warehouse_from_delivery(self, model_name=False):
+    def find_out_all_start_end_warehouse_from_delivery(self, model_name=False, usage_type=False):
         """
         :param model_name: supplier.aop.contract or customer.aop.contract
+        :param usage_type: type
         :return: [(start, end, {})...]
         """
         all_vendor_id = self.env[model_name].sudo().search([
