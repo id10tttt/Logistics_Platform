@@ -31,11 +31,15 @@ odoo.define('website_logistics_shop.checkout', function (require) {
 
         shortest_path.val(result.shortest_path);
 
+        // 价格
         shortest_weight_class.textContent = result.shortest_path;
         input_shortest_weight.checked = true;
 
-        shortest_distance_class.textContent = result.shortest_path;
-        fast_speed_class.textContent = result.shortest_path;
+        // 距离
+        shortest_distance_class.textContent = result.type_distance_path;
+
+        // 时间
+        fast_speed_class.textContent = result.type_time_path;
 
         $("#submit_create_order_button").attr("disabled", false);
     };

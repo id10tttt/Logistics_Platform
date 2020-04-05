@@ -163,6 +163,8 @@ class RouteNetwork(models.Model):
             Generate all simple paths in the graph G from source to target.
         shortest_path
             Compute shortest paths in the graph.
+        dijkstra_path
+            dijkstra_path(G, source, target, weight='weight')
         :return:
         """
         try:
@@ -198,7 +200,9 @@ class RouteNetwork(models.Model):
             if not network_x_g.has_node(source_id) or not network_x_g.has_node(target_id):
                 return
 
-            shortest_path = nx.shortest_path(network_x_g, source=source_id, target=target_id)
+            # 使用权重
+            shortest_path = nx.shortest_path(network_x_g, source=source_id, target=target_id, weight='weight')
+
             # shortest_path = nx.all_simple_paths(network_x_g, source=source_id, target=target_id)
 
             # shortest_path = self.find_out_all_simple_path_by_networkx(network_x_g, all_rule_ids)
@@ -535,7 +539,7 @@ class RouteNetwork(models.Model):
 
         all_warehouse_ids = list(set(all_warehouse_ids))
 
-        res = self.format_start_end_warehouse_value(all_warehouse_ids, model_name)
+        res = self.format_start_end_warehouse_value(all_warehouse_ids, model_name, usage_type=usage_type)
 
         return res
 

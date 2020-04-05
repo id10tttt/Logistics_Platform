@@ -284,21 +284,49 @@ class LogisticsShop(WebsiteSaleDeliveryNetwork):
                 to_location_name
             )
 
+            # 价格最低
             price_total, shortest_path = carrier_id.get_price_from_network_by_warehouse(
                 from_warehouse_id,
                 to_warehouse_id,
-                shortest_path=True
+                shortest_path=True,
+                usage_type='price'
             )
 
+            _logger.info({
+                'price_total': price_total,
+                'shortest_path': shortest_path
+            })
+            type_distance, type_distance_path = carrier_id.get_price_from_network_by_warehouse(
+                from_warehouse_id,
+                to_warehouse_id,
+                shortest_path=True,
+                usage_type='distance'
+            )
+
+            type_time, type_time_path = carrier_id.get_price_from_network_by_warehouse(
+                from_warehouse_id,
+                to_warehouse_id,
+                shortest_path=True,
+                usage_type='time'
+            )
+            #
+            # type_time = False
+            # type_time_path = False
+            # type_distance = False
+            # type_distance_path = False
             # 返回经纬度 get_long_lat_value
-            from_lng, from_lat = self.get_long_lat_value(from_location_name)
-            to_lng, to_lat = self.get_long_lat_value(to_location_name)
-            from_location_lnglat = from_lng + ', ' + from_lat
-            to_location_lnglat = to_lng + ', ' + to_lat
+            # from_lng, from_lat = self.get_long_lat_value(from_location_name)
+            # to_lng, to_lat = self.get_long_lat_value(to_location_name)
+            # from_location_lnglat = from_lng + ', ' + from_lat
+            # to_location_lnglat = to_lng + ', ' + to_lat
 
             return {
-                'from_location_lnglat': from_location_lnglat,
-                'to_location_lnglat': to_location_lnglat,
+                'type_distance': type_distance,
+                'type_distance_path': type_distance_path,
+                'type_time': type_time,
+                'type_time_path': type_time_path,
+                # 'from_location_lnglat': from_location_lnglat,
+                # 'to_location_lnglat': to_location_lnglat,
                 'carrier_id': carrier_id.id,
                 'shortest_path': shortest_path,
                 'success': True,

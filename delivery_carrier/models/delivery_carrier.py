@@ -19,7 +19,8 @@ class DeliveryCarrier(models.Model):
             'order from_warehouse_id': order.from_warehouse_id,
             'order to_warehouse_id': order.to_warehouse_id
         })
-        price_total = self.get_price_from_network_by_warehouse(order.from_warehouse_id, order.to_warehouse_id)
+        price_total = self.get_price_from_network_by_warehouse(order.from_warehouse_id, order.to_warehouse_id,
+                                                               usage_type='price')
         return {
             'success': True,
             'price': price_total,
