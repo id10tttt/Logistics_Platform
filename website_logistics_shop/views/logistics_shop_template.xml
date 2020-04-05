@@ -372,6 +372,7 @@
 
                                 <div class="form-group">
                                     <div>
+                                        <t t-set='badge_class' t-value="'float-right ' + 'badge badge-secondary'"/>
                                         <label for="name">Route</label>
                                         <ul class="list-group">
                                             <li class="list-group-item">
