@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="odoo_test_view" inherit_id="web.assets_backend" name="Sale frontend assets">
+        <xpath expr="." position="inside">
+            <script type="text/javascript"
+                    src="/odoo_test/static/src/js/odoo_test.js"></script>
+        </xpath>
+    </template>
+</odoo>

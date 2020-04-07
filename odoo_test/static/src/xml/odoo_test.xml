@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<template>
+    <t t-name="odoo_test_template_id">
+        <h2>Test odoo view</h2>
+        <div class="col-md-6 col-xl-6 offset-xl-2">
+            <div>
+                <label for="test_input">Test</label>
+                <input type="text" name="test_input_text" id="test_input_text" class="test_input_text">
+                    <span class="span_test_class"></span>
+                </input>
+            </div>
+
+            <div class="form-group field-from_location_name">
+                <label for="name">From location</label>
+                <input type="text" name="from_location_name" t-att-value="from_location_name"
+                       id="from_location_name"
+                       class="form-control form-control-sm"
+                       required="required"
+                       t-att-autofocus="'autofocus'">
+                    <label>
+                        <span for="from_location_lnglat" id="from_location_lnglat"></span>
+                    </label>
+                </input>
+            </div>
+
+            <div class="form-group field-to_location_name">
+                <label for="name">To location</label>
+                <input type="text" name="to_location_name" t-att-value="to_location_name"
+                       id="to_location_name"
+                       class="form-control form-control-sm"
+                       required="required"
+                       t-att-autofocus="'autofocus'">
+                    <label>
+                        <span for="to_location_lnglat" id="to_location_lnglat"></span>
+                    </label>
+                </input>
+            </div>
+        </div>
+    </t>
+
+</template>
