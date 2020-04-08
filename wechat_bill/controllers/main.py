@@ -23,7 +23,7 @@ def get_all_wechat_bill(record_id):
         ])
     else:
         # 数量多了，会出错
-        bill_ids = request.env['wechat.bill'].sudo().search([], limit=1)
+        bill_ids = request.env['wechat.bill'].sudo().search([])
 
     all_partner_ids = bill_ids.mapped('transaction_partner_id')
     all_product_ids = bill_ids.mapped('transaction_product_id')
@@ -38,10 +38,13 @@ def get_all_node(all_partner_ids, all_product_ids):
     # 去除重复的
     all_nodes = list(set(all_partner_ids)) + list(set(all_product_ids))
 
+    # 去除重复
+    all_nodes_name = [x.name for x in all_nodes]
+    all_nodes_name = list(set(all_nodes_name))
     res = []
-    for x in all_nodes:
+    for node_name in all_nodes_name:
         res.append({
-            'name': x.name
+            'name': node_name
         })
     return res
 
@@ -56,11 +59,13 @@ def get_all_link(bill_ids):
             lambda x: x.transaction_partner_id == partner_product_id[0] and
                       x.transaction_product_id == partner_product_id[1]
         )
-        all_links.append({
-            'source': partner_product_id[0].name,
-            'target': partner_product_id[1].name,
-            'value': sum(x.amount for x in record_ids)
-        })
+        # 名字重复会报错
+        if partner_product_id[0].name != partner_product_id[1].name:
+            all_links.append({
+                'source': partner_product_id[0].name,
+                'target': partner_product_id[1].name,
+                'value': sum(x.amount for x in record_ids)
+            })
     return all_links
 
 
@@ -77,6 +82,7 @@ def get_sankey_view(all_nodes, all_links) -> Sankey:
         "#2166ac",
         "#053061",
     ]
+    # all_node_ids, all_link_ids = get_all_wechat_bill(False)
     c = (
         Sankey()
             .set_colors(colors)
@@ -86,11 +92,24 @@ def get_sankey_view(all_nodes, all_links) -> Sankey:
             all_links,
             pos_bottom="10%",
             pos_left="20%",
+            node_width=10,
             is_draggable=True,
             focus_node_adjacency="allEdges",
             linestyle_opt=opts.LineStyleOpts(opacity=0.2, curve=0.5, color="source"),
             label_opts=opts.LabelOpts(position="left"),
         )
+            # .add(
+            # "All",
+            # all_node_ids,
+            # all_link_ids,
+            # pos_bottom="10%",
+            # pos_left="20%",
+            # node_width=10,
+            # is_draggable=True,
+            # focus_node_adjacency="allEdges",
+            # linestyle_opt=opts.LineStyleOpts(opacity=0.2, curve=0.5, color="source"),
+            # label_opts=opts.LabelOpts(position="left"),
+        # )
             .set_global_opts(title_opts=opts.TitleOpts(title="Sankey"),
                              tooltip_opts=opts.TooltipOpts(trigger="item", trigger_on="mousemove"),
                              )

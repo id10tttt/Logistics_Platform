@@ -79,7 +79,13 @@
                                                     url: window.location.origin + "/api/get_sankey_view/" + params.id,
                                                     dataType: "json",
                                                     success: function (result) {
+                                                    try{
                                                         chart_sankey.setOption(result);
+                                                    }
+                                                    catch(error){
+                                                        console.log(error)
+                                                    }
+
                                                     }
                                                 });
                                             }
