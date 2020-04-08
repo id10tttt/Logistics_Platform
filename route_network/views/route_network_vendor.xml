@@ -80,11 +80,11 @@
                                 </field>
                             </page>
                             <page string="View Network">
-                                <div id="geo_map_id" style="width:900px; height:500px;"></div>
+                                <div id="geo_map_view" style="width:900px; height:500px;"></div>
                                 <script type="text/javascript">
                                     $(
                                         function(){
-                                            var chart_maps = echarts.init(document.getElementById('geo_map_id'), 'white',
+                                            var chart_geo_maps = echarts.init(document.getElementById('geo_map_view'), 'white',
                                             {renderer: 'canvas'});
 
                                             $(
@@ -106,7 +106,7 @@
                                                     url: window.location.origin + "/api/view_network/model_name/" + params.model + "/vendor_data/" + params.id,
                                                     dataType: "json",
                                                     success: function (result) {
-                                                        chart_maps.setOption(result);
+                                                        chart_geo_maps.setOption(result);
                                                     }
                                                 });
                                             }

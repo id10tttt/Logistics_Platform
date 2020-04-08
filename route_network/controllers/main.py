@@ -142,6 +142,7 @@ def geo_lines(new_location_line, location_info) -> Geo:
     # return c.dump_options()
     # 但是无法加载
 
+    # c.render('geo_view.html')
     return c.dump_options_with_quotes()
 
 
