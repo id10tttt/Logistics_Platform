@@ -95,7 +95,6 @@ def get_sankey_view(all_nodes, all_links) -> Sankey:
                              tooltip_opts=opts.TooltipOpts(trigger="item", trigger_on="mousemove"),
                              )
     )
-    c.render('result.html')
     return c.dump_options_with_quotes()
 
 
