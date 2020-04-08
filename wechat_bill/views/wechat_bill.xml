@@ -52,6 +52,42 @@
                                 <field name="note"/>
                             </group>
                         </group>
+                        <notebook>
+                            <page string="Sankey">
+                                <div id="sankey_view_id" style="width:900px; height:500px;"></div>
+                                <script type="text/javascript">
+                                    $(
+                                        function(){
+                                            var chart_sankey = echarts.init(document.getElementById('sankey_view_id'), 'white',
+                                            {renderer: 'canvas'});
+
+                                            $(
+                                            function(){
+                                                fetchData();
+                                                // setInterval(fetchData, 12000);
+                                                }
+                                            )
+                                            function fetchData(){
+                                                let hash = window.location.hash.substring(1);
+                                                let params = {}
+                                                hash.split('&amp;').map(hk => {
+                                                  let temp = hk.split('=');
+                                                    params[temp[0]] = temp[1]
+                                                });
+                                                $.ajax({
+                                                    type: "GET",
+                                                    url: window.location.origin + "/api/get_sankey_view/" + params.id,
+                                                    dataType: "json",
+                                                    success: function (result) {
+                                                        chart_sankey.setOption(result);
+                                                    }
+                                                });
+                                            }
+                                        }
+                                    )
+                                </script>
+                            </page>
+                        </notebook>
                     </sheet>
                 </form>
             </field>

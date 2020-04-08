@@ -7,6 +7,7 @@
     'author': '1di0t',
     "depends": ['base', 'product'],
     'data': [
+        'views/assets.xml',
         'security/ir.model.access.csv',
         'views/wechat_bill.xml',
     ],
